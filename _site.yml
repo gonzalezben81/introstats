@@ -1,6 +1,6 @@
 name: "Gonzo Stats"
 navbar:
-  title: "Statistics"
+  title: "Intro Statistics"
   left:
     - text: "Home"
       href: index.html
