@@ -1,0 +1,20 @@
+name: "Gonzo Stats"
+navbar:
+  title: "Statistics"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Big 3 Results"
+      href: bigthreeresults.html
+    - text: "Z-Scores"
+      href: Zscores.html          
+    - text: "Correlation & Chi-Square"
+      href: chisquarecorrelation.html
+    - text: "Partial Correlatin"
+      href: partialcorrelation.html    
+    - text: "Bivariate Regression"
+      href: BivariateRegression.html    
+    - text: "Multiple Linear Regression"
+      href: MultipleLinearRegression.html          
+    - text: "About"
+      href: about.html

@@ -1,0 +1,308 @@
+---
+title: "Z-scores"
+author: "Ben Gonzalez"
+date: '2024-02-25'
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    collapsed: true
+    smooth_scroll: true
+    fig_width: 12
+    fig_height: 10
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(ggplot2)
+library(reactable)
+library(gridExtra)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r mtcars}
+###Compute the last_evaluation Z scores
+mtcars_all_zscores<- mtcars %>% 
+  mutate(mpg_zscore = (mtcars$mpg - mean(mtcars$mpg))/sd(mtcars$mpg))
+```
+
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+z_one <- as.numeric(mtcars_all_zscores[24,][12])
+one_tailed_value <- pnorm(z_one ,lower.tail = TRUE)
+# one_tailed_value
+
+two_tailed_value <- 2*(1-pnorm(abs(z_one)))
+# two_tailed_value
+
+perc_distribution <- 2*pnorm(abs(z_one))-1
+
+z_employee_one <- cbind(mtcars$mpg[24],mtcars_all_zscores[24,][12],one_tailed_value,two_tailed_value,perc_distribution)
+
+colnames(z_employee_one) <- c("Raw Score","Z Score","One Tailed +/- Z","Two tailed +/-Z","Area between +/- Z")
+
+
+z_two <- as.numeric(mtcars_all_zscores[21,][12])
+one_tailed_value_two <- pnorm(z_two,lower.tail = FALSE)
+# one_tailed_value_two
+
+
+two_tailed_value_two <- 2*(1-pnorm(abs(z_two)))
+# two_tailed_value_two
+
+perc_distribution_two <- 2*pnorm(z_two)-1
+# perc_distribution_two
+
+z_employee_two <- cbind(mtcars$mpg[21],mtcars_all_zscores[21,][12],one_tailed_value_two,two_tailed_value_two,perc_distribution_two)
+colnames(z_employee_two) <- c("Raw Score","Z Score","One Tailed +/- Z","Two tailed +/-Z","Area between +/- Z")
+
+
+z_employee_scores<- rbind(z_employee_one,z_employee_two)
+
+colnames(z_employee_scores) <- c("Raw Score","Z Score","One Tailed +/- Z","Two tailed +/-Z","Area between +/- Z")
+
+rownames(z_employee_scores) <- c("Camaro Z28","Toyota Corona")
+
+reactable(z_employee_scores)
+
+```
+
+(1) the percentage of the distribution that falls above (or below if your score is negative) that value (this is the one-tailed for -z or +z), (2) the percentage of the distribution that falls above and below the |z| (this is the two-tailed value), and (3) the percentage of the distribution that falls between +/- z (this is the area between +/- z).
+
+##### One tailed value for Z
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+# Set the negative one-tailed critical value (Z-value)
+z <- as.numeric(mtcars_all_zscores[20,][12])  # Example value, you can change it as needed
+
+# Calculate the percentage below the negative one-tailed critical value
+percentage_below <- pnorm(z) * 100
+
+percentage_below
+
+library(ggplot2)
+
+# Set the negative one-tailed critical value (Z-value)
+z <- as.numeric(mtcars_all_zscores[24,][12])  # Example value, you can change it as needed
+
+# Calculate the percentage below the negative one-tailed critical value
+percentage_below <- pnorm(z) * 100
+
+# Generate a sequence of values along the x-axis
+x <- seq(-3, 3, length.out = 1000)
+
+# Calculate the corresponding probabilities under the standard normal curve
+y <- dnorm(x)
+
+# Create a data frame with x and y values
+df <- data.frame(x, y)
+
+# Create the plot
+ggplotone<- ggplot(df, aes(x, y)) +
+  geom_line() +
+  geom_ribbon(data = subset(df, x <= z), aes(ymin = 0, ymax = y), fill = "blue", alpha = 0.3) +
+  geom_vline(xintercept = z, linetype = "dashed", color = "red") +
+  annotate("text", x = z - 0.5, y = 0.1, label = paste0("Z =", z), color = "red") +
+  theme_minimal() +
+  labs(x = "Z-value", y = "Density", title = "Percentage of Distribution Below Negative One-Tailed Z-value") +
+  annotate("text", x = z - 0.5, y = 0.3, label = paste0(round(percentage_below, 2), "% below"), color = "blue")
+
+
+```
+
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+# Set the positive one-tailed critical value (Z-value)
+z <- as.numeric(mtcars_all_zscores[21,][12])  # Example value, you can change it as needed
+
+# Calculate the percentage above the positive one-tailed critical value
+percentage_above <- (1 - pnorm(z)) * 100
+
+percentage_above
+
+library(ggplot2)
+
+# Set the positive one-tailed critical value (Z-value)
+z <- as.numeric(mtcars_all_zscores[21,][12])  # Example value, you can change it as needed
+
+# Calculate the percentage above the negative one-tailed critical value
+percentage_below <- (1 - pnorm(z)) * 100
+
+# Generate a sequence of values along the x-axis
+x <- seq(-3, 3, length.out = 1000)
+
+# Calculate the corresponding probabilities under the standard normal curve
+y <- dnorm(x)
+
+# Create a data frame with x and y values
+df <- data.frame(x, y)
+
+# Create the plot
+ggplotwo<- ggplot(df, aes(x, y)) +
+  geom_line() +
+  geom_ribbon(data = subset(df, x >= z), aes(ymin = 0, ymax = y), fill = "blue", alpha = 0.3) +
+  geom_vline(xintercept = z, linetype = "dashed", color = "red") +
+  annotate("text", x = z - 0.5, y = 0.1, label = paste0("Z =", z), color = "red") +
+  theme_minimal() +
+  labs(x = "Z-value", y = "Density", title = "Percentage of Distribution Above Positive One-Tailed Z-value") +
+  annotate("text", x = z - 0.5, y = 0.3, label = paste0(round(percentage_below, 2), "% above"), color = "blue")
+
+
+```
+
+
+##### Percentage above and below Z
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+library(ggplot2)
+
+# Define the Z-value
+z <- as.numeric(mtcars_all_zscores[24,][12])  # Example value, you can change it as needed
+
+# Calculate the percentage below the Z-value
+percentage_below <- pnorm(z) * 100
+
+# Calculate the percentage above the Z-value
+percentage_above <- (1 - pnorm(z)) * 100
+
+# Generate a sequence of values along the x-axis
+x <- seq(-3, 3, length.out = 1000)
+
+# Calculate the corresponding probabilities under the standard normal curve
+y <- dnorm(x)
+
+# Create a data frame with x and y values
+df <- data.frame(x, y)
+
+# Create the plot
+ggplotthree<- ggplot(df, aes(x, y)) +
+  geom_line() +
+  geom_ribbon(data = subset(df, x <= z), aes(ymin = 0, ymax = y), fill = "blue", alpha = 0.3) +
+  geom_ribbon(data = subset(df, x >= z), aes(ymin = 0, ymax = y), fill = "red", alpha = 0.3) +
+  geom_vline(xintercept = z, linetype = "dashed", color = "black") +
+  theme_minimal() +
+  labs(x = "Z-value", y = "Density", title = "Percentage of Z Distribution") +
+  annotate("text", x = z - 0.5, y = 0.3, label = paste0(round(percentage_below, 2), "% below"), color = "blue") +
+  annotate("text", x = z + 0.5, y = 0.2, label = paste0(round(percentage_above, 2), "% above"), color = "red")
+
+```
+
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+library(ggplot2)
+
+# Define the Z-value
+z <- as.numeric(mtcars_all_zscores[21,][12])  # Example value, you can change it as needed
+
+# Calculate the percentage below the Z-value
+percentage_below <- pnorm(z) * 100
+
+# Calculate the percentage above the Z-value
+percentage_above <- (1 - pnorm(z)) * 100
+
+# Generate a sequence of values along the x-axis
+x <- seq(-3, 3, length.out = 1000)
+
+# Calculate the corresponding probabilities under the standard normal curve
+y <- dnorm(x)
+
+# Create a data frame with x and y values
+df <- data.frame(x, y)
+
+# Create the plot
+ggplotfour<- ggplot(df, aes(x, y)) +
+  geom_line() +
+  geom_ribbon(data = subset(df, x <= z), aes(ymin = 0, ymax = y), fill = "blue", alpha = 0.3) +
+  geom_ribbon(data = subset(df, x >= z), aes(ymin = 0, ymax = y), fill = "red", alpha = 0.3) +
+  geom_vline(xintercept = z, linetype = "dashed", color = "black") +
+  theme_minimal() +
+  labs(x = "Z-value", y = "Density", title = "Percentage of Z Distribution") +
+  annotate("text", x = z - 0.5, y = 0.3, label = paste0(round(percentage_below, 2), "% below"), color = "blue") +
+  annotate("text", x = z + 0.5, y = 0.2, label = paste0(round(percentage_above, 2), "% above"), color = "red")
+
+```
+
+
+##### Percentage between +/- Z
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+library(ggplot2)
+
+# Set the Z-value
+z <- abs(as.numeric(mtcars_all_zscores[24,][12]))  # Example Z-value
+
+# Calculate the cumulative probabilities at the Z-values
+cum_prob_positive <- pnorm(z)
+cum_prob_negative <- pnorm(-z)
+
+# Calculate the percentage between the Z-values (two-tailed)
+percentage_between <- (cum_prob_positive - cum_prob_negative) * 100
+
+# Generate a sequence of values along the x-axis
+x <- seq(-3, 3, length.out = 1000)
+
+# Calculate the corresponding probabilities under the standard normal curve
+y <- dnorm(x)
+
+# Create a data frame with x and y values for plotting
+df <- data.frame(x, y)
+
+# Create the plot with zoomed-in x-axis
+ggplotfive<- ggplot(df, aes(x, y)) +
+  geom_line() +
+  geom_ribbon(data = subset(df, x >= -z & x <= z), aes(ymin = 0, ymax = y), fill = "blue", alpha = 0.3) +
+  theme_minimal() +
+  labs(x = "Z-value", y = "Density", title = "Percentage of Distribution Between +/- Z") +
+  annotate("text", x = mean(c(-z, z)), y = 0.1, label = paste0(round(percentage_between, 2), "% between"), color = "blue") +
+  coord_cartesian(xlim = c(-2.1, 2.1))
+
+```
+
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+library(ggplot2)
+
+# Set the Z-value
+z <- as.numeric(mtcars_all_zscores[21,][12]) # Example Z-value
+
+# Calculate the cumulative probabilities at the Z-values
+cum_prob_positive <- pnorm(z)
+cum_prob_negative <- pnorm(-z)
+
+# Calculate the percentage between the Z-values (two-tailed)
+percentage_between <- (cum_prob_positive - cum_prob_negative) * 100
+
+# Generate a sequence of values along the x-axis
+x <- seq(-3, 3, length.out = 1000)
+
+# Calculate the corresponding probabilities under the standard normal curve
+y <- dnorm(x)
+
+# Create a data frame with x and y values for plotting
+df <- data.frame(x, y)
+
+# Create the plot with zoomed-in x-axis
+ggplotsix<- ggplot(df, aes(x, y)) +
+  geom_line() +
+  geom_ribbon(data = subset(df, x >= -z & x <= z), aes(ymin = 0, ymax = y), fill = "blue", alpha = 0.3) +
+  theme_minimal() +
+  labs(x = "Z-value", y = "Density", title = "Percentage of Distribution Between +/- Z") +
+  annotate("text", x = mean(c(-z, z)), y = 0.1, label = paste0(round(percentage_between, 2), "% between"), color = "blue") +
+  coord_cartesian(xlim = c(-2.1, 2.1))
+
+```
+
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+library(gridExtra)
+
+gridExtra::grid.arrange(ggplotone,ggplotwo,ggplotthree,ggplotfour,ggplotfive,ggplotsix,ncol=2,widths = c(1, 1))
+```
