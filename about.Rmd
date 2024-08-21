@@ -2,4 +2,4 @@
 title: "About This Website"
 ---
 
-More about this website.
+This website it dedicated to explaining statistical concepts in an easy to understand manner. Utilizing references and a straight to coding methodology, the reader should be better able to not only understand but duplicate simple statistical analyses.

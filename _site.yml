@@ -10,7 +10,7 @@ navbar:
       href: Zscores.html          
     - text: "Correlation & Chi-Square"
       href: chisquarecorrelation.html
-    - text: "Partial Correlatin"
+    - text: "Partial Correlation"
       href: partialcorrelation.html    
     - text: "Bivariate Regression"
       href: BivariateRegression.html    

@@ -10,7 +10,7 @@ output:
     toc_depth: 4
     collapsed: true
     smooth_scroll: true
-    css: columns.css
+    #css: columns.css
 ---
 
 ```{r setup, klippy, echo=FALSE, include=TRUE,message=FALSE}
