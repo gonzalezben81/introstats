@@ -33,15 +33,15 @@ student <- student[,-c(1)]
 <br>
 
 <style>
-.container {
+.container-two {
   border: 0.5px outset black;
-  background-color: white;
+  background-color: white; 
   text-align: center;
   width: 80%;
 }
 </style>
 
-<div class="container">
+<div class="container-two">
 <style>
 table {
   <!-- border-collapse: collapse; -->
@@ -372,7 +372,7 @@ The following assumptions are in place when utilizing the Pearson’s $r$ when c
 <br>
 
 <style>
-.container {
+.container-three {
   border: 0.5px outset black;
   background-color: white;
   text-align: center;
@@ -380,7 +380,7 @@ The following assumptions are in place when utilizing the Pearson’s $r$ when c
 }
 </style>
 
-<div class="container">
+<div class="container-three">
 <style>
 table {
   <!-- border-collapse: collapse; -->
@@ -580,7 +580,7 @@ Assumptions for phi $\phi$ coefficient:
 <br>
 
 <style>
-.container {
+.container-four {
   border: 0.5px outset black;
   background-color: white;
   text-align: center;
@@ -588,7 +588,7 @@ Assumptions for phi $\phi$ coefficient:
 }
 </style>
 
-<div class="container">
+<div class="container-four">
 <style>
 table {
   <!-- border-collapse: collapse; -->
@@ -647,7 +647,7 @@ $$\Large Phi\;equation:
 <br>
 
 <style>
-.container {
+.container-five {
   border: 0.5px outset black;
   background-color: white;
   text-align: center;
@@ -655,7 +655,7 @@ $$\Large Phi\;equation:
 }
 </style>
 
-<div class="container">
+<div class="container-five ">
 <style>
 table {
   <!-- border-collapse: collapse; -->
