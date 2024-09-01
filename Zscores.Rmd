@@ -201,14 +201,14 @@ df <- data.frame(x, y)
 # Create the plot
 ggplotthree <- ggplot(df, aes(x, y)) +
   geom_line() +
-  geom_ribbon(data = subset(df, x <= -z_abs), aes(ymin = 0, ymax = y), fill = "blue", alpha = 0.3) +
-  geom_ribbon(data = subset(df, x >= z_abs), aes(ymin = 0, ymax = y), fill = "red", alpha = 0.3) +
+  geom_ribbon(data = subset(df, x <= -z_abs), aes(ymin = 0, ymax = y), fill = "red", alpha = 0.3) +
+  geom_ribbon(data = subset(df, x >= z_abs), aes(ymin = 0, ymax = y), fill = "blue", alpha = 0.3) +
   geom_vline(xintercept = -z_abs, linetype = "dashed", color = "black") +
   geom_vline(xintercept = z_abs, linetype = "dashed", color = "black") +
   theme_minimal() +
   labs(x = "Z-value", y = "Density", title = paste("Camaro Z28: Percentage of |Z| Distribution =", round(z_abs, 3))) +
-  annotate("text", x = -z_abs - 0.5, y = 0.3, label = paste0(round((1 - prob_one_tail) * 100, 2), "% in left tail"), color = "blue") +
-  annotate("text", x = z_abs + 0.5, y = 0.2, label = paste0(round((1 - prob_one_tail) * 100, 2), "% in right tail"), color = "red") +
+  annotate("text", x = -z_abs - 0.5, y = 0.3, label = paste0(round((1 - prob_one_tail) * 100, 2), "% in left tail"), color = "red") +
+  annotate("text", x = z_abs + 0.5, y = 0.2, label = paste0(round((1 - prob_one_tail) * 100, 2), "% in right tail"), color = "blue") +
   annotate("text", x = 0, y = 0.35, label = paste0("Total: ", round(prob_two_tailed, 2), "%"), color = "black", fontface = "bold")
 
 
