@@ -18,4 +18,5 @@ navbar:
       href: MultipleLinearRegression.html          
     - text: "About"
       href: about.html
+    - search: true
 output_dir: "docs"      

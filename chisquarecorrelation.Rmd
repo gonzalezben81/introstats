@@ -2,7 +2,7 @@
 title: "Tests of Association - Chi-Square and Correlation"
 author: "Ben Gonzalez"
 date: '2023-10-09'
-always_allow_html: true
+# always_allow_html: true
 output:
   html_document:
     toc: true
@@ -26,37 +26,6 @@ student <- read.csv(file = '~/AASTATSRmarkdown/DataSets/student.csv',sep = ",")
 ###Drop the unneeded first column
 student <- student[,-c(1)]
 ```
-
-<!-- :::::::::::::: {.columns} -->
-<!-- ::: {.column width="30%"} -->
-
-<!-- ```{r} -->
-<!-- mtcars %>% -->
-<!--     select(disp, mpg) %>% -->
-<!--     sample_n(10) %>% -->
-<!--     kbl() %>% -->
-<!--     kable_styling() -->
-<!-- ``` -->
-
-<!-- ::: -->
-<!-- ::: {.column width="5%"} -->
-
-<!-- \ -->
-
-<!-- ::: -->
-<!-- ::: {.column width="65%"} -->
-
-
-<!-- \ -->
-
-<!-- ```{r, fig.height=4, fig.width=7} -->
-<!-- mtcars %>% -->
-<!--     ggplot(aes(x=disp, y=mpg)) + -->
-<!--     geom_point() -->
-<!-- ``` -->
-
-<!-- ::: -->
-<!-- :::::::::::::: -->
 
 
 ### Steven's four scales of measurement
