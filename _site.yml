@@ -19,4 +19,6 @@ navbar:
     - text: "About"
       href: about.html
     - search: true
-output_dir: "docs"      
+output_dir: "docs"
+include:
+  after_body: footer.html

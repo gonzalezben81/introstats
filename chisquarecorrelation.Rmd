@@ -10,7 +10,9 @@ output:
     toc_depth: 4
     collapsed: true
     smooth_scroll: true
-    #css: columns.css
+    css: columns.css
+    include:
+      after_body: footer.html    
 ---
 
 ```{r setup, klippy, echo=FALSE, include=TRUE,message=FALSE}

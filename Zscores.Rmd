@@ -11,6 +11,8 @@ output:
     smooth_scroll: true
     fig_width: 14
     fig_height: 5
+    include:
+      after_body: footer.html
 ---
 
 ```{r setup, klippy, echo=FALSE,message=FALSE}
