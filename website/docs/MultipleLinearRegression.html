@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Ben Gonzalez" />
+
+<meta name="date" content="2024-02-24" />
+
+<title>Multiple Linear Regression</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="site_libs/react-18.2.0/react.min.js"></script>
+<script src="site_libs/react-18.2.0/react-dom.min.js"></script>
+<script src="site_libs/reactwidget-2.0.0/react-tools.js"></script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/reactable-0.4.4/reactable.css" rel="stylesheet" />
+<script src="site_libs/reactable-binding-0.4.4/reactable.js"></script>
+<script src="site_libs/viz-1.8.2/viz.js"></script>
+<link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="site_libs/grViz-binding-1.0.11/grViz.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Intro Statistics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="bigthreeresults.html">Big 3 Results</a>
+</li>
+<li>
+  <a href="Zscores.html">Z-Scores</a>
+</li>
+<li>
+  <a href="chisquarecorrelation.html">Correlation &amp; Chi-Square</a>
+</li>
+<li>
+  <a href="partialcorrelation.html">Partial Correlation</a>
+</li>
+<li>
+  <a href="BivariateRegression.html">Bivariate Regression</a>
+</li>
+<li>
+  <a href="MultipleLinearRegression.html">Multiple Linear Regression</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a></a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Multiple Linear Regression</h1>
+<h4 class="author">Ben Gonzalez</h4>
+<h4 class="date">2024-02-24</h4>
+
+</div>
+
+
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy Code', 'Copy Successful!!!');
+</script>
+<div id="take-a-look-at-the-structure-of-the-mtcars-data-set"
+class="section level3">
+<h3>Take a look at the structure of the mtcars data set</h3>
+<pre><code>## &#39;data.frame&#39;:    32 obs. of  11 variables:
+##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp: num  160 160 108 258 360 ...
+##  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec: num  16.5 17 18.6 19.4 17 ...
+##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
+</div>
+<div id="description-of-the-variables-in-the-mtcars-data-set"
+class="section level3">
+<h3>Description of the variables in the mtcars data set</h3>
+<p>A data frame with 32 observations on 11 (numeric) variables.</p>
+<ul>
+<li>Column 1 = mpg - Miles/(US) gallon</li>
+<li>Column 2 = cyl - Number of cylinders</li>
+<li>Column 3 = disp - Displacement (cu.in.)</li>
+<li>Column 4 = hp - Gross horsepower</li>
+<li>Column 5 = drat - Rear axle ratio</li>
+<li>Column 6 = wt - Weight (1000 lbs)</li>
+<li>Column 7 = qsec - 1/4 mile time</li>
+<li>Column 8 = vs - Engine (0 = V-shaped, 1 = straight)</li>
+<li>Column 9 = am - Transmission (0 = automatic, 1 = manual)</li>
+<li>Column 10 = gear - Number of forward gears</li>
+<li>Column 11 = carb - Number of carburetors</li>
+</ul>
+</div>
+<div id="mtcars-data-set" class="section level3">
+<h3>Mtcars Data Set</h3>
+<pre class="r"><code>reactable(mtcars,rownames = T)</code></pre>
+<div class="reactable html-widget html-fill-item" id="htmlwidget-2f6f98c810c2c810cff6" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2f6f98c810c2c810cff6">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["Mazda RX4","Mazda RX4 Wag","Datsun 710","Hornet 4 Drive","Hornet Sportabout","Valiant","Duster 360","Merc 240D","Merc 230","Merc 280","Merc 280C","Merc 450SE","Merc 450SL","Merc 450SLC","Cadillac Fleetwood","Lincoln Continental","Chrysler Imperial","Fiat 128","Honda Civic","Toyota Corolla","Toyota Corona","Dodge Challenger","AMC Javelin","Camaro Z28","Pontiac Firebird","Fiat X1-9","Porsche 914-2","Lotus Europa","Ford Pantera L","Ferrari Dino","Maserati Bora","Volvo 142E"],"mpg":[21,21,22.8,21.4,18.7,18.1,14.3,24.4,22.8,19.2,17.8,16.4,17.3,15.2,10.4,10.4,14.7,32.4,30.4,33.9,21.5,15.5,15.2,13.3,19.2,27.3,26,30.4,15.8,19.7,15,21.4],"cyl":[6,6,4,6,8,6,8,4,4,6,6,8,8,8,8,8,8,4,4,4,4,8,8,8,8,4,4,4,8,6,8,4],"disp":[160,160,108,258,360,225,360,146.7,140.8,167.6,167.6,275.8,275.8,275.8,472,460,440,78.7,75.7,71.1,120.1,318,304,350,400,79,120.3,95.1,351,145,301,121],"hp":[110,110,93,110,175,105,245,62,95,123,123,180,180,180,205,215,230,66,52,65,97,150,150,245,175,66,91,113,264,175,335,109],"drat":[3.9,3.9,3.85,3.08,3.15,2.76,3.21,3.69,3.92,3.92,3.92,3.07,3.07,3.07,2.93,3,3.23,4.08,4.93,4.22,3.7,2.76,3.15,3.73,3.08,4.08,4.43,3.77,4.22,3.62,3.54,4.11],"wt":[2.62,2.875,2.32,3.215,3.44,3.46,3.57,3.19,3.15,3.44,3.44,4.07,3.73,3.78,5.25,5.424,5.345,2.2,1.615,1.835,2.465,3.52,3.435,3.84,3.845,1.935,2.14,1.513,3.17,2.77,3.57,2.78],"qsec":[16.46,17.02,18.61,19.44,17.02,20.22,15.84,20,22.9,18.3,18.9,17.4,17.6,18,17.98,17.82,17.42,19.47,18.52,19.9,20.01,16.87,17.3,15.41,17.05,18.9,16.7,16.9,14.5,15.5,14.6,18.6],"vs":[0,0,1,1,0,1,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,0,1,0,0,0,1],"am":[1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1],"gear":[4,4,4,3,3,3,3,4,4,4,4,3,3,3,3,3,3,4,4,4,3,3,3,3,3,4,5,5,5,5,5,4],"carb":[4,4,1,1,2,1,4,2,2,4,4,3,3,3,4,4,4,1,2,1,1,2,2,4,2,1,2,2,4,6,8,2]},"columns":[{"id":".rownames","name":"","type":"character","sortable":false,"filterable":false,"rowHeader":true},{"id":"mpg","name":"mpg","type":"numeric"},{"id":"cyl","name":"cyl","type":"numeric"},{"id":"disp","name":"disp","type":"numeric"},{"id":"hp","name":"hp","type":"numeric"},{"id":"drat","name":"drat","type":"numeric"},{"id":"wt","name":"wt","type":"numeric"},{"id":"qsec","name":"qsec","type":"numeric"},{"id":"vs","name":"vs","type":"numeric"},{"id":"am","name":"am","type":"numeric"},{"id":"gear","name":"gear","type":"numeric"},{"id":"carb","name":"carb","type":"numeric"}],"dataKey":"5b3b1b9433e88dd26cbc4c3644e92607"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="multiple-linear-regression-assumptions" class="section level3">
+<h3>Multiple Linear Regression Assumptions</h3>
+<ul>
+<li><p><strong>Interval-Level Measurement</strong> - <em>Criterion</em>
+variable is assessed on an interval or ratio scale. <em>Predictor</em>
+variables are either (a) continuous quantitative variables assessed on
+an interval or ratio scale or (b) categorical variables that have been
+been appropriately transformed into dummy variables.</p></li>
+<li><p><strong>Linearity</strong> – should be able to fit a best-fitting
+straight line through the scatterplot.</p></li>
+<li><p><strong>Independence</strong> – each observation included in the
+sample should be drawn independently from the population of interest.
+Researchers should not have taken repeated measures on the same variable
+from the same participant.</p></li>
+<li><p><strong>Homogeneity of Variance (Homoscedasticity)</strong> – the
+variance of the Y scores should remain fairly constant at all values of
+X.</p></li>
+<li><p><strong>Normality</strong> – residuals of prediction should be
+normally distributed. Bivariate Normality – for any specific score on
+one of the variables, scores on the other variable should follow a
+normal distribution.</p></li>
+<li><p><strong>Independent Errors</strong> - For any pair of
+observations, the residual terms should be uncorrelated (Field,
+2009a)</p></li>
+<li><p><strong>Absence of Multicollinearity</strong> - occurs when two
+or more predictor variables dispaly very strong correlations with one
+another (e.g. .80 on a Pearson scale).</p></li>
+<li><p><strong>Absence of Interaction</strong> - Regression coefficient
+for the relationship between <em>Y</em> and any <em>X</em> variable
+shoudl be constant acroos all values of the other <em>X</em> variables
+(Warner, 2008).</p></li>
+<li><p><strong>Absence of Outliers on the Predictor and the Criterion
+Variables</strong> - No data points that clearly stand out from the
+other data points in the data set.</p></li>
+<li><p><strong>Adequate Ratio of Observations to Predictor
+Variables</strong> - Multiple regression requires a relatively large
+number of observations to have reasonable levels of power. You will want
+to determine an adequate <em>sample size</em>.</p></li>
+</ul>
+</div>
+<div id="multiple-linear-regression-diagram" class="section level3">
+<h3>Multiple Linear Regression Diagram</h3>
+<div id="htmlwidget-d16d6aff0de3b70e7354" style="width:672px;height:500px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d16d6aff0de3b70e7354">{"x":{"diagram":"\n  digraph graph2 {\n  \n  graph [layout = dot, rankdir = LR, fontsize = 18]\n  \n  # node definitions with substituted label text\n  node [shape = oval fontname = Helvetica]\n  Predictor [label = \"Predictor One (IV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  PredictorTwo [label = \"Predictor Two (IV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  PredictorThree [label = \"Predictor Three (IV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  Criterion [label = \"Criterion (DV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  \n  # Creates a multi-variable regression diagram\n  Predictor -> Criterion\n  PredictorTwo -> Criterion\n  PredictorThree -> Criterion\n  }\n  \n  [1]: Interval\n  [2]: Ratio\n\n  ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<center>
+</div>
+<div id="multiple-linear-regression-formula" class="section level3">
+<h3>Multiple Linear Regression Formula</h3>
+</center>
+<p>Here we have the formula for the mulitple linear regression equation.
+The multiple linear regression equation takes the following form: <span
+class="math display">\[\Large
+Regression\;Equation:\;\;\;\hat{y} = a + \beta_1(X_1) + \beta_2(X_2) +
+\beta_3(X_3)... +\beta_p(X_p)
+\]</span></p>
+<p><span class="math display">\[\Large
+Y&#39; = predicted\ score\\
+a = constant\ (i.e.\ the \ intercept)\\
+b_1 \ = \ unstandardized \ multiple\ regression\ coefficient\\
+X_1 \ = actual\  score\ on\ the\ first\ predictor\ variable\\
+B_p \ = unstandardized \ multiple\ regression\ coefficient\ of \ final\
+predictor\ variable\\\
+X_p \ = final\ predictor\ variable
+\]</span></p>
+</div>
+<div id="interpreting-the-sign-of-the-multiple-regression-coefficient"
+class="section level3">
+<h3>Interpreting the sign of the multiple regression coefficient</h3>
+<ul>
+<li>+ (plus) or - (minus) indicates the direction of the relationship
+for the predictor and criterion variable</li>
+</ul>
+</div>
+<div id="detroit-multiple-regression" class="section level3">
+<h3>Detroit multiple regression</h3>
+<pre class="r"><code>data &lt;- data.frame(mtcars)
+
+model_one &lt;- lm(formula = HOM ~ UEMP + LIC + GR ,data = detroit)
+
+summary(model_one)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = HOM ~ UEMP + LIC + GR, data = detroit)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -15.7660  -2.1980   0.2235   1.9617  20.6495 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept) -9.070088   9.751601  -0.930    0.377
+## UEMP         1.770078   1.281909   1.381    0.201
+## LIC          0.006645   0.022324   0.298    0.773
+## GR           0.037335   0.022401   1.667    0.130
+## 
+## Residual standard error: 9.917 on 9 degrees of freedom
+## Multiple R-squared:  0.7252, Adjusted R-squared:  0.6337 
+## F-statistic: 7.919 on 3 and 9 DF,  p-value: 0.006801</code></pre>
+<pre class="r"><code>model_one$coefficients</code></pre>
+<pre><code>##  (Intercept)         UEMP          LIC           GR 
+## -9.070088472  1.770077944  0.006645165  0.037334976</code></pre>
+<pre class="r"><code>#predict(model_one)
+
+coef(model_one)</code></pre>
+<pre><code>##  (Intercept)         UEMP          LIC           GR 
+## -9.070088472  1.770077944  0.006645165  0.037334976</code></pre>
+<pre class="r"><code>coef(model_one)[1]</code></pre>
+<pre><code>## (Intercept) 
+##   -9.070088</code></pre>
+<pre class="r"><code>coef(model_one)[2]</code></pre>
+<pre><code>##     UEMP 
+## 1.770078</code></pre>
+<pre class="r"><code># Predict the values
+detroit$predicted &lt;- predict(model_one)
+
+###Calculate the degrees of freedom of multiple linear regression model
+
+df = nrow(detroit) - 3 - 1
+
+print(paste(&quot;Degrees of freedom for model one: &quot;,df))</code></pre>
+<pre><code>## [1] &quot;Degrees of freedom for model one:  9&quot;</code></pre>
+<pre class="r"><code># Create a scatter plot with regression line
+
+AIC(model_one)</code></pre>
+<pre><code>## [1] 101.7635</code></pre>
+<pre class="r"><code>ggplot(detroit, aes(x=HOM, y=predicted)) +
+  geom_point() +
+  geom_abline(intercept = coef(model_one)[1], slope = coef(model_one)[2], color=&quot;blue&quot;) +
+  labs(x=&quot;Actual&quot;, y=&quot;Predicted&quot;) +
+  ggtitle(&quot;Multiple Linear Regression Plot&quot;)</code></pre>
+<p><img src="MultipleLinearRegression_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Note that the <code>echo = FALSE</code> parameter was added to the
+code chunk to prevent printing of the R code that generated the
+plot.</p>
+</div>
+
+<!-- footer.html -->
+<div class="footer" style="text-align: center; padding: 10px; border-top: 1px solid #ccc;">
+<!--<p>Author: Ben Gonzalez</p>-->
+  <p>
+    <a href="https://github.com/your-username" target="_blank" title="GitHub">
+      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="width: 30px; height: 30px;"/>
+    </a>
+    <a href="https://x.com/your-twitter-handle" target="_blank" title="Twitter">
+      <img src="https://s2.googleusercontent.com/s2/favicons?domain=x.com" alt="Twitter" style="width: 30px; height: 30px;"/>™
+    </a>
+    <a href="mailto:your-email@example.com" title="Email">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" style="width: 30px; height: 30px;"/>
+    </a>
+  </p>
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
