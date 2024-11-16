@@ -20,6 +20,7 @@ jobs:
       run: |
        sudo apt-get update -y
        sudo apt-get install -y pandoc
+
     - name: Install Dependencies
       uses: r-lib/actions/setup-r-dependencies@v2
       with:
@@ -32,7 +33,6 @@ jobs:
           any::e1071
           any::gridExtra
           any::readxl
-          any::
           any::ppcor
           any::kableExtra
           any::mathjaxr
@@ -41,6 +41,7 @@ jobs:
           any::pak
           any::DiagrammeR
           any::latexpdf
+        additional-requirements: |
           remotes::install_github("rlesur/klippy")
     # Step 4: Build the website
     - name: Build RMarkdown website
