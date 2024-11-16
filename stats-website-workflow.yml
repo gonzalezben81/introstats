@@ -28,6 +28,10 @@ jobs:
     # Step 4: Build the website
     - name: Build RMarkdown website
       run: Rscript -e 'rmarkdown::render_site("website")'
+      
+    # Step 5: Create .nojekyll file
+    - name: Create .nojekyll
+      run: touch website/_site/.nojekyll      
 
     # Step 5: Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
