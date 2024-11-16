@@ -46,7 +46,7 @@ jobs:
     - name: Install klippy package
       run: |
         Rscript -e "install.packages('remotes')"
-        Rscript -e "remotes::install_github('rlesur/klippy')"
+        Rscript -e "remotes::install_git("https://github.com/rlesur/klippy.git")"
 
     # Step 4: Build the website
     - name: Build RMarkdown website
