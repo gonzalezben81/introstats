@@ -38,7 +38,6 @@ jobs:
           any::mathjaxr
           any::ggplot2
           any::latex2exp
-          any::pak
           any::DiagrammeR
           any::latexpdf
         additional-requirements: |
