@@ -41,6 +41,7 @@ jobs:
           any::latex2exp
           any::DiagrammeR
           any::latexpdf
+          any::psych
 
     # Install the Klipp package
     - name: Install klippy package

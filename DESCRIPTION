@@ -17,7 +17,7 @@ Imports:
   kableExtra,
   ggplot2,
   latex2exp,
-  pak,
   DiagrammeR,
-  latexpdf
+  latexpdf,
+  psych
   
