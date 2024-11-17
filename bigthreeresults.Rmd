@@ -307,21 +307,10 @@ According to Hatcheer (2013) an **index of effect** size is a numeric representa
 
 Here we are looking at the *standardized difference* index of effect size which indicates the size of the difference between two means, as measured in standard deviation. (Hatcher 2013)
 
-The formula for calculating the *Cohen's d* statistic is:
+The formula for calculating the *Cohen's d* statistic is as follows:
 
 $$
 d =\frac{\overline{X}_{1}\;-\overline{X}_{2}}{S_{p}}
-$$
-
-
-
-The formula for the pooled standard deviation is as follows
-
----
-
-$$
-S_{p}\;=\;\sqrt{\frac{(n_{1}-1)s^2_{1}\;-(n_{2}-1)s^2_{2}}{n_{1}+n_{2}-2}}
-
 $$
 
 ---
@@ -337,6 +326,18 @@ S_{p}\;=\;Pooled\;estimate\;of\;the\;population\;standard\;deviation
 $$
 
 ---
+
+
+The formula for the pooled standard deviation is as follows
+
+---
+
+$$
+S_{p}\;=\;\sqrt{\frac{(n_{1}-1)s^2_{1}\;-(n_{2}-1)s^2_{2}}{n_{1}+n_{2}-2}}
+$$
+
+---
+
 
 #### How to interpret *Cohen's d*
 

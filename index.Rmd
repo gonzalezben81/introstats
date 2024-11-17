@@ -6,3 +6,14 @@ Hello, Welcome to Classical Statistics!
 
 This website is created as a reference to classical statistics from correlation, chi-square, z-score, bivariate regression, & multiple linear regression.
 
+# Table of Contents
+
+- [Statistical Significance](bigthreeresults.html)
+- [Confidence Intervals](bigthreeresults.html)
+- [Effect Size](bigthreeresults.html)
+- [Z-Scores](Zscores.html)
+- [Correlation & Chi-Square](chisquarecorrelation.html)
+- [Partial Correlation](partialcorrelation.html)
+- [Bivariate Regression](BivariateRegression.html)
+- [Multiple Linear Regression](MultipleLinearRegression.html)
+

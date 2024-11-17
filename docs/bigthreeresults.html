@@ -617,14 +617,14 @@ ggplot(mtcars, aes(x = hp)) +
   geom_text(aes(x = ci_upper, y = 0.0015, label = paste(&quot;CI Upper:&quot;, round(ci_upper, 2))),
             color = &quot;blue&quot;, vjust = -1, hjust = -0.0)</code></pre>
 <pre><code>## Warning in geom_text(aes(x = mean_val, y = 0.0025, label = paste(&quot;Mean:&quot;, : All aesthetics have length 1, but the data has 32 rows.
-## ℹ Please consider using `annotate()` or provide this layer with data containing
-##   a single row.</code></pre>
+## ℹ Please consider using `annotate()` or provide this layer with data
+##   containing a single row.</code></pre>
 <pre><code>## Warning in geom_text(aes(x = ci_lower, y = 0.0035, label = paste(&quot;CI Lower:&quot;, : All aesthetics have length 1, but the data has 32 rows.
-## ℹ Please consider using `annotate()` or provide this layer with data containing
-##   a single row.</code></pre>
+## ℹ Please consider using `annotate()` or provide this layer with data
+##   containing a single row.</code></pre>
 <pre><code>## Warning in geom_text(aes(x = ci_upper, y = 0.0015, label = paste(&quot;CI Upper:&quot;, : All aesthetics have length 1, but the data has 32 rows.
-## ℹ Please consider using `annotate()` or provide this layer with data containing
-##   a single row.</code></pre>
+## ℹ Please consider using `annotate()` or provide this layer with data
+##   containing a single row.</code></pre>
 <p><img src="bigthreeresults_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code># Calculate the mean and confidence interval
 ###Standard error of the sample mean
@@ -651,14 +651,14 @@ ggplot(mtcars, aes(x = mpg)) +
   geom_text(aes(x = ci_upper, y = 0, label = paste(&quot;CI Upper:&quot;, round(ci_upper, 2))),
             color = &quot;blue&quot;, vjust = -1,hjust = -0.05)</code></pre>
 <pre><code>## Warning in geom_text(aes(x = mean_val, y = 0.0025, label = paste(&quot;Mean:&quot;, : All aesthetics have length 1, but the data has 32 rows.
-## ℹ Please consider using `annotate()` or provide this layer with data containing
-##   a single row.</code></pre>
+## ℹ Please consider using `annotate()` or provide this layer with data
+##   containing a single row.</code></pre>
 <pre><code>## Warning in geom_text(aes(x = ci_lower, y = 0, label = paste(&quot;CI Lower:&quot;, : All aesthetics have length 1, but the data has 32 rows.
-## ℹ Please consider using `annotate()` or provide this layer with data containing
-##   a single row.</code></pre>
+## ℹ Please consider using `annotate()` or provide this layer with data
+##   containing a single row.</code></pre>
 <pre><code>## Warning in geom_text(aes(x = ci_upper, y = 0, label = paste(&quot;CI Upper:&quot;, : All aesthetics have length 1, but the data has 32 rows.
-## ℹ Please consider using `annotate()` or provide this layer with data containing
-##   a single row.</code></pre>
+## ℹ Please consider using `annotate()` or provide this layer with data
+##   containing a single row.</code></pre>
 <p><img src="bigthreeresults_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 <div id="c.i.-calculation-utilizing-the-linear-model-formula-in-r"
@@ -703,14 +703,11 @@ size</strong> is by using <em>Cohen’s d</em>.</p>
 <p>Here we are looking at the <em>standardized difference</em> index of
 effect size which indicates the size of the difference between two
 means, as measured in standard deviation. (Hatcher 2013)</p>
-<p>The formula for calculating the <em>Cohen’s d</em> statistic is:</p>
+<p>The formula for calculating the <em>Cohen’s d</em> statistic is as
+follows:</p>
 <p><span class="math display">\[
 d =\frac{\overline{X}_{1}\;-\overline{X}_{2}}{S_{p}}
 \]</span></p>
-<p>The formula for the pooled standard deviation is as follows</p>
-<hr />
-<p>$$ S_{p};=;</p>
-<p>$$</p>
 <hr />
 <p><span class="math display">\[
 d\;=Cohen&#39;s\;d\;statisitc
@@ -720,6 +717,12 @@ d\;=Cohen&#39;s\;d\;statisitc
 \overline{X}_{2}\;=\;Sample\;mean\;group\;two
 \\
 S_{p}\;=\;Pooled\;estimate\;of\;the\;population\;standard\;deviation
+\]</span></p>
+<hr />
+<p>The formula for the pooled standard deviation is as follows</p>
+<hr />
+<p><span class="math display">\[
+S_{p}\;=\;\sqrt{\frac{(n_{1}-1)s^2_{1}\;-(n_{2}-1)s^2_{2}}{n_{1}+n_{2}-2}}
 \]</span></p>
 <hr />
 <div id="how-to-interpret-cohens-d" class="section level4">
