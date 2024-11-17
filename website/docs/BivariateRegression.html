@@ -412,8 +412,8 @@ to a best-fitting curved line.</p></li>
 <h4>Regression: Generic Analysis Model</h4>
 <hr />
 <center>
-<div id="htmlwidget-ad8d3278e8ad048d92f7" style="width:672px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ad8d3278e8ad048d92f7">{"x":{"diagram":"\n  digraph graph2 {\n  \n  graph [layout = dot, rankdir = LR]\n  \n  # node definitions with substituted label text\n  node [shape = square]\n  Predictor [label = \"Predictor (IV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  Criterion [label = \"Criterion (DV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  \n  Predictor -> Criterion\n  }\n  \n  [1]: Interval\n  [2]: Ratio\n\n  ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-72b531e9f53b45ff6621" style="width:672px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-72b531e9f53b45ff6621">{"x":{"diagram":"\n  digraph graph2 {\n  \n  graph [layout = dot, rankdir = LR]\n  \n  # node definitions with substituted label text\n  node [shape = square]\n  Predictor [label = \"Predictor (IV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  Criterion [label = \"Criterion (DV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  \n  Predictor -> Criterion\n  }\n  \n  [1]: Interval\n  [2]: Ratio\n\n  ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </center>
 <hr />
 <!-- <center> -->
@@ -474,15 +474,6 @@ scatterplot in R. <br></p>
 <pre class="r"><code>attach(mtcars)
 with(data = mtcars,plot(x = hp,y = mpg,col=&quot;black&quot;,pch=19,main=&quot;Mtcars&quot;))</code></pre>
 <p><br></p>
-<pre><code>## The following objects are masked from mtcars (pos = 3):
-## 
-##     am, carb, cyl, disp, drat, gear, hp, mpg, qsec, vs, wt</code></pre>
-<pre><code>## The following objects are masked from mtcars (pos = 4):
-## 
-##     am, carb, cyl, disp, drat, gear, hp, mpg, qsec, vs, wt</code></pre>
-<pre><code>## The following objects are masked from mtcars (pos = 12):
-## 
-##     am, carb, cyl, disp, drat, gear, hp, mpg, qsec, vs, wt</code></pre>
 <pre><code>## The following object is masked from package:ggplot2:
 ## 
 ##     mpg</code></pre>
@@ -502,23 +493,26 @@ Residual = actual\;y\;value - predicted\;y\;value
 r_{1} = y_{i} - \hat{y_{i}}
 \]</span></p>
 <pre><code>## [1] &quot;Predicted y Values&quot;</code></pre>
-<pre><code>##           Mazda RX4       Mazda RX4 Wag          Datsun 710      Hornet 4 Drive   Hornet Sportabout 
-##           22.593750           22.593750           23.753631           22.593750           18.158912 
-##             Valiant          Duster 360           Merc 240D            Merc 230            Merc 280 
-##           22.934891           13.382932           25.868707           23.617174           21.706782 
-##           Merc 280C          Merc 450SE          Merc 450SL         Merc 450SLC  Cadillac Fleetwood 
-##           21.706782           17.817770           17.817770           17.817770           16.112064 
-## Lincoln Continental   Chrysler Imperial            Fiat 128         Honda Civic      Toyota Corolla 
-##           15.429781           14.406357           25.595794           26.550990           25.664022 
-##       Toyota Corona    Dodge Challenger         AMC Javelin          Camaro Z28    Pontiac Firebird 
-##           23.480718           19.864619           19.864619           13.382932           18.158912 
-##           Fiat X1-9       Porsche 914-2        Lotus Europa      Ford Pantera L        Ferrari Dino 
-##           25.595794           23.890087           22.389065           12.086595           18.158912 
-##       Maserati Bora          Volvo 142E 
-##            7.242387           22.661978</code></pre>
+<pre><code>##           Mazda RX4       Mazda RX4 Wag          Datsun 710      Hornet 4 Drive 
+##           22.593750           22.593750           23.753631           22.593750 
+##   Hornet Sportabout             Valiant          Duster 360           Merc 240D 
+##           18.158912           22.934891           13.382932           25.868707 
+##            Merc 230            Merc 280           Merc 280C          Merc 450SE 
+##           23.617174           21.706782           21.706782           17.817770 
+##          Merc 450SL         Merc 450SLC  Cadillac Fleetwood Lincoln Continental 
+##           17.817770           17.817770           16.112064           15.429781 
+##   Chrysler Imperial            Fiat 128         Honda Civic      Toyota Corolla 
+##           14.406357           25.595794           26.550990           25.664022 
+##       Toyota Corona    Dodge Challenger         AMC Javelin          Camaro Z28 
+##           23.480718           19.864619           19.864619           13.382932 
+##    Pontiac Firebird           Fiat X1-9       Porsche 914-2        Lotus Europa 
+##           18.158912           25.595794           23.890087           22.389065 
+##      Ford Pantera L        Ferrari Dino       Maserati Bora          Volvo 142E 
+##           12.086595           18.158912            7.242387           22.661978</code></pre>
 <pre><code>## [1] &quot;Actual y Values&quot;</code></pre>
-<pre><code>##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5
-## [23] 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7 15.0 21.4</code></pre>
+<pre><code>##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2 10.4
+## [16] 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7
+## [31] 15.0 21.4</code></pre>
 <pre><code>## [1] &quot;Manually Calculated Residuals&quot;</code></pre>
 <pre><code>##                     mtcars$mpg - mpg_prediction$fitted.values
 ## Mazda RX4                                         -1.59374995
@@ -554,20 +548,22 @@ r_{1} = y_{i} - \hat{y_{i}}
 ## Maserati Bora                                      7.75761261
 ## Volvo 142E                                        -1.26197823</code></pre>
 <pre><code>## [1] &quot;Residual Values&quot;</code></pre>
-<pre><code>##           Mazda RX4       Mazda RX4 Wag          Datsun 710      Hornet 4 Drive   Hornet Sportabout 
-##         -1.59374995         -1.59374995         -0.95363068         -1.19374995          0.54108812 
-##             Valiant          Duster 360           Merc 240D            Merc 230            Merc 280 
-##         -4.83489134          0.91706759         -1.46870730         -0.81717412         -2.50678234 
-##           Merc 280C          Merc 450SE          Merc 450SL         Merc 450SLC  Cadillac Fleetwood 
-##         -3.90678234         -1.41777049         -0.51777049         -2.61777049         -5.71206353 
-## Lincoln Continental   Chrysler Imperial            Fiat 128         Honda Civic      Toyota Corolla 
-##         -5.02978075          0.29364342          6.80420581          3.84900992          8.23597754 
-##       Toyota Corona    Dodge Challenger         AMC Javelin          Camaro Z28    Pontiac Firebird 
-##         -1.98071757         -4.36461883         -4.66461883         -0.08293241          1.04108812 
-##           Fiat X1-9       Porsche 914-2        Lotus Europa      Ford Pantera L        Ferrari Dino 
-##          1.70420581          2.10991276          8.01093488          3.71340487          1.54108812 
-##       Maserati Bora          Volvo 142E 
-##          7.75761261         -1.26197823</code></pre>
+<pre><code>##           Mazda RX4       Mazda RX4 Wag          Datsun 710      Hornet 4 Drive 
+##         -1.59374995         -1.59374995         -0.95363068         -1.19374995 
+##   Hornet Sportabout             Valiant          Duster 360           Merc 240D 
+##          0.54108812         -4.83489134          0.91706759         -1.46870730 
+##            Merc 230            Merc 280           Merc 280C          Merc 450SE 
+##         -0.81717412         -2.50678234         -3.90678234         -1.41777049 
+##          Merc 450SL         Merc 450SLC  Cadillac Fleetwood Lincoln Continental 
+##         -0.51777049         -2.61777049         -5.71206353         -5.02978075 
+##   Chrysler Imperial            Fiat 128         Honda Civic      Toyota Corolla 
+##          0.29364342          6.80420581          3.84900992          8.23597754 
+##       Toyota Corona    Dodge Challenger         AMC Javelin          Camaro Z28 
+##         -1.98071757         -4.36461883         -4.66461883         -0.08293241 
+##    Pontiac Firebird           Fiat X1-9       Porsche 914-2        Lotus Europa 
+##          1.04108812          1.70420581          2.10991276          8.01093488 
+##      Ford Pantera L        Ferrari Dino       Maserati Bora          Volvo 142E 
+##          3.71340487          1.54108812          7.75761261         -1.26197823</code></pre>
 </div>
 <div id="calculate-the-mean-of-the-y-values" class="section level3">
 <h3>Calculate the mean of the Y Values</h3>
@@ -678,20 +674,22 @@ function.</p>
 <h4>Print the residuals of the model</h4>
 <pre class="r"><code>mpg_hp_model &lt;- lm(mpg ~ hp, mtcars)
 print(mpg_hp_model$residuals)</code></pre>
-<pre><code>##           Mazda RX4       Mazda RX4 Wag          Datsun 710      Hornet 4 Drive   Hornet Sportabout 
-##         -1.59374995         -1.59374995         -0.95363068         -1.19374995          0.54108812 
-##             Valiant          Duster 360           Merc 240D            Merc 230            Merc 280 
-##         -4.83489134          0.91706759         -1.46870730         -0.81717412         -2.50678234 
-##           Merc 280C          Merc 450SE          Merc 450SL         Merc 450SLC  Cadillac Fleetwood 
-##         -3.90678234         -1.41777049         -0.51777049         -2.61777049         -5.71206353 
-## Lincoln Continental   Chrysler Imperial            Fiat 128         Honda Civic      Toyota Corolla 
-##         -5.02978075          0.29364342          6.80420581          3.84900992          8.23597754 
-##       Toyota Corona    Dodge Challenger         AMC Javelin          Camaro Z28    Pontiac Firebird 
-##         -1.98071757         -4.36461883         -4.66461883         -0.08293241          1.04108812 
-##           Fiat X1-9       Porsche 914-2        Lotus Europa      Ford Pantera L        Ferrari Dino 
-##          1.70420581          2.10991276          8.01093488          3.71340487          1.54108812 
-##       Maserati Bora          Volvo 142E 
-##          7.75761261         -1.26197823</code></pre>
+<pre><code>##           Mazda RX4       Mazda RX4 Wag          Datsun 710      Hornet 4 Drive 
+##         -1.59374995         -1.59374995         -0.95363068         -1.19374995 
+##   Hornet Sportabout             Valiant          Duster 360           Merc 240D 
+##          0.54108812         -4.83489134          0.91706759         -1.46870730 
+##            Merc 230            Merc 280           Merc 280C          Merc 450SE 
+##         -0.81717412         -2.50678234         -3.90678234         -1.41777049 
+##          Merc 450SL         Merc 450SLC  Cadillac Fleetwood Lincoln Continental 
+##         -0.51777049         -2.61777049         -5.71206353         -5.02978075 
+##   Chrysler Imperial            Fiat 128         Honda Civic      Toyota Corolla 
+##          0.29364342          6.80420581          3.84900992          8.23597754 
+##       Toyota Corona    Dodge Challenger         AMC Javelin          Camaro Z28 
+##         -1.98071757         -4.36461883         -4.66461883         -0.08293241 
+##    Pontiac Firebird           Fiat X1-9       Porsche 914-2        Lotus Europa 
+##          1.04108812          1.70420581          2.10991276          8.01093488 
+##      Ford Pantera L        Ferrari Dino       Maserati Bora          Volvo 142E 
+##          3.71340487          1.54108812          7.75761261         -1.26197823</code></pre>
 </div>
 <div id="print-the-coefficients-of-the-model" class="section level4">
 <h4>Print the coefficients of the model</h4>
@@ -704,20 +702,22 @@ print(mpg_hp_model$coefficients)</code></pre>
 <h4>Print the fitted values of the model</h4>
 <pre class="r"><code>mpg_hp_model &lt;- lm(mpg ~ hp, mtcars)
 print(mpg_hp_model$fitted.values)</code></pre>
-<pre><code>##           Mazda RX4       Mazda RX4 Wag          Datsun 710      Hornet 4 Drive   Hornet Sportabout 
-##           22.593750           22.593750           23.753631           22.593750           18.158912 
-##             Valiant          Duster 360           Merc 240D            Merc 230            Merc 280 
-##           22.934891           13.382932           25.868707           23.617174           21.706782 
-##           Merc 280C          Merc 450SE          Merc 450SL         Merc 450SLC  Cadillac Fleetwood 
-##           21.706782           17.817770           17.817770           17.817770           16.112064 
-## Lincoln Continental   Chrysler Imperial            Fiat 128         Honda Civic      Toyota Corolla 
-##           15.429781           14.406357           25.595794           26.550990           25.664022 
-##       Toyota Corona    Dodge Challenger         AMC Javelin          Camaro Z28    Pontiac Firebird 
-##           23.480718           19.864619           19.864619           13.382932           18.158912 
-##           Fiat X1-9       Porsche 914-2        Lotus Europa      Ford Pantera L        Ferrari Dino 
-##           25.595794           23.890087           22.389065           12.086595           18.158912 
-##       Maserati Bora          Volvo 142E 
-##            7.242387           22.661978</code></pre>
+<pre><code>##           Mazda RX4       Mazda RX4 Wag          Datsun 710      Hornet 4 Drive 
+##           22.593750           22.593750           23.753631           22.593750 
+##   Hornet Sportabout             Valiant          Duster 360           Merc 240D 
+##           18.158912           22.934891           13.382932           25.868707 
+##            Merc 230            Merc 280           Merc 280C          Merc 450SE 
+##           23.617174           21.706782           21.706782           17.817770 
+##          Merc 450SL         Merc 450SLC  Cadillac Fleetwood Lincoln Continental 
+##           17.817770           17.817770           16.112064           15.429781 
+##   Chrysler Imperial            Fiat 128         Honda Civic      Toyota Corolla 
+##           14.406357           25.595794           26.550990           25.664022 
+##       Toyota Corona    Dodge Challenger         AMC Javelin          Camaro Z28 
+##           23.480718           19.864619           19.864619           13.382932 
+##    Pontiac Firebird           Fiat X1-9       Porsche 914-2        Lotus Europa 
+##           18.158912           25.595794           23.890087           22.389065 
+##      Ford Pantera L        Ferrari Dino       Maserati Bora          Volvo 142E 
+##           12.086595           18.158912            7.242387           22.661978</code></pre>
 </div>
 <div id="putting-it-altogether" class="section level4">
 <h4>Putting it altogether</h4>

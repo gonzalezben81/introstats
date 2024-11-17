@@ -31,6 +31,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -225,6 +228,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -232,6 +298,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -294,20 +370,59 @@ $(document).ready(function () {
 </div>
 
 
-<center>
-<h1>
-Statistical Significance - Confidence Intervals - Effect Size
-</h1>
-</center>
+<div id="statistical-significance---confidence-intervals---effect-size"
+class="section level3">
+<h3>Statistical Significance - Confidence Intervals - Effect Size</h3>
+<p>In this section, we will explore important concepts in statistical
+significance, focusing on calculating confidence intervals (C.I.) and
+understanding their interpretation, as well as effect sizes.</p>
 <script>
   addClassKlippyTo("pre.r, pre.markdown");
   addKlippy('right', 'top', 'auto', '1', 'Copy Code', 'Copy Successful!!!');
 </script>
+<div id="visualization-of-variation-in-a-data-set"
+class="section level4">
+<h4>Visualization of variation in a data set</h4>
+<pre class="r"><code># Boxplot of mpg in mtcars
+ggplot(mtcars, aes(x = &quot;&quot;, y = mpg)) +
+  geom_boxplot(fill = &quot;lightblue&quot;, color = &quot;blue&quot;) +
+  labs(title = &quot;Variation of MPG in mtcars&quot;, y = &quot;Miles Per Gallon (MPG)&quot;, x = &quot;MPG Variation&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="bigthreeresults_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>The boxplot for <strong>MPG</strong> in the mtcars data set
+visualizes the variation in fuel efficiency across different cars.
+Here’s what we can interpret from the boxplot:</p>
+<ul>
+<li><p><strong>Median (Center Line):</strong> The thick horizontal line
+in the middle of the box represents the median value of MPG, which is
+the middle value when all the MPG values are ordered from smallest to
+largest. This gives us a sense of the “central tendency” or typical
+value for MPG in this dataset.</p></li>
+<li><p><strong>Interquartile Range (IQR):</strong> The box represents
+the interquartile range (IQR), which includes the middle 50% of the
+data. The top and bottom edges of the box represent the third quartile
+(Q3) and first quartile (Q1), respectively. This range gives us an idea
+of the spread of the central half of the data.</p></li>
+<li><p><strong>Whiskers:</strong> The lines extending from the box
+(called whiskers) show the range of values within 1.5 times the IQR from
+the quartiles. These lines help to visualize the spread of data,
+excluding outliers.</p></li>
+<li><p><strong>Outliers:</strong> Points that fall outside of the
+whiskers (typically shown as individual dots) are considered outliers.
+These are values that are significantly different from the rest of the
+data. For example, the MPG values for cars with extreme fuel efficiency
+or inefficiency could appear as outliers in this plot.</p></li>
+</ul>
+</div>
 <div id="sample-standard-deviation-formula" class="section level4">
 <h4>Sample Standard Deviation Formula</h4>
+<p>The sample standard deviation (S) is a measure of the spread of
+values in a sample and is calculated as:</p>
+<hr />
 <p><span class="math display">\[\large
 S\;=\;\sqrt{\frac{\sum(X\;-\;{\overline{X}})^2}{N\;-1}}
 \]</span></p>
+<hr />
 <pre class="r"><code>N &lt;- length(mtcars$hp)
 deviations &lt;- mtcars$hp-mean(mtcars$hp)
 
@@ -325,19 +440,25 @@ print(sd_plus)</code></pre>
 </div>
 <div id="standard-error-formula" class="section level4">
 <h4>Standard Error Formula</h4>
+<hr />
 <p><span class="math display">\[\large
 SE\;\;=\frac{\sigma}{\sqrt{n}}
-\]</span> <span class="math display">\[
+\]</span></p>
+<hr />
+<p><span class="math display">\[
 SE\;=Standard\;Error
 \\
 \sigma\;=sample\;standard\;deviation
 \\
 n\;=number\;of\;samples
 \]</span></p>
+<hr />
 </div>
 <div id="how-to-calculate-the-standard-error-of-a-sample"
 class="section level4">
 <h4>How to calculate the standard error of a sample</h4>
+<p>The standard error (SE) quantifies the uncertainty of a sample mean
+estimate. It is calculated using:</p>
 <pre class="r"><code>#standard deviation/squareroot(n)
 
 # length(mtcars$hp)
@@ -356,9 +477,9 @@ print(sqrt(sum((mtcars$hp - mean(mtcars$hp)) ^ 2/(length(mtcars$hp) - 1)))
       /sqrt(length(mtcars$hp)))</code></pre>
 <pre><code>## [1] 12.12032</code></pre>
 </div>
+</div>
 <div id="computing-confidence-intervals" class="section level3">
 <h3>Computing Confidence Intervals</h3>
-<p><br> <br></p>
 <div id="confidence-interval-formula" class="section level4">
 <h4>Confidence Interval Formula</h4>
 <p>The confidence interval (C.I.) according to (Hatcher, 2013) gives us
@@ -370,12 +491,18 @@ a range of values for the population parameter being estimated.</p>
 <li>correlation coefficients</li>
 <li>etc.</li>
 </ul>
-<div id="lower-bound-of-the-c.i.-for-a-sample-mean"
-class="section level5">
-<h5>Lower Bound of the C.I. for a Sample Mean</h5>
+<p>The formula for calculating the confidence interval of the sample
+mean is:</p>
+<hr />
 <p><span class="math display">\[\large
 CI\;=\;\overline{X}\;\pm\;(SE_{m})(t_{crit})
 \]</span></p>
+<hr />
+</div>
+<div id="lower-bound-of-the-c.i.-for-a-sample-mean"
+class="section level4">
+<h4>Lower Bound of the C.I. for a Sample Mean</h4>
+<hr />
 <p><span class="math display">\[
 CI\;=Confidence\;Interval
 \\
@@ -385,6 +512,7 @@ SE_{m}\;=standard\;error\;of\;the\;mean
 \\
 t_{crit}\;=\;the\;critical\;value\;of\;the\;t\;statistic
 \]</span></p>
+<hr />
 <pre class="r"><code>###Calculate the mean of the hp
 mean_hp &lt;- mean(mtcars$hp)
 print(paste0(&quot;Mean of horsepower: &quot;,mean_hp))</code></pre>
@@ -397,13 +525,16 @@ print(paste0(&quot;Standard deviation of horsepoweer: &quot;,sd_hp))</code></pre
 n&lt;- sqrt(length(mtcars$hp))
 print(n)</code></pre>
 <pre><code>## [1] 5.656854</code></pre>
-<pre class="r"><code>###Confidence level of 0.95% e.g. two-tailed with 2.5%
+<pre class="r"><code>### Degrees of freedom (df) for t-distribution
+df &lt;- length(mtcars$hp) - 1  # 32 observations, so df = 32 - 1 = 31
+
+###Confidence level of 0.95% e.g. two-tailed with 2.5%
 t_value &lt;- 1.96
 ###How to calculate the t-value properly
 ###Take the p-value: 0.05 and the degrees of freedom: 32-1
-tval &lt;- qt((1-0.95)/2, df=32-1)
+tval &lt;- abs(qt( (1-0.95) / 2, df = df))
 print(paste0(&quot;t-critical value: &quot;,tval))</code></pre>
-<pre><code>## [1] &quot;t-critical value: -2.03951344639641&quot;</code></pre>
+<pre><code>## [1] &quot;t-critical value: 2.03951344639641&quot;</code></pre>
 <pre class="r"><code>###Standard error of the sample mean
 se_sample_mean &lt;- (sd(mtcars$hp)/sqrt(length(mtcars$hp)))
 print(paste0(&quot;Standard Error of the Sample Mean: &quot;,se_sample_mean))</code></pre>
@@ -411,21 +542,40 @@ print(paste0(&quot;Standard Error of the Sample Mean: &quot;,se_sample_mean))</c
 <pre class="r"><code>sd(mtcars$hp)/sqrt(length(mtcars$hp))</code></pre>
 <pre><code>## [1] 12.12032</code></pre>
 <pre class="r"><code>ci_lower_bound &lt;-mean(mtcars$hp)-(se_sample_mean*tval)
-
-ci_upper_bound&lt;- mean(mtcars$hp)+(se_sample_mean*tval)
 print(ci_lower_bound)</code></pre>
-<pre><code>## [1] 171.4071</code></pre>
-<pre class="r"><code>print(ci_upper_bound)</code></pre>
 <pre><code>## [1] 121.9679</code></pre>
-<pre class="r"><code># head(HumanResourcesDataAA5221_all_zscores[,c(1,11,2,12)]) %&gt;%
-#   kbl(row.names = T) %&gt;%
-#   kable_styling(row_label_position = &quot;l&quot;, full_width = F) %&gt;% 
-#   footnote(general = &quot;Head of data frame.&quot;) %&gt;% 
-#   add_header_above(c(&quot; &quot; = 1, &quot;Satisfaction Level&quot; = 2, &quot;Last Evaluation&quot; = 2))</code></pre>
 </div>
-<div id="utilizing-the-linear-model-formula-in-r"
-class="section level5">
-<h5>Utilizing the linear model formula in R</h5>
+<div id="upper-bound-of-the-c.i.-for-a-sample-mean"
+class="section level4">
+<h4>Upper Bound of the C.I. for a Sample Mean</h4>
+<pre class="r"><code>ci_upper_bound&lt;- mean(mtcars$hp)+(se_sample_mean*tval)
+
+print(ci_upper_bound)</code></pre>
+<pre><code>## [1] 171.4071</code></pre>
+</div>
+</div>
+<div id="vizualization-of-c.i.-using-hp-from-the-mtcars-data-set"
+class="section level3">
+<h3>Vizualization of C.I. using HP from the Mtcars data set</h3>
+<pre class="r"><code># Calculate the mean and confidence interval
+mean_val &lt;- mean(mtcars$hp)
+ci_lower &lt;- mean(mtcars$hp)-(se_sample_mean*tval)
+ci_upper &lt;- mean(mtcars$hp)+(se_sample_mean*tval)
+
+# Plot with shaded confidence interval and hp points
+ggplot(mtcars, aes(x = hp)) +
+  geom_density(fill = &quot;lightblue&quot;, alpha = 0.5) +  # Density plot
+  geom_vline(xintercept = mean_val, color = &quot;red&quot;, linetype = &quot;dashed&quot;) +  # Mean line
+  geom_vline(xintercept = ci_lower, color = &quot;blue&quot;, linetype = &quot;dashed&quot;) +  # Lower CI line
+  geom_vline(xintercept = ci_upper, color = &quot;blue&quot;, linetype = &quot;dashed&quot;) +  # Upper CI line
+  geom_point(aes(x = hp, y = rep(0, length(`hp`))), color = &quot;darkgrey&quot;, alpha = 0.5) +  # Points
+  theme_minimal() +
+  labs(title = &quot;Density Plot with Confidence Interval and HP Points&quot;)</code></pre>
+<p><img src="bigthreeresults_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="c.i.-calculation-utilizing-the-linear-model-formula-in-r"
+class="section level3">
+<h3>C.I. calculation utilizing the linear model formula in R</h3>
 <p>Here we can also calculate the <span
 class="math inline">\(CI\)</span> by utilizing the linear model
 funciton.</p>
@@ -453,11 +603,55 @@ summary(l.model)</code></pre>
 confint(l.model, level=0.95)</code></pre>
 <pre><code>##                2.5 %   97.5 %
 ## (Intercept) 121.9679 171.4071</code></pre>
+</div>
+<div id="statistical-significance---t-test-example"
+class="section level3">
+<h3>Statistical Significance - t-test Example</h3>
+<p>A t-test is used to determine if there is a significant difference
+between the means of two groups. In this example, we will compare the
+miles per gallon (<code>mpg</code>) of cars with automatic vs. manual
+transmissions in the <code>mtcars</code> dataset.</p>
+<div id="hypothesis" class="section level4">
+<h4>Hypothesis</h4>
+<ul>
+<li><strong>Null hypothesis (H₀):</strong> There is no significant
+difference in the mpg of cars with automatic and manual
+transmissions.</li>
+<li><strong>Alternative hypothesis (H₁):</strong> There is a significant
+difference in the mpg of cars with automatic and manual
+transmissions.</li>
+</ul>
+<p>We will perform an independent t-test to test these hypotheses.</p>
+</div>
+<div id="t-test-code" class="section level4">
+<h4>t-test Code</h4>
+<pre class="r"><code># Load necessary libraries
+library(dplyr)
+
+# Create a new variable &#39;am&#39; for automatic (0) vs. manual (1) transmissions
+mtcars$am &lt;- factor(mtcars$am, levels = c(0, 1), labels = c(&quot;Automatic&quot;, &quot;Manual&quot;))
+
+# Perform t-test to compare mpg between automatic and manual cars
+t_test_result &lt;- t.test(mpg ~ am, data = mtcars)
+
+# Display the t-test result
+t_test_result</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  mpg by am
+## t = -3.7671, df = 18.332, p-value = 0.001374
+## alternative hypothesis: true difference in means between group Automatic and group Manual is not equal to 0
+## 95 percent confidence interval:
+##  -11.280194  -3.209684
+## sample estimates:
+## mean in group Automatic    mean in group Manual 
+##                17.14737                24.39231</code></pre>
 <hr />
 <center>
-<h2>
+<h3>
 References
-</h2>
+</h3>
 </center>
 <p>Hatcher, L. (2013). <em>Advanced statistics in research: Reading,
 understanding, and writing up data analysis results. Shadow Finch
@@ -467,7 +661,6 @@ class="uri">https://www.statology.org/t-distribution-table/</a></p>
 <p><a
 href="https://www.scribbr.com/frequently-asked-questions/critical-value-of-t-in-r/#"
 class="uri">https://www.scribbr.com/frequently-asked-questions/critical-value-of-t-in-r/#</a>:~:text=You%20can%20use%20the%20qt,the%20significance%20level%20by%20two.</p>
-</div>
 </div>
 </div>
 
@@ -488,6 +681,8 @@ class="uri">https://www.scribbr.com/frequently-asked-questions/critical-value-of
 </div>
 
 
+</div>
+</div>
 
 </div>
 
@@ -520,6 +715,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

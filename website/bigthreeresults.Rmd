@@ -4,35 +4,66 @@ author: "Ben Gonzalez"
 date: '2023-10-19'
 output:
   html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    collapsed: false
+    smooth_scroll: true
     include:
       after_body: footer.html  
 ---
 
+### Statistical Significance - Confidence Intervals - Effect Size
 
-<center><h1>
-Statistical Significance - Confidence Intervals - Effect Size
-</h1>
-</center>
+In this section, we will explore important concepts in statistical significance, focusing on calculating confidence intervals (C.I.) and understanding their interpretation, as well as effect sizes.
 
 
 
-
-```{r setup, klippy, echo=FALSE, include=TRUE}
+```{r setup, klippy, echo=FALSE, include=TRUE,message=FALSE}
 klippy::klippy(tooltip_message = "Copy Code",tooltip_success = "Copy Successful!!!",position = "right")
 library(mathjaxr)
 library(latexpdf)
 library(dplyr)
+library(ggplot2)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+#### Visualization of variation in a data set
+
+```{r}
+# Boxplot of mpg in mtcars
+ggplot(mtcars, aes(x = "", y = mpg)) +
+  geom_boxplot(fill = "lightblue", color = "blue") +
+  labs(title = "Variation of MPG in mtcars", y = "Miles Per Gallon (MPG)", x = "MPG Variation") +
+  theme_minimal()
+
+```
+
+
+The boxplot for **MPG** in the mtcars data set visualizes the variation in fuel efficiency across different cars. Here's what we can interpret from the boxplot:
+
++ **Median (Center Line):** The thick horizontal line in the middle of the box represents the median value of MPG, which is the middle value when all the MPG values are ordered from smallest to largest. This gives us a sense of the "central tendency" or typical value for MPG in this dataset.
+
++ **Interquartile Range (IQR):** The box represents the interquartile range (IQR), which includes the middle 50% of the data. The top and bottom edges of the box represent the third quartile (Q3) and first quartile (Q1), respectively. This range gives us an idea of the spread of the central half of the data.
+
++ **Whiskers:** The lines extending from the box (called whiskers) show the range of values within 1.5 times the IQR from the quartiles. These lines help to visualize the spread of data, excluding outliers.
+
++ **Outliers:** Points that fall outside of the whiskers (typically shown as individual dots) are considered outliers. These are values that are significantly different from the rest of the data. For example, the MPG values for cars with extreme fuel efficiency or inefficiency could appear as outliers in this plot.
+
+
 #### Sample Standard Deviation Formula
+
+The sample standard deviation (S) is a measure of the spread of values in a sample and is calculated as:
+
+---
 
 $$\large
 S\;=\;\sqrt{\frac{\sum(X\;-\;{\overline{X}})^2}{N\;-1}}
 $$
 
-```{r}
+---
 
+```{r}
 N <- length(mtcars$hp)
 deviations <- mtcars$hp-mean(mtcars$hp)
 
@@ -48,14 +79,16 @@ sqrt((sum((mtcars$hp-mean(mtcars$hp))^2))/(length(mtcars$hp)-1))
 sd(mtcars$hp)
 ```
 
-
-
-
 #### Standard Error Formula
+
+---
 
 $$\large
 SE\;\;=\frac{\sigma}{\sqrt{n}}
 $$
+
+---
+
 $$
 SE\;=Standard\;Error
 \\
@@ -64,7 +97,11 @@ SE\;=Standard\;Error
 n\;=number\;of\;samples
 $$
 
+---
+
 #### How to calculate the standard error of a sample
+
+The standard error (SE) quantifies the uncertainty of a sample mean estimate. It is calculated using:
 
 ```{r}
 #standard deviation/squareroot(n)
@@ -91,8 +128,6 @@ print(sqrt(sum((mtcars$hp - mean(mtcars$hp)) ^ 2/(length(mtcars$hp) - 1)))
 ### Computing Confidence Intervals
 
 
-<br>
-<br>
 
 #### Confidence Interval Formula
 
@@ -105,11 +140,19 @@ Computed for:
 + correlation coefficients
 + etc.
 
-##### Lower Bound of the C.I. for a Sample Mean
+The formula for calculating the confidence interval of the sample mean is:
+
+---
 
 $$\large
 CI\;=\;\overline{X}\;\pm\;(SE_{m})(t_{crit})
 $$
+
+---
+
+#### Lower Bound of the C.I. for a Sample Mean
+
+---
 
 $$
 CI\;=Confidence\;Interval
@@ -120,6 +163,8 @@ SE_{m}\;=standard\;error\;of\;the\;mean
 \\
 t_{crit}\;=\;the\;critical\;value\;of\;the\;t\;statistic
 $$
+
+---
 
 ```{r}
 ###Calculate the mean of the hp
@@ -133,11 +178,14 @@ print(paste0("Standard deviation of horsepoweer: ",sd_hp))
 n<- sqrt(length(mtcars$hp))
 print(n)
 
+### Degrees of freedom (df) for t-distribution
+df <- length(mtcars$hp) - 1  # 32 observations, so df = 32 - 1 = 31
+
 ###Confidence level of 0.95% e.g. two-tailed with 2.5%
 t_value <- 1.96
 ###How to calculate the t-value properly
 ###Take the p-value: 0.05 and the degrees of freedom: 32-1
-tval <- qt((1-0.95)/2, df=32-1)
+tval <- abs(qt( (1-0.95) / 2, df = df))
 print(paste0("t-critical value: ",tval))
 
 ###Standard error of the sample mean
@@ -147,23 +195,38 @@ print(paste0("Standard Error of the Sample Mean: ",se_sample_mean))
 sd(mtcars$hp)/sqrt(length(mtcars$hp))
 
 ci_lower_bound <-mean(mtcars$hp)-(se_sample_mean*tval)
-
-ci_upper_bound<- mean(mtcars$hp)+(se_sample_mean*tval)
 print(ci_lower_bound)
+```
+#### Upper Bound of the C.I. for a Sample Mean
+
+
+```{r}
+ci_upper_bound<- mean(mtcars$hp)+(se_sample_mean*tval)
 
 print(ci_upper_bound)
+```
 
-# head(HumanResourcesDataAA5221_all_zscores[,c(1,11,2,12)]) %>%
-#   kbl(row.names = T) %>%
-#   kable_styling(row_label_position = "l", full_width = F) %>% 
-#   footnote(general = "Head of data frame.") %>% 
-#   add_header_above(c(" " = 1, "Satisfaction Level" = 2, "Last Evaluation" = 2))
+### Vizualization of C.I. using HP from the Mtcars data set
 
+```{r}
+# Calculate the mean and confidence interval
+mean_val <- mean(mtcars$hp)
+ci_lower <- mean(mtcars$hp)-(se_sample_mean*tval)
+ci_upper <- mean(mtcars$hp)+(se_sample_mean*tval)
 
+# Plot with shaded confidence interval and hp points
+ggplot(mtcars, aes(x = hp)) +
+  geom_density(fill = "lightblue", alpha = 0.5) +  # Density plot
+  geom_vline(xintercept = mean_val, color = "red", linetype = "dashed") +  # Mean line
+  geom_vline(xintercept = ci_lower, color = "blue", linetype = "dashed") +  # Lower CI line
+  geom_vline(xintercept = ci_upper, color = "blue", linetype = "dashed") +  # Upper CI line
+  geom_point(aes(x = hp, y = rep(0, length(`hp`))), color = "darkgrey", alpha = 0.5) +  # Points
+  theme_minimal() +
+  labs(title = "Density Plot with Confidence Interval and HP Points")
 ```
 
 
-##### Utilizing the linear model formula in R
+### C.I. calculation utilizing the linear model formula in R
 
 Here we can also calculate the $CI$ by utilizing the linear model funciton.
 
@@ -176,12 +239,39 @@ summary(l.model)
 
 # Calculate the confidence interval
 confint(l.model, level=0.95)
+```
 
+
+### Statistical Significance - t-test Example
+
+A t-test is used to determine if there is a significant difference between the means of two groups. In this example, we will compare the miles per gallon (`mpg`) of cars with automatic vs. manual transmissions in the `mtcars` dataset.
+
+#### Hypothesis
+
+- **Null hypothesis (H₀):** There is no significant difference in the mpg of cars with automatic and manual transmissions.
+- **Alternative hypothesis (H₁):** There is a significant difference in the mpg of cars with automatic and manual transmissions.
+
+We will perform an independent t-test to test these hypotheses.
+
+#### t-test Code
+
+```{r}
+# Load necessary libraries
+library(dplyr)
+
+# Create a new variable 'am' for automatic (0) vs. manual (1) transmissions
+mtcars$am <- factor(mtcars$am, levels = c(0, 1), labels = c("Automatic", "Manual"))
+
+# Perform t-test to compare mpg between automatic and manual cars
+t_test_result <- t.test(mpg ~ am, data = mtcars)
+
+# Display the t-test result
+t_test_result
 ```
 
 ---
 
-<center><h2>References</h2></center>
+<center><h3>References</h3></center>
 
 Hatcher, L. (2013). *Advanced statistics in research: Reading, understanding, and writing up data analysis results. Shadow Finch Media.*
 
