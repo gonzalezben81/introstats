@@ -412,8 +412,8 @@ to a best-fitting curved line.</p></li>
 <h4>Regression: Generic Analysis Model</h4>
 <hr />
 <center>
-<div id="htmlwidget-8e4619415da21df10576" style="width:672px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8e4619415da21df10576">{"x":{"diagram":"\n  digraph graph2 {\n  \n  graph [layout = dot, rankdir = LR]\n  \n  # node definitions with substituted label text\n  node [shape = square]\n  Predictor [label = \"Predictor (IV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  Criterion [label = \"Criterion (DV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  \n  Predictor -> Criterion\n  }\n  \n  [1]: Interval\n  [2]: Ratio\n\n  ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-355df37d5d8e82de6b67" style="width:672px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-355df37d5d8e82de6b67">{"x":{"diagram":"\n  digraph graph2 {\n  \n  graph [layout = dot, rankdir = LR]\n  \n  # node definitions with substituted label text\n  node [shape = square]\n  Predictor [label = \"Predictor (IV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  Criterion [label = \"Criterion (DV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  \n  Predictor -> Criterion\n  }\n  \n  [1]: Interval\n  [2]: Ratio\n\n  ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </center>
 <hr />
 <!-- <center> -->
@@ -481,10 +481,10 @@ with(data = mtcars,plot(x = hp,y = mpg,col=&quot;black&quot;,pch=19,main=&quot;M
 </div>
 <div id="calculate-the-residual" class="section level3">
 <h3>Calculate the Residual</h3>
-<p>Here we compute the residual by taking the actual y value and
-subtract the predicted y value. The residual for each observation is the
+<p>We compute the residuals by taking the actual y value and subtract
+the predicted y value. The residual for each observation is the
 difference between the predicted values of y and the actual values of y.
-Calculating the residual helps us to see if we have overpredicted or
+Calculating the residual helps us to see if we have over predicted or
 underpredicted for <span class="math inline">\(\hat{y}\)</span>.</p>
 <p><span class="math display">\[\Large
 Residual = actual\;y\;value - predicted\;y\;value
@@ -547,6 +547,146 @@ r_{1} = y_{i} - \hat{y_{i}}
 ## Ferrari Dino                                       1.54108812
 ## Maserati Bora                                      7.75761261
 ## Volvo 142E                                        -1.26197823</code></pre>
+<table>
+<caption>Residuals of Prediction</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">mtcars<span class="math inline">\(mpg -
+mpg_prediction\)</span>fitted.values</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="right">-1.5937500</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">-1.5937500</td>
+</tr>
+<tr class="odd">
+<td align="left">Datsun 710</td>
+<td align="right">-0.9536307</td>
+</tr>
+<tr class="even">
+<td align="left">Hornet 4 Drive</td>
+<td align="right">-1.1937500</td>
+</tr>
+<tr class="odd">
+<td align="left">Hornet Sportabout</td>
+<td align="right">0.5410881</td>
+</tr>
+<tr class="even">
+<td align="left">Valiant</td>
+<td align="right">-4.8348913</td>
+</tr>
+<tr class="odd">
+<td align="left">Duster 360</td>
+<td align="right">0.9170676</td>
+</tr>
+<tr class="even">
+<td align="left">Merc 240D</td>
+<td align="right">-1.4687073</td>
+</tr>
+<tr class="odd">
+<td align="left">Merc 230</td>
+<td align="right">-0.8171741</td>
+</tr>
+<tr class="even">
+<td align="left">Merc 280</td>
+<td align="right">-2.5067823</td>
+</tr>
+<tr class="odd">
+<td align="left">Merc 280C</td>
+<td align="right">-3.9067823</td>
+</tr>
+<tr class="even">
+<td align="left">Merc 450SE</td>
+<td align="right">-1.4177705</td>
+</tr>
+<tr class="odd">
+<td align="left">Merc 450SL</td>
+<td align="right">-0.5177705</td>
+</tr>
+<tr class="even">
+<td align="left">Merc 450SLC</td>
+<td align="right">-2.6177705</td>
+</tr>
+<tr class="odd">
+<td align="left">Cadillac Fleetwood</td>
+<td align="right">-5.7120635</td>
+</tr>
+<tr class="even">
+<td align="left">Lincoln Continental</td>
+<td align="right">-5.0297808</td>
+</tr>
+<tr class="odd">
+<td align="left">Chrysler Imperial</td>
+<td align="right">0.2936434</td>
+</tr>
+<tr class="even">
+<td align="left">Fiat 128</td>
+<td align="right">6.8042058</td>
+</tr>
+<tr class="odd">
+<td align="left">Honda Civic</td>
+<td align="right">3.8490099</td>
+</tr>
+<tr class="even">
+<td align="left">Toyota Corolla</td>
+<td align="right">8.2359775</td>
+</tr>
+<tr class="odd">
+<td align="left">Toyota Corona</td>
+<td align="right">-1.9807176</td>
+</tr>
+<tr class="even">
+<td align="left">Dodge Challenger</td>
+<td align="right">-4.3646188</td>
+</tr>
+<tr class="odd">
+<td align="left">AMC Javelin</td>
+<td align="right">-4.6646188</td>
+</tr>
+<tr class="even">
+<td align="left">Camaro Z28</td>
+<td align="right">-0.0829324</td>
+</tr>
+<tr class="odd">
+<td align="left">Pontiac Firebird</td>
+<td align="right">1.0410881</td>
+</tr>
+<tr class="even">
+<td align="left">Fiat X1-9</td>
+<td align="right">1.7042058</td>
+</tr>
+<tr class="odd">
+<td align="left">Porsche 914-2</td>
+<td align="right">2.1099128</td>
+</tr>
+<tr class="even">
+<td align="left">Lotus Europa</td>
+<td align="right">8.0109349</td>
+</tr>
+<tr class="odd">
+<td align="left">Ford Pantera L</td>
+<td align="right">3.7134049</td>
+</tr>
+<tr class="even">
+<td align="left">Ferrari Dino</td>
+<td align="right">1.5410881</td>
+</tr>
+<tr class="odd">
+<td align="left">Maserati Bora</td>
+<td align="right">7.7576126</td>
+</tr>
+<tr class="even">
+<td align="left">Volvo 142E</td>
+<td align="right">-1.2619782</td>
+</tr>
+</tbody>
+</table>
 <pre><code>## [1] &quot;Residual Values&quot;</code></pre>
 <pre><code>##           Mazda RX4       Mazda RX4 Wag          Datsun 710      Hornet 4 Drive 
 ##         -1.59374995         -1.59374995         -0.95363068         -1.19374995 

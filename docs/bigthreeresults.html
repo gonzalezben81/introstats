@@ -373,6 +373,43 @@ div.tocify {
 <div id="statistical-significance---confidence-intervals---effect-size"
 class="section level3">
 <h3>Statistical Significance - Confidence Intervals - Effect Size</h3>
+</div>
+<div id="take-a-look-at-the-structure-of-the-mtcars-data-set"
+class="section level3">
+<h3>Take a look at the structure of the mtcars data set</h3>
+<pre><code>## &#39;data.frame&#39;:    32 obs. of  11 variables:
+##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp: num  160 160 108 258 360 ...
+##  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec: num  16.5 17 18.6 19.4 17 ...
+##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
+</div>
+<div id="description-of-the-variables-in-the-mtcars-data-set"
+class="section level3">
+<h3>Description of the variables in the mtcars data set</h3>
+<p>A data frame with 32 observations on 11 (numeric) variables.</p>
+<ul>
+<li>Column 1 = mpg - Miles/(US) gallon</li>
+<li>Column 2 = cyl - Number of cylinders</li>
+<li>Column 3 = disp - Displacement (cu.in.)</li>
+<li>Column 4 = hp - Gross horsepower</li>
+<li>Column 5 = drat - Rear axle ratio</li>
+<li>Column 6 = wt - Weight (1000 lbs)</li>
+<li>Column 7 = qsec - 1/4 mile time</li>
+<li>Column 8 = vs - Engine (0 = V-shaped, 1 = straight)</li>
+<li>Column 9 = am - Transmission (0 = automatic, 1 = manual)</li>
+<li>Column 10 = gear - Number of forward gears</li>
+<li>Column 11 = carb - Number of carburetors</li>
+</ul>
+<div id="variation-and-what-it-means-in-your-data-mtcars-data-set"
+class="section level4">
+<h4>Variation and what it means in your data: Mtcars data set</h4>
 <p>In this section, we will explore important concepts in statistical
 significance, focusing on calculating confidence intervals (C.I.) and
 understanding their interpretation, as well as effect sizes.</p>
@@ -380,6 +417,7 @@ understanding their interpretation, as well as effect sizes.</p>
   addClassKlippyTo("pre.r, pre.markdown");
   addKlippy('right', 'top', 'auto', '1', 'Copy Code', 'Copy Successful!!!');
 </script>
+</div>
 <div id="visualization-of-variation-in-a-data-set"
 class="section level4">
 <h4>Visualization of variation in a data set</h4>
@@ -388,7 +426,7 @@ ggplot(mtcars, aes(x = &quot;&quot;, y = mpg)) +
   geom_boxplot(fill = &quot;lightblue&quot;, color = &quot;blue&quot;) +
   labs(title = &quot;Variation of MPG in mtcars&quot;, y = &quot;Miles Per Gallon (MPG)&quot;, x = &quot;MPG Variation&quot;) +
   theme_minimal()</code></pre>
-<p><img src="bigthreeresults_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="bigthreeresults_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>The boxplot for <strong>MPG</strong> in the mtcars data set
 visualizes the variation in fuel efficiency across different cars.
 Here’s what we can interpret from the boxplot:</p>
@@ -568,10 +606,60 @@ ggplot(mtcars, aes(x = hp)) +
   geom_vline(xintercept = mean_val, color = &quot;red&quot;, linetype = &quot;dashed&quot;) +  # Mean line
   geom_vline(xintercept = ci_lower, color = &quot;blue&quot;, linetype = &quot;dashed&quot;) +  # Lower CI line
   geom_vline(xintercept = ci_upper, color = &quot;blue&quot;, linetype = &quot;dashed&quot;) +  # Upper CI line
-  geom_point(aes(x = hp, y = rep(0, length(`hp`))), color = &quot;darkgrey&quot;, alpha = 0.5) +  # Points
+  # geom_point(aes(x = hp, y = rep(0, length(`hp`))), color = &quot;darkgrey&quot;, alpha = 0.5) +  # Points
   theme_minimal() +
-  labs(title = &quot;Density Plot with Confidence Interval and HP Points&quot;)</code></pre>
-<p><img src="bigthreeresults_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+  labs(title = &quot;Density Plot with Confidence Interval and HP Points&quot;)+
+    # Adding text annotations for the mean and CI lines with adjusted y position
+  geom_text(aes(x = mean_val, y = 0.0025, label = paste(&quot;Mean:&quot;, round(mean_val, 2))), 
+            color = &quot;red&quot;, vjust = -1)+
+  geom_text(aes(x = ci_lower, y = 0.0035, label = paste(&quot;CI Lower:&quot;, round(ci_lower, 2))),
+            color = &quot;blue&quot;, vjust = -2, hjust = 1) +
+  geom_text(aes(x = ci_upper, y = 0.0015, label = paste(&quot;CI Upper:&quot;, round(ci_upper, 2))),
+            color = &quot;blue&quot;, vjust = -1, hjust = -0.0)</code></pre>
+<pre><code>## Warning in geom_text(aes(x = mean_val, y = 0.0025, label = paste(&quot;Mean:&quot;, : All aesthetics have length 1, but the data has 32 rows.
+## ℹ Please consider using `annotate()` or provide this layer with data containing
+##   a single row.</code></pre>
+<pre><code>## Warning in geom_text(aes(x = ci_lower, y = 0.0035, label = paste(&quot;CI Lower:&quot;, : All aesthetics have length 1, but the data has 32 rows.
+## ℹ Please consider using `annotate()` or provide this layer with data containing
+##   a single row.</code></pre>
+<pre><code>## Warning in geom_text(aes(x = ci_upper, y = 0.0015, label = paste(&quot;CI Upper:&quot;, : All aesthetics have length 1, but the data has 32 rows.
+## ℹ Please consider using `annotate()` or provide this layer with data containing
+##   a single row.</code></pre>
+<p><img src="bigthreeresults_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code># Calculate the mean and confidence interval
+###Standard error of the sample mean
+se_sample_mean &lt;- (sd(mtcars$mpg)/sqrt(length(mtcars$mpg)))
+
+mean_val &lt;- mean(mtcars$mpg)
+ci_lower &lt;- mean(mtcars$mpg)-(se_sample_mean*tval)
+ci_upper &lt;- mean(mtcars$mpg)+(se_sample_mean*tval)
+
+# Plot with shaded confidence interval and mpg points
+ggplot(mtcars, aes(x = mpg)) +
+  geom_density(fill = &quot;lightblue&quot;, alpha = 0.5) +  # Density plot
+  geom_vline(xintercept = mean_val, color = &quot;red&quot;, linetype = &quot;dashed&quot;) +  # Mean line
+  geom_vline(xintercept = ci_lower, color = &quot;blue&quot;, linetype = &quot;dashed&quot;) +  # Lower CI line
+  geom_vline(xintercept = ci_upper, color = &quot;blue&quot;, linetype = &quot;dashed&quot;) +  # Upper CI line
+  # geom_point(aes(x = mpg, y = rep(0, length(`mpg`))), color = &quot;darkgrey&quot;, alpha = 0.5) +  # Points
+  theme_minimal() +
+  labs(title = &quot;Density Plot with Confidence Interval and mpg Points&quot;)+
+    # Adding text annotations for the mean and CI lines with adjusted y position
+  geom_text(aes(x = mean_val, y = 0.0025, label = paste(&quot;Mean:&quot;, round(mean_val, 2))), 
+            color = &quot;red&quot;, vjust = -1)+
+  geom_text(aes(x = ci_lower, y = 0, label = paste(&quot;CI Lower:&quot;, round(ci_lower, 2))),
+            color = &quot;blue&quot;, vjust = -1,hjust=1) +
+  geom_text(aes(x = ci_upper, y = 0, label = paste(&quot;CI Upper:&quot;, round(ci_upper, 2))),
+            color = &quot;blue&quot;, vjust = -1,hjust = -0.05)</code></pre>
+<pre><code>## Warning in geom_text(aes(x = mean_val, y = 0.0025, label = paste(&quot;Mean:&quot;, : All aesthetics have length 1, but the data has 32 rows.
+## ℹ Please consider using `annotate()` or provide this layer with data containing
+##   a single row.</code></pre>
+<pre><code>## Warning in geom_text(aes(x = ci_lower, y = 0, label = paste(&quot;CI Lower:&quot;, : All aesthetics have length 1, but the data has 32 rows.
+## ℹ Please consider using `annotate()` or provide this layer with data containing
+##   a single row.</code></pre>
+<pre><code>## Warning in geom_text(aes(x = ci_upper, y = 0, label = paste(&quot;CI Upper:&quot;, : All aesthetics have length 1, but the data has 32 rows.
+## ℹ Please consider using `annotate()` or provide this layer with data containing
+##   a single row.</code></pre>
+<p><img src="bigthreeresults_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 <div id="c.i.-calculation-utilizing-the-linear-model-formula-in-r"
 class="section level3">
@@ -603,6 +691,111 @@ summary(l.model)</code></pre>
 confint(l.model, level=0.95)</code></pre>
 <pre><code>##                2.5 %   97.5 %
 ## (Intercept) 121.9679 171.4071</code></pre>
+</div>
+<div id="effect-size-the-strength-of-the-relationship"
+class="section level3">
+<h3>Effect Size — The strength of the relationship</h3>
+<p>According to Hatcheer (2013) an <strong>index of effect</strong> size
+is a numeric representation of the strength of a relationship between an
+independent (predictor) and dependent (criterion) variable. One way to
+compute the <strong>index of effect</strong> or <strong>effect
+size</strong> is by using <em>Cohen’s d</em>.</p>
+<p>Here we are looking at the <em>standardized difference</em> index of
+effect size which indicates the size of the difference between two
+means, as measured in standard deviation. (Hatcher 2013)</p>
+<p>The formula for calculating the <em>Cohen’s d</em> statistic is:</p>
+<p><span class="math display">\[
+d =\frac{\overline{X}_{1}\;-\overline{X}_{2}}{S_{p}}
+\]</span></p>
+<p>The formula for the pooled standard deviation is as follows</p>
+<hr />
+<p>$$ S_{p};=;</p>
+<p>$$</p>
+<hr />
+<p><span class="math display">\[
+d\;=Cohen&#39;s\;d\;statisitc
+\\
+\overline{X}_{1}\;=\;Sample\;mean\;group\;one
+\\
+\overline{X}_{2}\;=\;Sample\;mean\;group\;two
+\\
+S_{p}\;=\;Pooled\;estimate\;of\;the\;population\;standard\;deviation
+\]</span></p>
+<hr />
+<div id="how-to-interpret-cohens-d" class="section level4">
+<h4>How to interpret <em>Cohen’s d</em></h4>
+<hr />
+<table>
+<thead>
+<tr class="header">
+<th align="center"><em>d</em></th>
+<th align="center">Size of the effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>Cohen’s d</strong></td>
+<td align="center"><strong>Interpretation</strong></td>
+</tr>
+<tr class="even">
+<td align="center">±0.2</td>
+<td align="center">Small effect</td>
+</tr>
+<tr class="odd">
+<td align="center">±0.5</td>
+<td align="center">Medium effect</td>
+</tr>
+<tr class="even">
+<td align="center">±0.8</td>
+<td align="center">Large effect</td>
+</tr>
+<tr class="odd">
+<td align="center">&gt; ±1.0</td>
+<td align="center">Very large effect</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Note: Cohen’s (1988) Criteria for Interpreting the Size of the d
+Statistic.</em></p>
+<p>Here is an example of comparing the means of two groups utilizing the
+mtcars data set. We are looking at the type of engine shape
+<em>V-shaped</em> that is typical to an automatic transmission and also
+the <em>Straight line engine</em> that is typically associated with a
+manual transmission.</p>
+<pre class="r"><code>mpg_v_shape &lt;- mtcars$mpg[mtcars$vs == 0]  # V-shaped engine (typically associated with automatic transmission)
+mpg_straight &lt;- mtcars$mpg[mtcars$vs == 1]  # Straight engine (typically associated with manual transmission)
+
+# Means
+mean_v_shape &lt;- mean(mpg_v_shape)
+mean_straight &lt;- mean(mpg_straight)
+
+# Standard deviations
+sd_v_shape &lt;- sd(mpg_v_shape)
+sd_straight &lt;- sd(mpg_straight)
+
+# Sample sizes
+n_v_shape &lt;- length(mpg_v_shape)
+n_straight &lt;- length(mpg_straight)
+
+# Pooled standard deviation
+s_p &lt;- sqrt(((n_v_shape - 1) * sd_v_shape^2 + (n_straight - 1) * sd_straight^2) / (n_v_shape + n_straight - 2))
+
+# Cohen&#39;s d
+cohen_d &lt;- (mean_straight - mean_v_shape) / s_p
+cohen_d</code></pre>
+<pre><code>## [1] 1.733415</code></pre>
+<p>In this case, Cohen’s d is calculated to be <em>1.73</em>, which
+indicates a <em>large effect</em> size, &gt;.08. This suggests a
+significant difference between the means of the two groups—V-shaped
+engines (vs == 0) and Straight line engines (vs == 1). A Cohen’s d value
+greater than 0.8 is generally interpreted as a large effect, so this
+result strongly indicates that the MPG difference between cars with
+V-shaped and Straight line engines is notable.</p>
+<p>This large effect suggests that the engine type (V-shaped
+vs. Straight line) has a meaningful impact on the fuel efficiency (mpg)
+of the vehicles in the mtcars dataset.</p>
+</div>
 </div>
 <div id="statistical-significance---t-test-example"
 class="section level3">
@@ -647,6 +840,21 @@ t_test_result</code></pre>
 ## sample estimates:
 ## mean in group Automatic    mean in group Manual 
 ##                17.14737                24.39231</code></pre>
+<p>Explanation:</p>
+<ul>
+<li><p>Statistical Method: A t-test was performed using the t.test()
+function to assess if the difference in mpg between the two groups is
+statistically significant.</p></li>
+<li><p>Key Result: The p-value is less than 0.05, indicating a
+significant difference between automatic and manual transmissions in
+terms of mpg.</p></li>
+<li><p>Conclusion: There is a significant difference in mpg between cars
+with automatic and manual transmissions, with one likely being more
+fuel-efficient than the other.</p></li>
+</ul>
+<p>Due to this data set being from the year 1974 it is logical to see
+the Manual transmissions getting better gas mileage than the Automatic
+transmissions.</p>
 <hr />
 <center>
 <h3>

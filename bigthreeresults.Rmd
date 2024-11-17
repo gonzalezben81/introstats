@@ -15,6 +15,31 @@ output:
 
 ### Statistical Significance - Confidence Intervals - Effect Size
 
+
+### Take a look at the structure of the mtcars data set
+
+```{r, echo=FALSE}
+str(mtcars)
+```
+
+### Description of the variables in the mtcars data set
+
+A data frame with 32 observations on 11 (numeric) variables.
+
++ Column 1	 =  mpg	- Miles/(US) gallon
++ Column 2	 =  cyl	- Number of cylinders
++ Column 3	 =  disp - Displacement (cu.in.)
++ Column 4	 =  hp - Gross horsepower
++ Column 5	 =  drat - Rear axle ratio
++ Column 6	 =  wt - Weight (1000 lbs)
++ Column 7	 =  qsec - 1/4 mile time
++ Column 8	 =  vs - Engine (0 = V-shaped, 1 = straight)
++ Column 9	 =  am - Transmission (0 = automatic, 1 = manual)
++ Column 10  =	gear - Number of forward gears
++ Column 11  =	carb - Number of carburetors
+
+#### Variation and what it means in your data: Mtcars data set
+
 In this section, we will explore important concepts in statistical significance, focusing on calculating confidence intervals (C.I.) and understanding their interpretation, as well as effect sizes.
 
 
@@ -220,9 +245,43 @@ ggplot(mtcars, aes(x = hp)) +
   geom_vline(xintercept = mean_val, color = "red", linetype = "dashed") +  # Mean line
   geom_vline(xintercept = ci_lower, color = "blue", linetype = "dashed") +  # Lower CI line
   geom_vline(xintercept = ci_upper, color = "blue", linetype = "dashed") +  # Upper CI line
-  geom_point(aes(x = hp, y = rep(0, length(`hp`))), color = "darkgrey", alpha = 0.5) +  # Points
+  # geom_point(aes(x = hp, y = rep(0, length(`hp`))), color = "darkgrey", alpha = 0.5) +  # Points
   theme_minimal() +
-  labs(title = "Density Plot with Confidence Interval and HP Points")
+  labs(title = "Density Plot with Confidence Interval and HP Points")+
+    # Adding text annotations for the mean and CI lines with adjusted y position
+  geom_text(aes(x = mean_val, y = 0.0025, label = paste("Mean:", round(mean_val, 2))), 
+            color = "red", vjust = -1)+
+  geom_text(aes(x = ci_lower, y = 0.0035, label = paste("CI Lower:", round(ci_lower, 2))),
+            color = "blue", vjust = -2, hjust = 1) +
+  geom_text(aes(x = ci_upper, y = 0.0015, label = paste("CI Upper:", round(ci_upper, 2))),
+            color = "blue", vjust = -1, hjust = -0.0)
+```
+
+```{r}
+# Calculate the mean and confidence interval
+###Standard error of the sample mean
+se_sample_mean <- (sd(mtcars$mpg)/sqrt(length(mtcars$mpg)))
+
+mean_val <- mean(mtcars$mpg)
+ci_lower <- mean(mtcars$mpg)-(se_sample_mean*tval)
+ci_upper <- mean(mtcars$mpg)+(se_sample_mean*tval)
+
+# Plot with shaded confidence interval and mpg points
+ggplot(mtcars, aes(x = mpg)) +
+  geom_density(fill = "lightblue", alpha = 0.5) +  # Density plot
+  geom_vline(xintercept = mean_val, color = "red", linetype = "dashed") +  # Mean line
+  geom_vline(xintercept = ci_lower, color = "blue", linetype = "dashed") +  # Lower CI line
+  geom_vline(xintercept = ci_upper, color = "blue", linetype = "dashed") +  # Upper CI line
+  # geom_point(aes(x = mpg, y = rep(0, length(`mpg`))), color = "darkgrey", alpha = 0.5) +  # Points
+  theme_minimal() +
+  labs(title = "Density Plot with Confidence Interval and mpg Points")+
+    # Adding text annotations for the mean and CI lines with adjusted y position
+  geom_text(aes(x = mean_val, y = 0.0025, label = paste("Mean:", round(mean_val, 2))), 
+            color = "red", vjust = -1)+
+  geom_text(aes(x = ci_lower, y = 0, label = paste("CI Lower:", round(ci_lower, 2))),
+            color = "blue", vjust = -1,hjust=1) +
+  geom_text(aes(x = ci_upper, y = 0, label = paste("CI Upper:", round(ci_upper, 2))),
+            color = "blue", vjust = -1,hjust = -0.05)
 ```
 
 
@@ -241,6 +300,96 @@ summary(l.model)
 confint(l.model, level=0.95)
 ```
 
+
+### Effect Size --- The strength of the relationship
+
+According to Hatcheer (2013) an **index of effect** size is a numeric representation of the strength of a relationship between an independent (predictor) and dependent (criterion) variable. One way to compute the **index of effect** or **effect size** is by using *Cohen's d*.
+
+Here we are looking at the *standardized difference* index of effect size which indicates the size of the difference between two means, as measured in standard deviation. (Hatcher 2013)
+
+The formula for calculating the *Cohen's d* statistic is:
+
+$$
+d =\frac{\overline{X}_{1}\;-\overline{X}_{2}}{S_{p}}
+$$
+
+
+
+The formula for the pooled standard deviation is as follows
+
+---
+
+$$
+S_{p}\;=\;\sqrt{\frac{(n_{1}-1)s^2_{1}\;-(n_{2}-1)s^2_{2}}{n_{1}+n_{2}-2}}
+
+$$
+
+---
+
+$$
+d\;=Cohen's\;d\;statisitc
+\\
+\overline{X}_{1}\;=\;Sample\;mean\;group\;one
+\\
+\overline{X}_{2}\;=\;Sample\;mean\;group\;two
+\\
+S_{p}\;=\;Pooled\;estimate\;of\;the\;population\;standard\;deviation
+$$
+
+---
+
+#### How to interpret *Cohen's d*
+
+
+---
+
+|     *d*       | Size of the effect         |
+|:----------------:|:----------------------------:|
+| **Cohen's d**  | **Interpretation**         |
+| ±0.2           | Small effect               |
+| ±0.5           | Medium effect              |
+| ±0.8           | Large effect               |
+| > ±1.0         | Very large effect          |
+
+---
+
+*Note: Cohen's (1988) Criteria for Interpreting the Size of the d Statistic.*
+
+
+Here is an example of comparing the means of two groups utilizing the mtcars data set. We are looking at the type of engine shape *V-shaped* that is typical to an automatic transmission and also the *Straight line engine* that is typically associated with a manual transmission.
+
+
+```{r}
+
+mpg_v_shape <- mtcars$mpg[mtcars$vs == 0]  # V-shaped engine (typically associated with automatic transmission)
+mpg_straight <- mtcars$mpg[mtcars$vs == 1]  # Straight engine (typically associated with manual transmission)
+
+# Means
+mean_v_shape <- mean(mpg_v_shape)
+mean_straight <- mean(mpg_straight)
+
+# Standard deviations
+sd_v_shape <- sd(mpg_v_shape)
+sd_straight <- sd(mpg_straight)
+
+# Sample sizes
+n_v_shape <- length(mpg_v_shape)
+n_straight <- length(mpg_straight)
+
+# Pooled standard deviation
+s_p <- sqrt(((n_v_shape - 1) * sd_v_shape^2 + (n_straight - 1) * sd_straight^2) / (n_v_shape + n_straight - 2))
+
+# Cohen's d
+cohen_d <- (mean_straight - mean_v_shape) / s_p
+cohen_d
+
+
+```
+
+
+In this case, Cohen's d is calculated to be *1.73*, which indicates a *large effect* size, >.08. This suggests a significant difference between the means of the two groups—V-shaped engines (vs == 0) and Straight line engines (vs == 1). A Cohen's d value greater than 0.8 is generally interpreted as a large effect, so this result strongly indicates that the MPG difference between cars with V-shaped and Straight line engines is notable.
+
+This large effect suggests that the engine type (V-shaped vs. Straight line) has a meaningful impact on the fuel efficiency (mpg) of the vehicles in the mtcars dataset.
 
 ### Statistical Significance - t-test Example
 
@@ -268,6 +417,16 @@ t_test_result <- t.test(mpg ~ am, data = mtcars)
 # Display the t-test result
 t_test_result
 ```
+
+Explanation:
+
++ Statistical Method: A t-test was performed using the t.test() function to assess if the difference in mpg between the two groups is statistically significant.
+
++ Key Result: The p-value is less than 0.05, indicating a significant difference between automatic and manual transmissions in terms of mpg.
+
++ Conclusion: There is a significant difference in mpg between cars with automatic and manual transmissions, with one likely being more fuel-efficient than the other.
+
+Due to this data set being from the year 1974 it is logical to see the Manual transmissions getting better gas mileage than the Automatic transmissions.
 
 ---
 
