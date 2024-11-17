@@ -1,0 +1,23 @@
+Package: MyAnalysisProject
+Title: Analysis Workflow
+Version: 0.1.0
+Authors@R: person("Your", "Name", email = "you@example.com", role = c("aut", "cre"))
+Description: A description of the analysis workflow project.
+License: MIT
+Imports:
+  rmarkdown,
+  dplyr,
+  modest,
+  reactable,
+  e1071,
+  gridExtra,
+  readxl,
+  ppcor,
+  mathjaxr,
+  kableExtra,
+  ggplot2,
+  latex2exp,
+  DiagrammeR,
+  latexpdf,
+  psych
+  
