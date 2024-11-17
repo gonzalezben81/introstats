@@ -1,5 +1,32 @@
 ---
 title: "About This Website"
+output: html_document
+bibliography: references.bib
+# csl: apa.csl  # Optional, for formatting the citation style
 ---
 
 This website it dedicated to explaining statistical concepts in an easy to understand manner. Utilizing references and a straight to coding methodology, the reader should be better able to not only understand but duplicate simple statistical analyses.
+
+<br>
+
+The analyses on this website were built utilizing `R` [@RCoreTeam2024] with additional packages `ggplot2` [@ggplot2],`ppcor` [@ppcor], `dplyr` [@dplyr], `reactable` [@reactable], `DiagrammeR` [@DiagrammeR], `mathjaxr` [@mathjaxr], `latexpdf` [@latexpdf], `klippy` [@klippy] psych`[@psych],
+
+<br>
+<br>
+
+<center>
+### References
+</center>
+<!-- @RCoreTeam2024     -->
+
+<!-- @dplyr -->
+
+<!-- @ppcor -->
+
+<!-- @ggplot2 -->
+
+<!-- @psych -->
+
+<!-- @reactable -->
+
+<!-- @DiagrammeR -->
