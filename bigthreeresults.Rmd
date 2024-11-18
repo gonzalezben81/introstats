@@ -4,6 +4,9 @@ author: "Ben Gonzalez"
 date: '2023-10-19'
 output:
   html_document:
+    theme: cosmo
+    highlight: monochrome
+    df_print: kable
     include:
       after_body: footer.html  
 ---
