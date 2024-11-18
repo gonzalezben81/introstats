@@ -24,7 +24,7 @@ library(kableExtra)
 library(ggplot2)
 library(latex2exp)
 knitr::opts_chunk$set(echo = TRUE)
-student <- read.csv(file = '~/AASTATSRmarkdown/DataSets/student.csv',sep = ",")
+student <- read.csv(file = './DataSets/student.csv',sep = ",")
 ###Drop the unneeded first column
 student <- student[,-c(1)]
 ```

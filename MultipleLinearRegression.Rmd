@@ -23,7 +23,7 @@ library(ggplot2)
 knitr::opts_chunk$set(echo = TRUE)
 
 mtcars <- mtcars
-detroit <- read.csv(file = '~/AASTATSRmarkdown//DataSets/detroit.csv')
+detroit <- read.csv(file = './DataSets/detroit.csv')
 
 ```
 

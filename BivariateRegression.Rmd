@@ -157,7 +157,7 @@ mpg_prediction <- lm(formula = mpg~hp,data = mtcars)
 
 ### Calculate the Residual
 
-Here we compute the residual by taking the actual y value and subtract the predicted y value. The residual for each observation is the difference between the predicted values of y and the actual values of y. Calculating the residual helps us to see if we have overpredicted or underpredicted for $\hat{y}$.
+We compute the residuals by taking the actual y value and subtract the predicted y value. The residual for each observation is the difference between the predicted values of y and the actual values of y. Calculating the residual helps us to see if we have over predicted or underpredicted for $\hat{y}$.
 
 $$\Large
 Residual = actual\;y\;value - predicted\;y\;value
@@ -178,6 +178,7 @@ print(mtcars$mpg)
 print('Manually Calculated Residuals')
 table<- as.data.frame(mtcars$mpg-mpg_prediction$fitted.values)
 print(table)
+knitr::kable(table, caption = "Residuals of Prediction")
 # d1 <- table[1:16,]
 # d2 <- table[17:32,]
 # knitr::kable(

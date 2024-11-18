@@ -20,5 +20,9 @@ navbar:
       href: about.html
     - search: true
 output_dir: "docs"
+output:
+  html_document:
+    theme: paper
+    code_folding: hide
 include:
   after_body: footer.html

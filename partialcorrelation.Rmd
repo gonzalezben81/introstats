@@ -29,7 +29,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ---
 
 $$\Huge
-r_{xy,z} = \frac{r_{xy} - r_{xz}  \cdot r_{yz}}{\sqrt{(1-r_{xz}^2) \cdot (1 - r_{yz}^2)}}$$
+r_{cor_xy,z} = \frac{r_{cor_xy} - r_{cor_xz}  \cdot r_{cor_yz}}{\sqrt{(1-r_{cor_xz}^2) \cdot (1 - r_{cor_yz}^2)}}$$
 
 ### Partial Correlation
 
@@ -141,13 +141,13 @@ cor.test(mtcars$mpg,mtcars$cyl)
 ###X is hp
 ###Y is mpg
 ###Z is cyl
-xy <- cor(mtcars$mpg,mtcars$hp)
-xz <- cor(mtcars$hp,mtcars$cyl)
-yz <- cor(mtcars$mpg,mtcars$cyl)
+cor_xy <- cor(mtcars$mpg,mtcars$hp)
+cor_xz <- cor(mtcars$hp,mtcars$cyl)
+cor_yz <- cor(mtcars$mpg,mtcars$cyl)
 
-print(xy)
-print(xz)
-print(yz)
+print(cor_xy)
+print(cor_xz)
+print(cor_yz)
 
 ```
 
@@ -155,7 +155,7 @@ print(yz)
 ### Calculate the numerator of the formula
 
 $$\large
-r_{xy} - r_{xz}  \cdot r_{yz}
+r_{cor_xy} - r_{cor_xz}  \cdot r_{cor_yz}
 $$
 
 $$\large
@@ -164,7 +164,7 @@ $$
 
 ```{r}
 ###Top of the Formula
-top_of_formula<- xy - (xz*yz)
+top_of_formula<- cor_xy - (cor_xz*cor_yz)
 print(top_of_formula)
 ```
 
@@ -173,7 +173,7 @@ print(top_of_formula)
 
 
 $$\large
-\sqrt{(1-r_{xz}^2) \cdot (1 - r_{yz}^2)}
+\sqrt{(1-r_{cor_xz}^2) \cdot (1 - r_{cor_yz}^2)}
 $$
 
 
@@ -184,7 +184,7 @@ $$
 
 ```{r}
 ###Bottom of formula
-bottom_of_formula<- sqrt((1-(xz^2))*(1-(yz^2)))
+bottom_of_formula<- sqrt((1-(cor_xz^2))*(1-(cor_yz^2)))
 print(bottom_of_formula)
 ```
 

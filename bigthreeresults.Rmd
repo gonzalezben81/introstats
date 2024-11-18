@@ -4,38 +4,92 @@ author: "Ben Gonzalez"
 date: '2023-10-19'
 output:
   html_document:
-    theme: cosmo
-    highlight: monochrome
-    df_print: kable
+    code_folding: hide
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    collapsed: false
+    smooth_scroll: true
     include:
       after_body: footer.html  
 ---
 
-
-<center><h1>
-Statistical Significance - Confidence Intervals - Effect Size
-</h1>
-</center>
+### Statistical Significance - Confidence Intervals - Effect Size
 
 
+### Take a look at the structure of the mtcars data set
+
+```{r, echo=FALSE}
+str(mtcars)
+```
+
+### Description of the variables in the mtcars data set
+
+A data frame with 32 observations on 11 (numeric) variables.
+
++ Column 1	 =  mpg	- Miles/(US) gallon
++ Column 2	 =  cyl	- Number of cylinders
++ Column 3	 =  disp - Displacement (cu.in.)
++ Column 4	 =  hp - Gross horsepower
++ Column 5	 =  drat - Rear axle ratio
++ Column 6	 =  wt - Weight (1000 lbs)
++ Column 7	 =  qsec - 1/4 mile time
++ Column 8	 =  vs - Engine (0 = V-shaped, 1 = straight)
++ Column 9	 =  am - Transmission (0 = automatic, 1 = manual)
++ Column 10  =	gear - Number of forward gears
++ Column 11  =	carb - Number of carburetors
+
+#### Variation and what it means in your data: Mtcars data set
+
+In this section, we will explore important concepts in statistical significance, focusing on calculating confidence intervals (C.I.) and understanding their interpretation, as well as effect sizes.
 
 
-```{r setup, klippy, echo=FALSE, include=TRUE}
+
+```{r setup, klippy, echo=FALSE, include=TRUE,message=FALSE}
 klippy::klippy(tooltip_message = "Copy Code",tooltip_success = "Copy Successful!!!",position = "right")
 library(mathjaxr)
 library(latexpdf)
 library(dplyr)
+library(ggplot2)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+#### Visualization of variation in a data set
+
+```{r}
+# Boxplot of mpg in mtcars
+ggplot(mtcars, aes(x = "", y = mpg)) +
+  geom_boxplot(fill = "lightblue", color = "blue") +
+  labs(title = "Variation of MPG in mtcars", y = "Miles Per Gallon (MPG)", x = "MPG Variation") +
+  theme_minimal()
+
+```
+
+
+The boxplot for **MPG** in the mtcars data set visualizes the variation in fuel efficiency across different cars. Here's what we can interpret from the boxplot:
+
++ **Median (Center Line):** The thick horizontal line in the middle of the box represents the median value of MPG, which is the middle value when all the MPG values are ordered from smallest to largest. This gives us a sense of the "central tendency" or typical value for MPG in this dataset.
+
++ **Interquartile Range (IQR):** The box represents the interquartile range (IQR), which includes the middle 50% of the data. The top and bottom edges of the box represent the third quartile (Q3) and first quartile (Q1), respectively. This range gives us an idea of the spread of the central half of the data.
+
++ **Whiskers:** The lines extending from the box (called whiskers) show the range of values within 1.5 times the IQR from the quartiles. These lines help to visualize the spread of data, excluding outliers.
+
++ **Outliers:** Points that fall outside of the whiskers (typically shown as individual dots) are considered outliers. These are values that are significantly different from the rest of the data. For example, the MPG values for cars with extreme fuel efficiency or inefficiency could appear as outliers in this plot.
+
+
 #### Sample Standard Deviation Formula
+
+The sample standard deviation (S) is a measure of the spread of values in a sample and is calculated as:
+
+---
 
 $$\large
 S\;=\;\sqrt{\frac{\sum(X\;-\;{\overline{X}})^2}{N\;-1}}
 $$
 
-```{r}
+---
 
+```{r}
 N <- length(mtcars$hp)
 deviations <- mtcars$hp-mean(mtcars$hp)
 
@@ -51,14 +105,16 @@ sqrt((sum((mtcars$hp-mean(mtcars$hp))^2))/(length(mtcars$hp)-1))
 sd(mtcars$hp)
 ```
 
-
-
-
 #### Standard Error Formula
+
+---
 
 $$\large
 SE\;\;=\frac{\sigma}{\sqrt{n}}
 $$
+
+---
+
 $$
 SE\;=Standard\;Error
 \\
@@ -67,7 +123,11 @@ SE\;=Standard\;Error
 n\;=number\;of\;samples
 $$
 
+---
+
 #### How to calculate the standard error of a sample
+
+The standard error (SE) quantifies the uncertainty of a sample mean estimate. It is calculated using:
 
 ```{r}
 #standard deviation/squareroot(n)
@@ -94,8 +154,6 @@ print(sqrt(sum((mtcars$hp - mean(mtcars$hp)) ^ 2/(length(mtcars$hp) - 1)))
 ### Computing Confidence Intervals
 
 
-<br>
-<br>
 
 #### Confidence Interval Formula
 
@@ -108,11 +166,19 @@ Computed for:
 + correlation coefficients
 + etc.
 
-##### Lower Bound of the C.I. for a Sample Mean
+The formula for calculating the confidence interval of the sample mean is:
+
+---
 
 $$\large
 CI\;=\;\overline{X}\;\pm\;(SE_{m})(t_{crit})
 $$
+
+---
+
+#### Lower Bound of the C.I. for a Sample Mean
+
+---
 
 $$
 CI\;=Confidence\;Interval
@@ -123,6 +189,8 @@ SE_{m}\;=standard\;error\;of\;the\;mean
 \\
 t_{crit}\;=\;the\;critical\;value\;of\;the\;t\;statistic
 $$
+
+---
 
 ```{r}
 ###Calculate the mean of the hp
@@ -136,11 +204,14 @@ print(paste0("Standard deviation of horsepoweer: ",sd_hp))
 n<- sqrt(length(mtcars$hp))
 print(n)
 
+### Degrees of freedom (df) for t-distribution
+df <- length(mtcars$hp) - 1  # 32 observations, so df = 32 - 1 = 31
+
 ###Confidence level of 0.95% e.g. two-tailed with 2.5%
 t_value <- 1.96
 ###How to calculate the t-value properly
 ###Take the p-value: 0.05 and the degrees of freedom: 32-1
-tval <- qt((1-0.95)/2, df=32-1)
+tval <- abs(qt( (1-0.95) / 2, df = df))
 print(paste0("t-critical value: ",tval))
 
 ###Standard error of the sample mean
@@ -150,23 +221,72 @@ print(paste0("Standard Error of the Sample Mean: ",se_sample_mean))
 sd(mtcars$hp)/sqrt(length(mtcars$hp))
 
 ci_lower_bound <-mean(mtcars$hp)-(se_sample_mean*tval)
-
-ci_upper_bound<- mean(mtcars$hp)+(se_sample_mean*tval)
 print(ci_lower_bound)
+```
+#### Upper Bound of the C.I. for a Sample Mean
+
+
+```{r}
+ci_upper_bound<- mean(mtcars$hp)+(se_sample_mean*tval)
 
 print(ci_upper_bound)
+```
 
-# head(HumanResourcesDataAA5221_all_zscores[,c(1,11,2,12)]) %>%
-#   kbl(row.names = T) %>%
-#   kable_styling(row_label_position = "l", full_width = F) %>% 
-#   footnote(general = "Head of data frame.") %>% 
-#   add_header_above(c(" " = 1, "Satisfaction Level" = 2, "Last Evaluation" = 2))
+### Vizualization of C.I. using HP from the Mtcars data set
 
+```{r}
+# Calculate the mean and confidence interval
+mean_val <- mean(mtcars$hp)
+ci_lower <- mean(mtcars$hp)-(se_sample_mean*tval)
+ci_upper <- mean(mtcars$hp)+(se_sample_mean*tval)
 
+# Plot with shaded confidence interval and hp points
+ggplot(mtcars, aes(x = hp)) +
+  geom_density(fill = "lightblue", alpha = 0.5) +  # Density plot
+  geom_vline(xintercept = mean_val, color = "red", linetype = "dashed") +  # Mean line
+  geom_vline(xintercept = ci_lower, color = "blue", linetype = "dashed") +  # Lower CI line
+  geom_vline(xintercept = ci_upper, color = "blue", linetype = "dashed") +  # Upper CI line
+  # geom_point(aes(x = hp, y = rep(0, length(`hp`))), color = "darkgrey", alpha = 0.5) +  # Points
+  theme_minimal() +
+  labs(title = "Density Plot with Confidence Interval and HP Points")+
+    # Adding text annotations for the mean and CI lines with adjusted y position
+  geom_text(aes(x = mean_val, y = 0.0025, label = paste("Mean:", round(mean_val, 2))), 
+            color = "red", vjust = -1)+
+  geom_text(aes(x = ci_lower, y = 0.0035, label = paste("CI Lower:", round(ci_lower, 2))),
+            color = "blue", vjust = -2, hjust = 1) +
+  geom_text(aes(x = ci_upper, y = 0.0015, label = paste("CI Upper:", round(ci_upper, 2))),
+            color = "blue", vjust = -1, hjust = -0.0)
+```
+
+```{r}
+# Calculate the mean and confidence interval
+###Standard error of the sample mean
+se_sample_mean <- (sd(mtcars$mpg)/sqrt(length(mtcars$mpg)))
+
+mean_val <- mean(mtcars$mpg)
+ci_lower <- mean(mtcars$mpg)-(se_sample_mean*tval)
+ci_upper <- mean(mtcars$mpg)+(se_sample_mean*tval)
+
+# Plot with shaded confidence interval and mpg points
+ggplot(mtcars, aes(x = mpg)) +
+  geom_density(fill = "lightblue", alpha = 0.5) +  # Density plot
+  geom_vline(xintercept = mean_val, color = "red", linetype = "dashed") +  # Mean line
+  geom_vline(xintercept = ci_lower, color = "blue", linetype = "dashed") +  # Lower CI line
+  geom_vline(xintercept = ci_upper, color = "blue", linetype = "dashed") +  # Upper CI line
+  # geom_point(aes(x = mpg, y = rep(0, length(`mpg`))), color = "darkgrey", alpha = 0.5) +  # Points
+  theme_minimal() +
+  labs(title = "Density Plot with Confidence Interval and mpg Points")+
+    # Adding text annotations for the mean and CI lines with adjusted y position
+  geom_text(aes(x = mean_val, y = 0.0025, label = paste("Mean:", round(mean_val, 2))), 
+            color = "red", vjust = -1)+
+  geom_text(aes(x = ci_lower, y = 0, label = paste("CI Lower:", round(ci_lower, 2))),
+            color = "blue", vjust = -1,hjust=1) +
+  geom_text(aes(x = ci_upper, y = 0, label = paste("CI Upper:", round(ci_upper, 2))),
+            color = "blue", vjust = -1,hjust = -0.05)
 ```
 
 
-##### Utilizing the linear model formula in R
+### C.I. calculation utilizing the linear model formula in R
 
 Here we can also calculate the $CI$ by utilizing the linear model funciton.
 
@@ -179,12 +299,140 @@ summary(l.model)
 
 # Calculate the confidence interval
 confint(l.model, level=0.95)
-
 ```
+
+
+### Effect Size --- The strength of the relationship
+
+According to Hatcheer (2013) an **index of effect** size is a numeric representation of the strength of a relationship between an independent (predictor) and dependent (criterion) variable. One way to compute the **index of effect** or **effect size** is by using *Cohen's d*.
+
+Here we are looking at the *standardized difference* index of effect size which indicates the size of the difference between two means, as measured in standard deviation. (Hatcher 2013)
+
+The formula for calculating the *Cohen's d* statistic is as follows:
+
+$$
+d =\frac{\overline{X}_{1}\;-\overline{X}_{2}}{S_{p}}
+$$
 
 ---
 
-<center><h2>References</h2></center>
+$$
+d\;=Cohen's\;d\;statisitc
+\\
+\overline{X}_{1}\;=\;Sample\;mean\;group\;one
+\\
+\overline{X}_{2}\;=\;Sample\;mean\;group\;two
+\\
+S_{p}\;=\;Pooled\;estimate\;of\;the\;population\;standard\;deviation
+$$
+
+---
+
+
+The formula for the pooled standard deviation is as follows
+
+---
+
+$$
+S_{p}\;=\;\sqrt{\frac{(n_{1}-1)s^2_{1}\;-(n_{2}-1)s^2_{2}}{n_{1}+n_{2}-2}}
+$$
+
+---
+
+
+#### How to interpret *Cohen's d*
+
+
+---
+
+|     *d*       | Size of the effect         |
+|:----------------:|:----------------------------:|
+| **Cohen's d**  | **Interpretation**         |
+| ±0.2           | Small effect               |
+| ±0.5           | Medium effect              |
+| ±0.8           | Large effect               |
+| > ±1.0         | Very large effect          |
+
+---
+
+*Note: Cohen's (1988) Criteria for Interpreting the Size of the d Statistic.*
+
+
+Here is an example of comparing the means of two groups utilizing the mtcars data set. We are looking at the type of engine shape *V-shaped* that is typical to an automatic transmission and also the *Straight line engine* that is typically associated with a manual transmission.
+
+
+```{r}
+
+mpg_v_shape <- mtcars$mpg[mtcars$vs == 0]  # V-shaped engine (typically associated with automatic transmission)
+mpg_straight <- mtcars$mpg[mtcars$vs == 1]  # Straight engine (typically associated with manual transmission)
+
+# Means
+mean_v_shape <- mean(mpg_v_shape)
+mean_straight <- mean(mpg_straight)
+
+# Standard deviations
+sd_v_shape <- sd(mpg_v_shape)
+sd_straight <- sd(mpg_straight)
+
+# Sample sizes
+n_v_shape <- length(mpg_v_shape)
+n_straight <- length(mpg_straight)
+
+# Pooled standard deviation
+s_p <- sqrt(((n_v_shape - 1) * sd_v_shape^2 + (n_straight - 1) * sd_straight^2) / (n_v_shape + n_straight - 2))
+
+# Cohen's d
+cohen_d <- (mean_straight - mean_v_shape) / s_p
+cohen_d
+
+
+```
+
+
+In this case, Cohen's d is calculated to be *1.73*, which indicates a *large effect* size, >.08. This suggests a significant difference between the means of the two groups—V-shaped engines (vs == 0) and Straight line engines (vs == 1). A Cohen's d value greater than 0.8 is generally interpreted as a large effect, so this result strongly indicates that the MPG difference between cars with V-shaped and Straight line engines is notable.
+
+This large effect suggests that the engine type (V-shaped vs. Straight line) has a meaningful impact on the fuel efficiency (mpg) of the vehicles in the mtcars dataset.
+
+### Statistical Significance - t-test Example
+
+A t-test is used to determine if there is a significant difference between the means of two groups. In this example, we will compare the miles per gallon (`mpg`) of cars with automatic vs. manual transmissions in the `mtcars` dataset.
+
+#### Hypothesis
+
+- **Null hypothesis (H₀):** There is no significant difference in the mpg of cars with automatic and manual transmissions.
+- **Alternative hypothesis (H₁):** There is a significant difference in the mpg of cars with automatic and manual transmissions.
+
+We will perform an independent t-test to test these hypotheses.
+
+#### t-test Code
+
+```{r}
+# Load necessary libraries
+library(dplyr)
+
+# Create a new variable 'am' for automatic (0) vs. manual (1) transmissions
+mtcars$am <- factor(mtcars$am, levels = c(0, 1), labels = c("Automatic", "Manual"))
+
+# Perform t-test to compare mpg between automatic and manual cars
+t_test_result <- t.test(mpg ~ am, data = mtcars)
+
+# Display the t-test result
+t_test_result
+```
+
+Explanation:
+
++ Statistical Method: A t-test was performed using the t.test() function to assess if the difference in mpg between the two groups is statistically significant.
+
++ Key Result: The p-value is less than 0.05, indicating a significant difference between automatic and manual transmissions in terms of mpg.
+
++ Conclusion: There is a significant difference in mpg between cars with automatic and manual transmissions, with one likely being more fuel-efficient than the other.
+
+Due to this data set being from the year 1974 it is logical to see the Manual transmissions getting better gas mileage than the Automatic transmissions.
+
+---
+
+<center><h3>References</h3></center>
 
 Hatcher, L. (2013). *Advanced statistics in research: Reading, understanding, and writing up data analysis results. Shadow Finch Media.*
 

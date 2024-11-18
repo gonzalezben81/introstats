@@ -18,7 +18,7 @@
 <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -31,7 +31,13 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
 <link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
 <link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
@@ -46,92 +52,18 @@
   ul.task-list{list-style: none;}
     </style>
 
-
-
-<style type="text/css">
-  code {
-    white-space: pre;
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
   }
-  .sourceCode {
-    overflow: visible;
-  }
-</style>
-<style type="text/css" data-origin="pandoc">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
 }
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { font-weight: bold; } /* Alert */
-code span.an { font-style: italic; } /* Annotation */
-code span.cf { font-weight: bold; } /* ControlFlow */
-code span.co { font-style: italic; } /* Comment */
-code span.cv { font-style: italic; } /* CommentVar */
-code span.do { font-style: italic; } /* Documentation */
-code span.dt { text-decoration: underline; } /* DataType */
-code span.er { font-weight: bold; } /* Error */
-code span.in { font-style: italic; } /* Information */
-code span.kw { font-weight: bold; } /* Keyword */
-code span.pp { font-weight: bold; } /* Preprocessor */
-code span.wa { font-style: italic; } /* Warning */
-
-</style>
-<script>
-// apply pandoc div.sourceCode style to pre.sourceCode instead
-(function() {
-  var sheets = document.styleSheets;
-  for (var i = 0; i < sheets.length; i++) {
-    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
-    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    var j = 0;
-    while (j < rules.length) {
-      var rule = rules[j];
-      // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
-        j++;
-        continue;
-      }
-      var style = rule.style.cssText;
-      // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') {
-        j++;
-        continue;
-      }
-      // replace div.sourceCode by a pre.sourceCode rule
-      sheets[i].deleteRule(j);
-      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
-    }
-  }
-})();
 </script>
+
+
 
 
 
@@ -294,7 +226,73 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
 
 
 
@@ -304,6 +302,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -357,6 +365,14 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">Big 3 Results</h1>
@@ -366,79 +382,154 @@ $(document).ready(function () {
 </div>
 
 
-<center>
-<h1>
-Statistical Significance - Confidence Intervals - Effect Size
-</h1>
-</center>
+<div id="statistical-significance---confidence-intervals---effect-size"
+class="section level3">
+<h3>Statistical Significance - Confidence Intervals - Effect Size</h3>
+</div>
+<div id="take-a-look-at-the-structure-of-the-mtcars-data-set"
+class="section level3">
+<h3>Take a look at the structure of the mtcars data set</h3>
+<pre><code>## &#39;data.frame&#39;:    32 obs. of  11 variables:
+##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp: num  160 160 108 258 360 ...
+##  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec: num  16.5 17 18.6 19.4 17 ...
+##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
+</div>
+<div id="description-of-the-variables-in-the-mtcars-data-set"
+class="section level3">
+<h3>Description of the variables in the mtcars data set</h3>
+<p>A data frame with 32 observations on 11 (numeric) variables.</p>
+<ul>
+<li>Column 1 = mpg - Miles/(US) gallon</li>
+<li>Column 2 = cyl - Number of cylinders</li>
+<li>Column 3 = disp - Displacement (cu.in.)</li>
+<li>Column 4 = hp - Gross horsepower</li>
+<li>Column 5 = drat - Rear axle ratio</li>
+<li>Column 6 = wt - Weight (1000 lbs)</li>
+<li>Column 7 = qsec - 1/4 mile time</li>
+<li>Column 8 = vs - Engine (0 = V-shaped, 1 = straight)</li>
+<li>Column 9 = am - Transmission (0 = automatic, 1 = manual)</li>
+<li>Column 10 = gear - Number of forward gears</li>
+<li>Column 11 = carb - Number of carburetors</li>
+</ul>
+<div id="variation-and-what-it-means-in-your-data-mtcars-data-set"
+class="section level4">
+<h4>Variation and what it means in your data: Mtcars data set</h4>
+<p>In this section, we will explore important concepts in statistical
+significance, focusing on calculating confidence intervals (C.I.) and
+understanding their interpretation, as well as effect sizes.</p>
 <script>
   addClassKlippyTo("pre.r, pre.markdown");
   addKlippy('right', 'top', 'auto', '1', 'Copy Code', 'Copy Successful!!!');
 </script>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
+</div>
+<div id="visualization-of-variation-in-a-data-set"
+class="section level4">
+<h4>Visualization of variation in a data set</h4>
+<pre class="r"><code># Boxplot of mpg in mtcars
+ggplot(mtcars, aes(x = &quot;&quot;, y = mpg)) +
+  geom_boxplot(fill = &quot;lightblue&quot;, color = &quot;blue&quot;) +
+  labs(title = &quot;Variation of MPG in mtcars&quot;, y = &quot;Miles Per Gallon (MPG)&quot;, x = &quot;MPG Variation&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="bigthreeresults_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>The boxplot for <strong>MPG</strong> in the mtcars data set
+visualizes the variation in fuel efficiency across different cars.
+Here’s what we can interpret from the boxplot:</p>
+<ul>
+<li><p><strong>Median (Center Line):</strong> The thick horizontal line
+in the middle of the box represents the median value of MPG, which is
+the middle value when all the MPG values are ordered from smallest to
+largest. This gives us a sense of the “central tendency” or typical
+value for MPG in this dataset.</p></li>
+<li><p><strong>Interquartile Range (IQR):</strong> The box represents
+the interquartile range (IQR), which includes the middle 50% of the
+data. The top and bottom edges of the box represent the third quartile
+(Q3) and first quartile (Q1), respectively. This range gives us an idea
+of the spread of the central half of the data.</p></li>
+<li><p><strong>Whiskers:</strong> The lines extending from the box
+(called whiskers) show the range of values within 1.5 times the IQR from
+the quartiles. These lines help to visualize the spread of data,
+excluding outliers.</p></li>
+<li><p><strong>Outliers:</strong> Points that fall outside of the
+whiskers (typically shown as individual dots) are considered outliers.
+These are values that are significantly different from the rest of the
+data. For example, the MPG values for cars with extreme fuel efficiency
+or inefficiency could appear as outliers in this plot.</p></li>
+</ul>
+</div>
 <div id="sample-standard-deviation-formula" class="section level4">
 <h4>Sample Standard Deviation Formula</h4>
+<p>The sample standard deviation (S) is a measure of the spread of
+values in a sample and is calculated as:</p>
+<hr />
 <p><span class="math display">\[\large
 S\;=\;\sqrt{\frac{\sum(X\;-\;{\overline{X}})^2}{N\;-1}}
 \]</span></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">length</span>(mtcars<span class="sc">$</span>hp)</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>deviations <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>hp<span class="sc">-</span><span class="fu">mean</span>(mtcars<span class="sc">$</span>hp)</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>s <span class="ot">&lt;-</span> deviations<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>m_plus<span class="ot">&lt;-</span> <span class="fu">sum</span>(s)<span class="sc">/</span>(N<span class="dv">-1</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>sd_plus <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(m_plus)</span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="fu">print</span>(sd_plus)</span></code></pre></div>
+<hr />
+<pre class="r"><code>N &lt;- length(mtcars$hp)
+deviations &lt;- mtcars$hp-mean(mtcars$hp)
+
+s &lt;- deviations^2
+
+m_plus&lt;- sum(s)/(N-1)
+
+sd_plus &lt;- sqrt(m_plus)
+print(sd_plus)</code></pre>
 <pre><code>## [1] 68.56287</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">sqrt</span>((<span class="fu">sum</span>((mtcars<span class="sc">$</span>hp<span class="sc">-</span><span class="fu">mean</span>(mtcars<span class="sc">$</span>hp))<span class="sc">^</span><span class="dv">2</span>))<span class="sc">/</span>(<span class="fu">length</span>(mtcars<span class="sc">$</span>hp)<span class="sc">-</span><span class="dv">1</span>))</span></code></pre></div>
+<pre class="r"><code>sqrt((sum((mtcars$hp-mean(mtcars$hp))^2))/(length(mtcars$hp)-1))</code></pre>
 <pre><code>## [1] 68.56287</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">sd</span>(mtcars<span class="sc">$</span>hp)</span></code></pre></div>
+<pre class="r"><code>sd(mtcars$hp)</code></pre>
 <pre><code>## [1] 68.56287</code></pre>
 </div>
 <div id="standard-error-formula" class="section level4">
 <h4>Standard Error Formula</h4>
+<hr />
 <p><span class="math display">\[\large
 SE\;\;=\frac{\sigma}{\sqrt{n}}
-\]</span> <span class="math display">\[
+\]</span></p>
+<hr />
+<p><span class="math display">\[
 SE\;=Standard\;Error
 \\
 \sigma\;=sample\;standard\;deviation
 \\
 n\;=number\;of\;samples
 \]</span></p>
+<hr />
 </div>
 <div id="how-to-calculate-the-standard-error-of-a-sample"
 class="section level4">
 <h4>How to calculate the standard error of a sample</h4>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co">#standard deviation/squareroot(n)</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co"># length(mtcars$hp)</span></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co"># nrow(mtcars)</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="do">###Shortcut to calculate the standard error of a sample</span></span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="do">###The length function is utilized to find the number of observations in a data set</span></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="fu">sd</span>(mtcars<span class="sc">$</span>hp)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(mtcars<span class="sc">$</span>hp))</span></code></pre></div>
+<p>The standard error (SE) quantifies the uncertainty of a sample mean
+estimate. It is calculated using:</p>
+<pre class="r"><code>#standard deviation/squareroot(n)
+
+# length(mtcars$hp)
+# nrow(mtcars)
+
+###Shortcut to calculate the standard error of a sample
+###The length function is utilized to find the number of observations in a data set
+sd(mtcars$hp)/sqrt(length(mtcars$hp))</code></pre>
 <pre><code>## [1] 12.12032</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="do">####Another shortcut to calculate the standard error of a sample</span></span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="do">###The nrow function is utilized to find the number of observations in a data set</span></span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="fu">sd</span>(mtcars<span class="sc">$</span>hp)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(mtcars))</span></code></pre></div>
+<pre class="r"><code>####Another shortcut to calculate the standard error of a sample
+###The nrow function is utilized to find the number of observations in a data set
+sd(mtcars$hp)/sqrt(nrow(mtcars))</code></pre>
 <pre><code>## [1] 12.12032</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="do">####Long way to calculate the standard error of a sample</span></span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>((mtcars<span class="sc">$</span>hp <span class="sc">-</span> <span class="fu">mean</span>(mtcars<span class="sc">$</span>hp)) <span class="sc">^</span> <span class="dv">2</span><span class="sc">/</span>(<span class="fu">length</span>(mtcars<span class="sc">$</span>hp) <span class="sc">-</span> <span class="dv">1</span>)))</span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>      <span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(mtcars<span class="sc">$</span>hp)))</span></code></pre></div>
+<pre class="r"><code>####Long way to calculate the standard error of a sample
+print(sqrt(sum((mtcars$hp - mean(mtcars$hp)) ^ 2/(length(mtcars$hp) - 1)))
+      /sqrt(length(mtcars$hp)))</code></pre>
 <pre><code>## [1] 12.12032</code></pre>
+</div>
 </div>
 <div id="computing-confidence-intervals" class="section level3">
 <h3>Computing Confidence Intervals</h3>
-<p><br> <br></p>
 <div id="confidence-interval-formula" class="section level4">
 <h4>Confidence Interval Formula</h4>
 <p>The confidence interval (C.I.) according to (Hatcher, 2013) gives us
@@ -450,12 +541,18 @@ a range of values for the population parameter being estimated.</p>
 <li>correlation coefficients</li>
 <li>etc.</li>
 </ul>
-<div id="lower-bound-of-the-c.i.-for-a-sample-mean"
-class="section level5">
-<h5>Lower Bound of the C.I. for a Sample Mean</h5>
+<p>The formula for calculating the confidence interval of the sample
+mean is:</p>
+<hr />
 <p><span class="math display">\[\large
 CI\;=\;\overline{X}\;\pm\;(SE_{m})(t_{crit})
 \]</span></p>
+<hr />
+</div>
+<div id="lower-bound-of-the-c.i.-for-a-sample-mean"
+class="section level4">
+<h4>Lower Bound of the C.I. for a Sample Mean</h4>
+<hr />
 <p><span class="math display">\[
 CI\;=Confidence\;Interval
 \\
@@ -465,55 +562,128 @@ SE_{m}\;=standard\;error\;of\;the\;mean
 \\
 t_{crit}\;=\;the\;critical\;value\;of\;the\;t\;statistic
 \]</span></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="do">###Calculate the mean of the hp</span></span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>mean_hp <span class="ot">&lt;-</span> <span class="fu">mean</span>(mtcars<span class="sc">$</span>hp)</span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Mean of horsepower: &quot;</span>,mean_hp))</span></code></pre></div>
+<hr />
+<pre class="r"><code>###Calculate the mean of the hp
+mean_hp &lt;- mean(mtcars$hp)
+print(paste0(&quot;Mean of horsepower: &quot;,mean_hp))</code></pre>
 <pre><code>## [1] &quot;Mean of horsepower: 146.6875&quot;</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="do">###Calculate the sd of the hp</span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>sd_hp <span class="ot">&lt;-</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>hp)</span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Standard deviation of horsepoweer: &quot;</span>,sd_hp))</span></code></pre></div>
+<pre class="r"><code>###Calculate the sd of the hp
+sd_hp &lt;- sd(mtcars$hp)
+print(paste0(&quot;Standard deviation of horsepoweer: &quot;,sd_hp))</code></pre>
 <pre><code>## [1] &quot;Standard deviation of horsepoweer: 68.5628684893206&quot;</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="do">###Calculate the square root of the hp</span></span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>n<span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(mtcars<span class="sc">$</span>hp))</span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="fu">print</span>(n)</span></code></pre></div>
+<pre class="r"><code>###Calculate the square root of the hp
+n&lt;- sqrt(length(mtcars$hp))
+print(n)</code></pre>
 <pre><code>## [1] 5.656854</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="do">###Confidence level of 0.95% e.g. two-tailed with 2.5%</span></span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>t_value <span class="ot">&lt;-</span> <span class="fl">1.96</span></span>
-<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="do">###How to calculate the t-value properly</span></span>
-<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="do">###Take the p-value: 0.05 and the degrees of freedom: 32-1</span></span>
-<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>tval <span class="ot">&lt;-</span> <span class="fu">qt</span>((<span class="dv">1</span><span class="fl">-0.95</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="at">df=</span><span class="dv">32-1</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;t-critical value: &quot;</span>,tval))</span></code></pre></div>
-<pre><code>## [1] &quot;t-critical value: -2.03951344639641&quot;</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="do">###Standard error of the sample mean</span></span>
-<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>se_sample_mean <span class="ot">&lt;-</span> (<span class="fu">sd</span>(mtcars<span class="sc">$</span>hp)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(mtcars<span class="sc">$</span>hp)))</span>
-<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Standard Error of the Sample Mean: &quot;</span>,se_sample_mean))</span></code></pre></div>
+<pre class="r"><code>### Degrees of freedom (df) for t-distribution
+df &lt;- length(mtcars$hp) - 1  # 32 observations, so df = 32 - 1 = 31
+
+###Confidence level of 0.95% e.g. two-tailed with 2.5%
+t_value &lt;- 1.96
+###How to calculate the t-value properly
+###Take the p-value: 0.05 and the degrees of freedom: 32-1
+tval &lt;- abs(qt( (1-0.95) / 2, df = df))
+print(paste0(&quot;t-critical value: &quot;,tval))</code></pre>
+<pre><code>## [1] &quot;t-critical value: 2.03951344639641&quot;</code></pre>
+<pre class="r"><code>###Standard error of the sample mean
+se_sample_mean &lt;- (sd(mtcars$hp)/sqrt(length(mtcars$hp)))
+print(paste0(&quot;Standard Error of the Sample Mean: &quot;,se_sample_mean))</code></pre>
 <pre><code>## [1] &quot;Standard Error of the Sample Mean: 12.1203173116&quot;</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">sd</span>(mtcars<span class="sc">$</span>hp)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(mtcars<span class="sc">$</span>hp))</span></code></pre></div>
+<pre class="r"><code>sd(mtcars$hp)/sqrt(length(mtcars$hp))</code></pre>
 <pre><code>## [1] 12.12032</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>ci_lower_bound <span class="ot">&lt;-</span><span class="fu">mean</span>(mtcars<span class="sc">$</span>hp)<span class="sc">-</span>(se_sample_mean<span class="sc">*</span>tval)</span>
-<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>ci_upper_bound<span class="ot">&lt;-</span> <span class="fu">mean</span>(mtcars<span class="sc">$</span>hp)<span class="sc">+</span>(se_sample_mean<span class="sc">*</span>tval)</span>
-<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a><span class="fu">print</span>(ci_lower_bound)</span></code></pre></div>
-<pre><code>## [1] 171.4071</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">print</span>(ci_upper_bound)</span></code></pre></div>
+<pre class="r"><code>ci_lower_bound &lt;-mean(mtcars$hp)-(se_sample_mean*tval)
+print(ci_lower_bound)</code></pre>
 <pre><code>## [1] 121.9679</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="co"># head(HumanResourcesDataAA5221_all_zscores[,c(1,11,2,12)]) %&gt;%</span></span>
-<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="co">#   kbl(row.names = T) %&gt;%</span></span>
-<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a><span class="co">#   kable_styling(row_label_position = &quot;l&quot;, full_width = F) %&gt;% </span></span>
-<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="co">#   footnote(general = &quot;Head of data frame.&quot;) %&gt;% </span></span>
-<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="co">#   add_header_above(c(&quot; &quot; = 1, &quot;Satisfaction Level&quot; = 2, &quot;Last Evaluation&quot; = 2))</span></span></code></pre></div>
 </div>
-<div id="utilizing-the-linear-model-formula-in-r"
-class="section level5">
-<h5>Utilizing the linear model formula in R</h5>
+<div id="upper-bound-of-the-c.i.-for-a-sample-mean"
+class="section level4">
+<h4>Upper Bound of the C.I. for a Sample Mean</h4>
+<pre class="r"><code>ci_upper_bound&lt;- mean(mtcars$hp)+(se_sample_mean*tval)
+
+print(ci_upper_bound)</code></pre>
+<pre><code>## [1] 171.4071</code></pre>
+</div>
+</div>
+<div id="vizualization-of-c.i.-using-hp-from-the-mtcars-data-set"
+class="section level3">
+<h3>Vizualization of C.I. using HP from the Mtcars data set</h3>
+<pre class="r"><code># Calculate the mean and confidence interval
+mean_val &lt;- mean(mtcars$hp)
+ci_lower &lt;- mean(mtcars$hp)-(se_sample_mean*tval)
+ci_upper &lt;- mean(mtcars$hp)+(se_sample_mean*tval)
+
+# Plot with shaded confidence interval and hp points
+ggplot(mtcars, aes(x = hp)) +
+  geom_density(fill = &quot;lightblue&quot;, alpha = 0.5) +  # Density plot
+  geom_vline(xintercept = mean_val, color = &quot;red&quot;, linetype = &quot;dashed&quot;) +  # Mean line
+  geom_vline(xintercept = ci_lower, color = &quot;blue&quot;, linetype = &quot;dashed&quot;) +  # Lower CI line
+  geom_vline(xintercept = ci_upper, color = &quot;blue&quot;, linetype = &quot;dashed&quot;) +  # Upper CI line
+  # geom_point(aes(x = hp, y = rep(0, length(`hp`))), color = &quot;darkgrey&quot;, alpha = 0.5) +  # Points
+  theme_minimal() +
+  labs(title = &quot;Density Plot with Confidence Interval and HP Points&quot;)+
+    # Adding text annotations for the mean and CI lines with adjusted y position
+  geom_text(aes(x = mean_val, y = 0.0025, label = paste(&quot;Mean:&quot;, round(mean_val, 2))), 
+            color = &quot;red&quot;, vjust = -1)+
+  geom_text(aes(x = ci_lower, y = 0.0035, label = paste(&quot;CI Lower:&quot;, round(ci_lower, 2))),
+            color = &quot;blue&quot;, vjust = -2, hjust = 1) +
+  geom_text(aes(x = ci_upper, y = 0.0015, label = paste(&quot;CI Upper:&quot;, round(ci_upper, 2))),
+            color = &quot;blue&quot;, vjust = -1, hjust = -0.0)</code></pre>
+<pre><code>## Warning in geom_text(aes(x = mean_val, y = 0.0025, label = paste(&quot;Mean:&quot;, : All aesthetics have length 1, but the data has 32 rows.
+## ℹ Please consider using `annotate()` or provide this layer with
+##   data containing a single row.</code></pre>
+<pre><code>## Warning in geom_text(aes(x = ci_lower, y = 0.0035, label = paste(&quot;CI Lower:&quot;, : All aesthetics have length 1, but the data has 32 rows.
+## ℹ Please consider using `annotate()` or provide this layer with
+##   data containing a single row.</code></pre>
+<pre><code>## Warning in geom_text(aes(x = ci_upper, y = 0.0015, label = paste(&quot;CI Upper:&quot;, : All aesthetics have length 1, but the data has 32 rows.
+## ℹ Please consider using `annotate()` or provide this layer with
+##   data containing a single row.</code></pre>
+<p><img src="bigthreeresults_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code># Calculate the mean and confidence interval
+###Standard error of the sample mean
+se_sample_mean &lt;- (sd(mtcars$mpg)/sqrt(length(mtcars$mpg)))
+
+mean_val &lt;- mean(mtcars$mpg)
+ci_lower &lt;- mean(mtcars$mpg)-(se_sample_mean*tval)
+ci_upper &lt;- mean(mtcars$mpg)+(se_sample_mean*tval)
+
+# Plot with shaded confidence interval and mpg points
+ggplot(mtcars, aes(x = mpg)) +
+  geom_density(fill = &quot;lightblue&quot;, alpha = 0.5) +  # Density plot
+  geom_vline(xintercept = mean_val, color = &quot;red&quot;, linetype = &quot;dashed&quot;) +  # Mean line
+  geom_vline(xintercept = ci_lower, color = &quot;blue&quot;, linetype = &quot;dashed&quot;) +  # Lower CI line
+  geom_vline(xintercept = ci_upper, color = &quot;blue&quot;, linetype = &quot;dashed&quot;) +  # Upper CI line
+  # geom_point(aes(x = mpg, y = rep(0, length(`mpg`))), color = &quot;darkgrey&quot;, alpha = 0.5) +  # Points
+  theme_minimal() +
+  labs(title = &quot;Density Plot with Confidence Interval and mpg Points&quot;)+
+    # Adding text annotations for the mean and CI lines with adjusted y position
+  geom_text(aes(x = mean_val, y = 0.0025, label = paste(&quot;Mean:&quot;, round(mean_val, 2))), 
+            color = &quot;red&quot;, vjust = -1)+
+  geom_text(aes(x = ci_lower, y = 0, label = paste(&quot;CI Lower:&quot;, round(ci_lower, 2))),
+            color = &quot;blue&quot;, vjust = -1,hjust=1) +
+  geom_text(aes(x = ci_upper, y = 0, label = paste(&quot;CI Upper:&quot;, round(ci_upper, 2))),
+            color = &quot;blue&quot;, vjust = -1,hjust = -0.05)</code></pre>
+<pre><code>## Warning in geom_text(aes(x = mean_val, y = 0.0025, label = paste(&quot;Mean:&quot;, : All aesthetics have length 1, but the data has 32 rows.
+## ℹ Please consider using `annotate()` or provide this layer with
+##   data containing a single row.</code></pre>
+<pre><code>## Warning in geom_text(aes(x = ci_lower, y = 0, label = paste(&quot;CI Lower:&quot;, : All aesthetics have length 1, but the data has 32 rows.
+## ℹ Please consider using `annotate()` or provide this layer with
+##   data containing a single row.</code></pre>
+<pre><code>## Warning in geom_text(aes(x = ci_upper, y = 0, label = paste(&quot;CI Upper:&quot;, : All aesthetics have length 1, but the data has 32 rows.
+## ℹ Please consider using `annotate()` or provide this layer with
+##   data containing a single row.</code></pre>
+<p><img src="bigthreeresults_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="c.i.-calculation-utilizing-the-linear-model-formula-in-r"
+class="section level3">
+<h3>C.I. calculation utilizing the linear model formula in R</h3>
 <p>Here we can also calculate the <span
 class="math inline">\(CI\)</span> by utilizing the linear model
 funciton.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>hp)<span class="sc">+</span>(<span class="fl">1.96</span><span class="sc">*</span><span class="fl">12.1203</span>)</span></code></pre></div>
+<pre class="r"><code>mean(mtcars$hp)+(1.96*12.1203)</code></pre>
 <pre><code>## [1] 170.4433</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="co"># Calculate the mean and standard error</span></span>
-<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>l.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(hp <span class="sc">~</span> <span class="dv">1</span>, mtcars)</span>
-<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a><span class="fu">summary</span>(l.model)</span></code></pre></div>
+<pre class="r"><code># Calculate the mean and standard error
+l.model &lt;- lm(hp ~ 1, mtcars)
+summary(l.model)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = hp ~ 1, data = mtcars)
@@ -529,15 +699,182 @@ funciton.</p>
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 68.56 on 31 degrees of freedom</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co"># Calculate the confidence interval</span></span>
-<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a><span class="fu">confint</span>(l.model, <span class="at">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
+<pre class="r"><code># Calculate the confidence interval
+confint(l.model, level=0.95)</code></pre>
 <pre><code>##                2.5 %   97.5 %
 ## (Intercept) 121.9679 171.4071</code></pre>
+</div>
+<div id="effect-size-the-strength-of-the-relationship"
+class="section level3">
+<h3>Effect Size — The strength of the relationship</h3>
+<p>According to Hatcheer (2013) an <strong>index of effect</strong> size
+is a numeric representation of the strength of a relationship between an
+independent (predictor) and dependent (criterion) variable. One way to
+compute the <strong>index of effect</strong> or <strong>effect
+size</strong> is by using <em>Cohen’s d</em>.</p>
+<p>Here we are looking at the <em>standardized difference</em> index of
+effect size which indicates the size of the difference between two
+means, as measured in standard deviation. (Hatcher 2013)</p>
+<p>The formula for calculating the <em>Cohen’s d</em> statistic is as
+follows:</p>
+<p><span class="math display">\[
+d =\frac{\overline{X}_{1}\;-\overline{X}_{2}}{S_{p}}
+\]</span></p>
+<hr />
+<p><span class="math display">\[
+d\;=Cohen&#39;s\;d\;statisitc
+\\
+\overline{X}_{1}\;=\;Sample\;mean\;group\;one
+\\
+\overline{X}_{2}\;=\;Sample\;mean\;group\;two
+\\
+S_{p}\;=\;Pooled\;estimate\;of\;the\;population\;standard\;deviation
+\]</span></p>
+<hr />
+<p>The formula for the pooled standard deviation is as follows</p>
+<hr />
+<p><span class="math display">\[
+S_{p}\;=\;\sqrt{\frac{(n_{1}-1)s^2_{1}\;-(n_{2}-1)s^2_{2}}{n_{1}+n_{2}-2}}
+\]</span></p>
+<hr />
+<div id="how-to-interpret-cohens-d" class="section level4">
+<h4>How to interpret <em>Cohen’s d</em></h4>
+<hr />
+<table>
+<thead>
+<tr class="header">
+<th align="center"><em>d</em></th>
+<th align="center">Size of the effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>Cohen’s d</strong></td>
+<td align="center"><strong>Interpretation</strong></td>
+</tr>
+<tr class="even">
+<td align="center">±0.2</td>
+<td align="center">Small effect</td>
+</tr>
+<tr class="odd">
+<td align="center">±0.5</td>
+<td align="center">Medium effect</td>
+</tr>
+<tr class="even">
+<td align="center">±0.8</td>
+<td align="center">Large effect</td>
+</tr>
+<tr class="odd">
+<td align="center">&gt; ±1.0</td>
+<td align="center">Very large effect</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Note: Cohen’s (1988) Criteria for Interpreting the Size of the d
+Statistic.</em></p>
+<p>Here is an example of comparing the means of two groups utilizing the
+mtcars data set. We are looking at the type of engine shape
+<em>V-shaped</em> that is typical to an automatic transmission and also
+the <em>Straight line engine</em> that is typically associated with a
+manual transmission.</p>
+<pre class="r"><code>mpg_v_shape &lt;- mtcars$mpg[mtcars$vs == 0]  # V-shaped engine (typically associated with automatic transmission)
+mpg_straight &lt;- mtcars$mpg[mtcars$vs == 1]  # Straight engine (typically associated with manual transmission)
+
+# Means
+mean_v_shape &lt;- mean(mpg_v_shape)
+mean_straight &lt;- mean(mpg_straight)
+
+# Standard deviations
+sd_v_shape &lt;- sd(mpg_v_shape)
+sd_straight &lt;- sd(mpg_straight)
+
+# Sample sizes
+n_v_shape &lt;- length(mpg_v_shape)
+n_straight &lt;- length(mpg_straight)
+
+# Pooled standard deviation
+s_p &lt;- sqrt(((n_v_shape - 1) * sd_v_shape^2 + (n_straight - 1) * sd_straight^2) / (n_v_shape + n_straight - 2))
+
+# Cohen&#39;s d
+cohen_d &lt;- (mean_straight - mean_v_shape) / s_p
+cohen_d</code></pre>
+<pre><code>## [1] 1.733415</code></pre>
+<p>In this case, Cohen’s d is calculated to be <em>1.73</em>, which
+indicates a <em>large effect</em> size, &gt;.08. This suggests a
+significant difference between the means of the two groups—V-shaped
+engines (vs == 0) and Straight line engines (vs == 1). A Cohen’s d value
+greater than 0.8 is generally interpreted as a large effect, so this
+result strongly indicates that the MPG difference between cars with
+V-shaped and Straight line engines is notable.</p>
+<p>This large effect suggests that the engine type (V-shaped
+vs. Straight line) has a meaningful impact on the fuel efficiency (mpg)
+of the vehicles in the mtcars dataset.</p>
+</div>
+</div>
+<div id="statistical-significance---t-test-example"
+class="section level3">
+<h3>Statistical Significance - t-test Example</h3>
+<p>A t-test is used to determine if there is a significant difference
+between the means of two groups. In this example, we will compare the
+miles per gallon (<code>mpg</code>) of cars with automatic vs. manual
+transmissions in the <code>mtcars</code> dataset.</p>
+<div id="hypothesis" class="section level4">
+<h4>Hypothesis</h4>
+<ul>
+<li><strong>Null hypothesis (H₀):</strong> There is no significant
+difference in the mpg of cars with automatic and manual
+transmissions.</li>
+<li><strong>Alternative hypothesis (H₁):</strong> There is a significant
+difference in the mpg of cars with automatic and manual
+transmissions.</li>
+</ul>
+<p>We will perform an independent t-test to test these hypotheses.</p>
+</div>
+<div id="t-test-code" class="section level4">
+<h4>t-test Code</h4>
+<pre class="r"><code># Load necessary libraries
+library(dplyr)
+
+# Create a new variable &#39;am&#39; for automatic (0) vs. manual (1) transmissions
+mtcars$am &lt;- factor(mtcars$am, levels = c(0, 1), labels = c(&quot;Automatic&quot;, &quot;Manual&quot;))
+
+# Perform t-test to compare mpg between automatic and manual cars
+t_test_result &lt;- t.test(mpg ~ am, data = mtcars)
+
+# Display the t-test result
+t_test_result</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  mpg by am
+## t = -3.7671, df = 18.332, p-value = 0.001374
+## alternative hypothesis: true difference in means between group Automatic and group Manual is not equal to 0
+## 95 percent confidence interval:
+##  -11.280194  -3.209684
+## sample estimates:
+## mean in group Automatic    mean in group Manual 
+##                17.14737                24.39231</code></pre>
+<p>Explanation:</p>
+<ul>
+<li><p>Statistical Method: A t-test was performed using the t.test()
+function to assess if the difference in mpg between the two groups is
+statistically significant.</p></li>
+<li><p>Key Result: The p-value is less than 0.05, indicating a
+significant difference between automatic and manual transmissions in
+terms of mpg.</p></li>
+<li><p>Conclusion: There is a significant difference in mpg between cars
+with automatic and manual transmissions, with one likely being more
+fuel-efficient than the other.</p></li>
+</ul>
+<p>Due to this data set being from the year 1974 it is logical to see
+the Manual transmissions getting better gas mileage than the Automatic
+transmissions.</p>
 <hr />
 <center>
-<h2>
+<h3>
 References
-</h2>
+</h3>
 </center>
 <p>Hatcher, L. (2013). <em>Advanced statistics in research: Reading,
 understanding, and writing up data analysis results. Shadow Finch
@@ -547,7 +884,6 @@ class="uri">https://www.statology.org/t-distribution-table/</a></p>
 <p><a
 href="https://www.scribbr.com/frequently-asked-questions/critical-value-of-t-in-r/#"
 class="uri">https://www.scribbr.com/frequently-asked-questions/critical-value-of-t-in-r/#</a>:~:text=You%20can%20use%20the%20qt,the%20significance%20level%20by%20two.</p>
-</div>
 </div>
 </div>
 
@@ -568,6 +904,8 @@ class="uri">https://www.scribbr.com/frequently-asked-questions/critical-value-of
 </div>
 
 
+</div>
+</div>
 
 </div>
 
@@ -599,7 +937,41 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

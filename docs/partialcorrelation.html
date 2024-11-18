@@ -18,7 +18,7 @@
 <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -35,6 +35,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
@@ -230,6 +231,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -366,6 +370,14 @@ div.tocify {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">Partial Correlation</h1>
@@ -383,8 +395,9 @@ div.tocify {
 </script>
 <hr />
 <p><span class="math display">\[\Huge
-r_{xy,z} = \frac{r_{xy} - r_{xz}  \cdot r_{yz}}{\sqrt{(1-r_{xz}^2) \cdot
-(1 - r_{yz}^2)}}\]</span></p>
+r_{cor_xy,z} = \frac{r_{cor_xy} - r_{cor_xz}  \cdot
+r_{cor_yz}}{\sqrt{(1-r_{cor_xz}^2) \cdot (1 -
+r_{cor_yz}^2)}}\]</span></p>
 </div>
 <div id="partial-correlation" class="section level3">
 <h3>Partial Correlation</h3>
@@ -415,8 +428,8 @@ along we are utilizing the mtcars data set that is built into R.</p>
 </ul>
 <hr />
 <center>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-1fb046fa6504d291b4af" style="width:35%;height:35%;"></div>
-<script type="application/json" data-for="htmlwidget-1fb046fa6504d291b4af">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"X (hp)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"2\" [label = \"Y (mpg)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"3\" [label = \"Z (cyl)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"1\"->\"2\" \n  \"3\"->\"1\" \n  \"3\"->\"2\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-3771959b53049b53be1b" style="width:35%;height:35%;"></div>
+<script type="application/json" data-for="htmlwidget-3771959b53049b53be1b">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"X (hp)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"2\" [label = \"Y (mpg)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"3\" [label = \"Z (cyl)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"1\"->\"2\" \n  \"3\"->\"1\" \n  \"3\"->\"2\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </center>
 <hr />
 </div>
@@ -432,7 +445,7 @@ class="section level3">
 ##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
 ##  $ qsec: num  16.5 17 18.6 19.4 17 ...
 ##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
-##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ am  : Factor w/ 2 levels &quot;Automatic&quot;,&quot;Manual&quot;: 2 2 2 1 1 1 1 1 1 1 ...
 ##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
 ##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
 </div>
@@ -512,27 +525,27 @@ class="section level3">
 ###X is hp
 ###Y is mpg
 ###Z is cyl
-xy &lt;- cor(mtcars$mpg,mtcars$hp)
-xz &lt;- cor(mtcars$hp,mtcars$cyl)
-yz &lt;- cor(mtcars$mpg,mtcars$cyl)
+cor_xy &lt;- cor(mtcars$mpg,mtcars$hp)
+cor_xz &lt;- cor(mtcars$hp,mtcars$cyl)
+cor_yz &lt;- cor(mtcars$mpg,mtcars$cyl)
 
-print(xy)</code></pre>
+print(cor_xy)</code></pre>
 <pre><code>## [1] -0.7761684</code></pre>
-<pre class="r"><code>print(xz)</code></pre>
+<pre class="r"><code>print(cor_xz)</code></pre>
 <pre><code>## [1] 0.8324475</code></pre>
-<pre class="r"><code>print(yz)</code></pre>
+<pre class="r"><code>print(cor_yz)</code></pre>
 <pre><code>## [1] -0.852162</code></pre>
 </div>
 <div id="calculate-the-numerator-of-the-formula" class="section level3">
 <h3>Calculate the numerator of the formula</h3>
 <p><span class="math display">\[\large
-r_{xy} - r_{xz}  \cdot r_{yz}
+r_{cor_xy} - r_{cor_xz}  \cdot r_{cor_yz}
 \]</span></p>
 <p><span class="math display">\[\large
 -0.7761684 - (0.8324475  \cdot -0.852162)
 \]</span></p>
 <pre class="r"><code>###Top of the Formula
-top_of_formula&lt;- xy - (xz*yz)
+top_of_formula&lt;- cor_xy - (cor_xz*cor_yz)
 print(top_of_formula)</code></pre>
 <pre><code>## [1] -0.06678832</code></pre>
 </div>
@@ -540,13 +553,13 @@ print(top_of_formula)</code></pre>
 class="section level3">
 <h3>Calculate the denominator of the formula</h3>
 <p><span class="math display">\[\large
-\sqrt{(1-r_{xz}^2) \cdot (1 - r_{yz}^2)}
+\sqrt{(1-r_{cor_xz}^2) \cdot (1 - r_{cor_yz}^2)}
 \]</span></p>
 <p><span class="math display">\[\large
 \sqrt{(1-0.8324475^2) \cdot (1 - (-0.852162)^2)}
 \]</span></p>
 <pre class="r"><code>###Bottom of formula
-bottom_of_formula&lt;- sqrt((1-(xz^2))*(1-(yz^2)))
+bottom_of_formula&lt;- sqrt((1-(cor_xz^2))*(1-(cor_yz^2)))
 print(bottom_of_formula)</code></pre>
 <pre><code>## [1] 0.2899505</code></pre>
 <pre class="r"><code>final_answer= top_of_formula/bottom_of_formula
@@ -660,6 +673,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {
