@@ -1,6 +1,5 @@
 ---
 title: "Big 3 Results"
-author: "Ben Gonzalez"
 date: '2023-10-19'
 output:
   html_document:
@@ -10,16 +9,32 @@ output:
     toc_depth: 4
     collapsed: false
     smooth_scroll: true
-    include:
-      after_body: footer.html  
 ---
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+
+gonzo_theme <- function() {
+  list(
+    labs(
+      caption = "Mtcars Data Set: 1974 Motor Trend US"),
+    theme(
+      axis.ticks = element_blank(),
+      panel.grid = element_blank(),
+      plot.caption = element_text(color = "gray12",size = 10)
+    )
+  )
+}
+
+
+```
+
 
 ### Statistical Significance - Confidence Intervals - Effect Size
 
 
 ### Take a look at the structure of the mtcars data set
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,warning=FALSE,message=FALSE}
 str(mtcars)
 ```
 
@@ -56,12 +71,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #### Visualization of variation in a data set
 
-```{r}
+```{r,warning=FALSE,message=FALSE,fig.align='center'}
 # Boxplot of mpg in mtcars
 ggplot(mtcars, aes(x = "", y = mpg)) +
   geom_boxplot(fill = "lightblue", color = "blue") +
   labs(title = "Variation of MPG in mtcars", y = "Miles Per Gallon (MPG)", x = "MPG Variation") +
-  theme_minimal()
+  theme_minimal()+gonzo_theme()
+
 
 ```
 
@@ -89,7 +105,7 @@ $$
 
 ---
 
-```{r}
+```{r,warning=FALSE,message=FALSE}
 N <- length(mtcars$hp)
 deviations <- mtcars$hp-mean(mtcars$hp)
 
@@ -129,7 +145,7 @@ $$
 
 The standard error (SE) quantifies the uncertainty of a sample mean estimate. It is calculated using:
 
-```{r}
+```{r,warning=FALSE,message=FALSE}
 #standard deviation/squareroot(n)
 
 # length(mtcars$hp)
@@ -192,7 +208,7 @@ $$
 
 ---
 
-```{r}
+```{r,warning=FALSE,message=FALSE}
 ###Calculate the mean of the hp
 mean_hp <- mean(mtcars$hp)
 print(paste0("Mean of horsepower: ",mean_hp))
@@ -226,7 +242,7 @@ print(ci_lower_bound)
 #### Upper Bound of the C.I. for a Sample Mean
 
 
-```{r}
+```{r,warning=FALSE,message=FALSE}
 ci_upper_bound<- mean(mtcars$hp)+(se_sample_mean*tval)
 
 print(ci_upper_bound)
@@ -234,7 +250,7 @@ print(ci_upper_bound)
 
 ### Vizualization of C.I. using HP from the Mtcars data set
 
-```{r}
+```{r,warning=FALSE,message=FALSE,fig.align='center'}
 # Calculate the mean and confidence interval
 mean_val <- mean(mtcars$hp)
 ci_lower <- mean(mtcars$hp)-(se_sample_mean*tval)
@@ -255,10 +271,10 @@ ggplot(mtcars, aes(x = hp)) +
   geom_text(aes(x = ci_lower, y = 0.0035, label = paste("CI Lower:", round(ci_lower, 2))),
             color = "blue", vjust = -2, hjust = 1) +
   geom_text(aes(x = ci_upper, y = 0.0015, label = paste("CI Upper:", round(ci_upper, 2))),
-            color = "blue", vjust = -1, hjust = -0.0)
+            color = "blue", vjust = -1, hjust = -0.0)+gonzo_theme()
 ```
 
-```{r}
+```{r,warning=FALSE,message=FALSE,fig.align='center'}
 # Calculate the mean and confidence interval
 ###Standard error of the sample mean
 se_sample_mean <- (sd(mtcars$mpg)/sqrt(length(mtcars$mpg)))
@@ -282,7 +298,7 @@ ggplot(mtcars, aes(x = mpg)) +
   geom_text(aes(x = ci_lower, y = 0, label = paste("CI Lower:", round(ci_lower, 2))),
             color = "blue", vjust = -1,hjust=1) +
   geom_text(aes(x = ci_upper, y = 0, label = paste("CI Upper:", round(ci_upper, 2))),
-            color = "blue", vjust = -1,hjust = -0.05)
+            color = "blue", vjust = -1,hjust = -0.05)+gonzo_theme()
 ```
 
 
@@ -291,7 +307,7 @@ ggplot(mtcars, aes(x = mpg)) +
 Here we can also calculate the $CI$ by utilizing the linear model funciton.
 
 
-```{r}
+```{r,warning=FALSE,message=FALSE}
 mean(mtcars$hp)+(1.96*12.1203)
 # Calculate the mean and standard error
 l.model <- lm(hp ~ 1, mtcars)
@@ -361,7 +377,7 @@ $$
 Here is an example of comparing the means of two groups utilizing the mtcars data set. We are looking at the type of engine shape *V-shaped* that is typical to an automatic transmission and also the *Straight line engine* that is typically associated with a manual transmission.
 
 
-```{r}
+```{r,warning=FALSE,message=FALSE}
 
 mpg_v_shape <- mtcars$mpg[mtcars$vs == 0]  # V-shaped engine (typically associated with automatic transmission)
 mpg_straight <- mtcars$mpg[mtcars$vs == 1]  # Straight engine (typically associated with manual transmission)
@@ -406,7 +422,7 @@ We will perform an independent t-test to test these hypotheses.
 
 #### t-test Code
 
-```{r}
+```{r,warning=FALSE,message=FALSE}
 # Load necessary libraries
 library(dplyr)
 

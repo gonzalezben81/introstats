@@ -1,6 +1,6 @@
 name: "Gonzo Stats"
 navbar:
-  title: "Intro Statistics"
+  title: "Advanced Research Methods I"
   left:
     - text: "Home"
       href: index.html
@@ -22,7 +22,11 @@ navbar:
 output_dir: "docs"
 output:
   html_document:
+    fig_align: center
+    author: "Ben Gonzalez"
+    df_print: kable
     theme: paper
+    highlight: tango
     code_folding: hide
-include:
-  after_body: footer.html
+    include:
+      after_body: footer.html

@@ -17,8 +17,6 @@ output:
     collapsed: true
     smooth_scroll: true
     css: columns.css
-    include:
-      after_body: footer.html    
 ---
 
 
@@ -173,11 +171,12 @@ print('Predicted y Values')
 print(mpg_prediction$fitted.values)
 
 print('Actual y Values')
-print(mtcars$mpg)
+# print(mtcars$mpg)
+knitr::kable(mtcars$mpg, caption = "Actual y values")
 
 print('Manually Calculated Residuals')
 table<- as.data.frame(mtcars$mpg-mpg_prediction$fitted.values)
-print(table)
+# print(table)
 knitr::kable(table, caption = "Residuals of Prediction")
 # d1 <- table[1:16,]
 # d2 <- table[17:32,]
@@ -310,20 +309,20 @@ Here we can utilize the ***lm*** function in R to perform our bivariate regressi
 
 ```{r}
 mpg_hp_model <- lm(mpg ~ hp, mtcars)
-print(mpg_hp_model$residuals)
+mpg_hp_model$residuals
 ```
 
 #### Print the coefficients of the model
 
 ```{r}
 mpg_hp_model <- lm(mpg ~ hp, mtcars)
-print(mpg_hp_model$coefficients)
+mpg_hp_model$coefficients
 ```
 
 #### Print the fitted values of the model
 ```{r}
 mpg_hp_model <- lm(mpg ~ hp, mtcars)
-print(mpg_hp_model$fitted.values)
+mpg_hp_model$fitted.values
 ```
 
 #### Putting it altogether

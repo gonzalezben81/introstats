@@ -36,8 +36,6 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
 <link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
 <link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
@@ -56,18 +54,118 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
-
-
 
 
 
@@ -329,7 +427,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Intro Statistics</a>
+      <a class="navbar-brand" href="index.html">Advanced Research Methods I</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -424,8 +522,8 @@ to a best-fitting curved line.</p></li>
 <h4>Regression: Generic Analysis Model</h4>
 <hr />
 <center>
-<div id="htmlwidget-1278835c94f120fc8740" style="width:672px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1278835c94f120fc8740">{"x":{"diagram":"\n  digraph graph2 {\n  \n  graph [layout = dot, rankdir = LR]\n  \n  # node definitions with substituted label text\n  node [shape = square]\n  Predictor [label = \"Predictor (IV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  Criterion [label = \"Criterion (DV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  \n  Predictor -> Criterion\n  }\n  \n  [1]: Interval\n  [2]: Ratio\n\n  ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-13f01b612eb2e94eeb28" style="width:672px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-13f01b612eb2e94eeb28">{"x":{"diagram":"\n  digraph graph2 {\n  \n  graph [layout = dot, rankdir = LR]\n  \n  # node definitions with substituted label text\n  node [shape = square]\n  Predictor [label = \"Predictor (IV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  Criterion [label = \"Criterion (DV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  \n  Predictor -> Criterion\n  }\n  \n  [1]: Interval\n  [2]: Ratio\n\n  ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </center>
 <hr />
 <!-- <center> -->
@@ -483,8 +581,8 @@ of the relationship between two quantitative variables.</li>
 </ul>
 <p>We can utilize the following plot function to create a basic
 scatterplot in R. <br></p>
-<pre class="r"><code>attach(mtcars)
-with(data = mtcars,plot(x = hp,y = mpg,col=&quot;black&quot;,pch=19,main=&quot;Mtcars&quot;))</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">attach</span>(mtcars)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">with</span>(<span class="at">data =</span> mtcars,<span class="fu">plot</span>(<span class="at">x =</span> hp,<span class="at">y =</span> mpg,<span class="at">col=</span><span class="st">&quot;black&quot;</span>,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">main=</span><span class="st">&quot;Mtcars&quot;</span>))</span></code></pre></div>
 <p><br></p>
 <pre><code>## The following object is masked from package:ggplot2:
 ## 
@@ -522,43 +620,113 @@ r_{1} = y_{i} - \hat{y_{i}}
 ##      Ford Pantera L        Ferrari Dino       Maserati Bora          Volvo 142E 
 ##           12.086595           18.158912            7.242387           22.661978</code></pre>
 <pre><code>## [1] &quot;Actual y Values&quot;</code></pre>
-<pre><code>##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2 10.4
-## [16] 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7
-## [31] 15.0 21.4</code></pre>
+<table>
+<caption>Actual y values</caption>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">21.0</td>
+</tr>
+<tr class="even">
+<td align="right">21.0</td>
+</tr>
+<tr class="odd">
+<td align="right">22.8</td>
+</tr>
+<tr class="even">
+<td align="right">21.4</td>
+</tr>
+<tr class="odd">
+<td align="right">18.7</td>
+</tr>
+<tr class="even">
+<td align="right">18.1</td>
+</tr>
+<tr class="odd">
+<td align="right">14.3</td>
+</tr>
+<tr class="even">
+<td align="right">24.4</td>
+</tr>
+<tr class="odd">
+<td align="right">22.8</td>
+</tr>
+<tr class="even">
+<td align="right">19.2</td>
+</tr>
+<tr class="odd">
+<td align="right">17.8</td>
+</tr>
+<tr class="even">
+<td align="right">16.4</td>
+</tr>
+<tr class="odd">
+<td align="right">17.3</td>
+</tr>
+<tr class="even">
+<td align="right">15.2</td>
+</tr>
+<tr class="odd">
+<td align="right">10.4</td>
+</tr>
+<tr class="even">
+<td align="right">10.4</td>
+</tr>
+<tr class="odd">
+<td align="right">14.7</td>
+</tr>
+<tr class="even">
+<td align="right">32.4</td>
+</tr>
+<tr class="odd">
+<td align="right">30.4</td>
+</tr>
+<tr class="even">
+<td align="right">33.9</td>
+</tr>
+<tr class="odd">
+<td align="right">21.5</td>
+</tr>
+<tr class="even">
+<td align="right">15.5</td>
+</tr>
+<tr class="odd">
+<td align="right">15.2</td>
+</tr>
+<tr class="even">
+<td align="right">13.3</td>
+</tr>
+<tr class="odd">
+<td align="right">19.2</td>
+</tr>
+<tr class="even">
+<td align="right">27.3</td>
+</tr>
+<tr class="odd">
+<td align="right">26.0</td>
+</tr>
+<tr class="even">
+<td align="right">30.4</td>
+</tr>
+<tr class="odd">
+<td align="right">15.8</td>
+</tr>
+<tr class="even">
+<td align="right">19.7</td>
+</tr>
+<tr class="odd">
+<td align="right">15.0</td>
+</tr>
+<tr class="even">
+<td align="right">21.4</td>
+</tr>
+</tbody>
+</table>
 <pre><code>## [1] &quot;Manually Calculated Residuals&quot;</code></pre>
-<pre><code>##                     mtcars$mpg - mpg_prediction$fitted.values
-## Mazda RX4                                         -1.59374995
-## Mazda RX4 Wag                                     -1.59374995
-## Datsun 710                                        -0.95363068
-## Hornet 4 Drive                                    -1.19374995
-## Hornet Sportabout                                  0.54108812
-## Valiant                                           -4.83489134
-## Duster 360                                         0.91706759
-## Merc 240D                                         -1.46870730
-## Merc 230                                          -0.81717412
-## Merc 280                                          -2.50678234
-## Merc 280C                                         -3.90678234
-## Merc 450SE                                        -1.41777049
-## Merc 450SL                                        -0.51777049
-## Merc 450SLC                                       -2.61777049
-## Cadillac Fleetwood                                -5.71206353
-## Lincoln Continental                               -5.02978075
-## Chrysler Imperial                                  0.29364342
-## Fiat 128                                           6.80420581
-## Honda Civic                                        3.84900992
-## Toyota Corolla                                     8.23597754
-## Toyota Corona                                     -1.98071757
-## Dodge Challenger                                  -4.36461883
-## AMC Javelin                                       -4.66461883
-## Camaro Z28                                        -0.08293241
-## Pontiac Firebird                                   1.04108812
-## Fiat X1-9                                          1.70420581
-## Porsche 914-2                                      2.10991276
-## Lotus Europa                                       8.01093488
-## Ford Pantera L                                     3.71340487
-## Ferrari Dino                                       1.54108812
-## Maserati Bora                                      7.75761261
-## Volvo 142E                                        -1.26197823</code></pre>
 <table>
 <caption>Residuals of Prediction</caption>
 <thead>
@@ -725,7 +893,7 @@ mpg_prediction\)</span>fitted.values</th>
 \]</span></p>
 <p>We can utilize the <strong><em>mean</em></strong> function to the
 calculate the mean of mpg (miles per gallon).</p>
-<pre class="r"><code>mean(mtcars$mpg)</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
 <pre><code>## [1] 20.09062</code></pre>
 </div>
 <div id="coefficient-of-determination-or-r2" class="section level3">
@@ -761,8 +929,8 @@ class="section level3">
 <p><span class="math display">\[
 \sum(y_{i}\;-\;\hat{y_{i}})^2
 \]</span></p>
-<pre class="r"><code>top_of_formula &lt;- sum(mpg_prediction$residuals^2)
-print(top_of_formula)</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>top_of_formula <span class="ot">&lt;-</span> <span class="fu">sum</span>(mpg_prediction<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">print</span>(top_of_formula)</span></code></pre></div>
 <pre><code>## [1] 447.6743</code></pre>
 </div>
 <div
@@ -775,8 +943,8 @@ class="section level3">
 \sum(y_{i}\;-\;\overline{y})^2
 \]</span></p>
 <hr />
-<pre class="r"><code>bottom_of_formula &lt;- sum((mtcars$mpg-mean(mtcars$mpg))^2)
-print(bottom_of_formula)</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>bottom_of_formula <span class="ot">&lt;-</span> <span class="fu">sum</span>((mtcars<span class="sc">$</span>mpg<span class="sc">-</span><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">print</span>(bottom_of_formula)</span></code></pre></div>
 <pre><code>## [1] 1126.047</code></pre>
 <hr />
 <p><span class="math display">\[
@@ -808,8 +976,8 @@ p=number\;of\;predictors
 \]</span></p>
 <hr />
 <hr />
-<pre class="r"><code>adj.r.squared = 1 - (1 - 0.6024373) * ((32 - 1)/(32-1-1))
-print(adj.r.squared)</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>adj.r.squared <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.6024373</span>) <span class="sc">*</span> ((<span class="dv">32</span> <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span>(<span class="dv">32-1-1</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">print</span>(adj.r.squared)</span></code></pre></div>
 <pre><code>## [1] 0.5891852</code></pre>
 </div>
 <div id="utilize-the-lm-function-in-r-to-automate-our-work"
@@ -824,8 +992,8 @@ residuals and fitted values that are returned from the summary
 function.</p>
 <div id="print-the-residuals-of-the-model" class="section level4">
 <h4>Print the residuals of the model</h4>
-<pre class="r"><code>mpg_hp_model &lt;- lm(mpg ~ hp, mtcars)
-print(mpg_hp_model$residuals)</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>mpg_hp_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> hp, mtcars)</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>mpg_hp_model<span class="sc">$</span>residuals</span></code></pre></div>
 <pre><code>##           Mazda RX4       Mazda RX4 Wag          Datsun 710      Hornet 4 Drive 
 ##         -1.59374995         -1.59374995         -0.95363068         -1.19374995 
 ##   Hornet Sportabout             Valiant          Duster 360           Merc 240D 
@@ -845,15 +1013,15 @@ print(mpg_hp_model$residuals)</code></pre>
 </div>
 <div id="print-the-coefficients-of-the-model" class="section level4">
 <h4>Print the coefficients of the model</h4>
-<pre class="r"><code>mpg_hp_model &lt;- lm(mpg ~ hp, mtcars)
-print(mpg_hp_model$coefficients)</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>mpg_hp_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> hp, mtcars)</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>mpg_hp_model<span class="sc">$</span>coefficients</span></code></pre></div>
 <pre><code>## (Intercept)          hp 
 ## 30.09886054 -0.06822828</code></pre>
 </div>
 <div id="print-the-fitted-values-of-the-model" class="section level4">
 <h4>Print the fitted values of the model</h4>
-<pre class="r"><code>mpg_hp_model &lt;- lm(mpg ~ hp, mtcars)
-print(mpg_hp_model$fitted.values)</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>mpg_hp_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> hp, mtcars)</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>mpg_hp_model<span class="sc">$</span>fitted.values</span></code></pre></div>
 <pre><code>##           Mazda RX4       Mazda RX4 Wag          Datsun 710      Hornet 4 Drive 
 ##           22.593750           22.593750           23.753631           22.593750 
 ##   Hornet Sportabout             Valiant          Duster 360           Merc 240D 
@@ -880,8 +1048,8 @@ values with the actual y values. Then we can draw a line between each of
 the predicted values and the actual values.This helps us visualize the
 amount of variation that is present between the predicted vs the actual
 values of y.</p>
-<pre class="r"><code>mpg_hp_model = lm(mpg ~ hp, mtcars)
-print(summary(mpg_hp_model))</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>mpg_hp_model <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> hp, mtcars)</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(mpg_hp_model))</span></code></pre></div>
 </div>
 <div id="plot-our-residuals-and-a-best-fitting-line"
 class="section level4">
@@ -889,10 +1057,10 @@ class="section level4">
 <p>Here we can utilize the <code>ggplot2</code> package to plot our
 model. We can also plot the residuals along with a best fitting
 line.</p>
-<pre class="r"><code>mtcars %&gt;% ggplot(aes(hp,mpg))+
-  geom_point()+
-  geom_smooth(method = &quot;lm&quot;)+
-  geom_linerange(aes(ymax = mpg, ymin = mpg-resid),color=&quot;red&quot;)</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(hp,mpg))<span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)<span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymax =</span> mpg, <span class="at">ymin =</span> mpg<span class="sc">-</span>resid),<span class="at">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = mpg ~ hp, data = mtcars)
@@ -941,7 +1109,7 @@ the coefficient of determination.</p>
 </div>
 <div id="correlation-coefficient-of-hp-and-mpg" class="section level3">
 <h3>Correlation coefficient of hp and mpg</h3>
-<pre class="r"><code>cor(x = mtcars$hp,mtcars$mpg)</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x =</span> mtcars<span class="sc">$</span>hp,mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
 <pre><code>## [1] -0.7761684</code></pre>
 <p><span class="math inline">\({r} = -0.7761684\)</span></p>
 </div>
@@ -950,7 +1118,7 @@ the coefficient of determination.</p>
 <p>Here we can square the correlation coefficient <span
 class="math inline">\({r}\)</span> and it will give us the coefficient
 of determination or <span class="math inline">\({R^2}\)</span></p>
-<pre class="r"><code>cor(x = mtcars$hp,mtcars$mpg)^2</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x =</span> mtcars<span class="sc">$</span>hp,mtcars<span class="sc">$</span>mpg)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 0.6024373</code></pre>
 <p><span class="math inline">\({R^2} = 0.6024373\)</span></p>
 <p>Here we can see we get the same value for the coefficient of
@@ -982,20 +1150,23 @@ interactively. Biometrics, 37, 391–411.</p>
 </div>
 
 <!-- footer.html -->
-<div class="footer" style="text-align: center; padding: 10px; border-top: 1px solid #ccc;">
-<!--<p>Author: Ben Gonzalez</p>-->
-  <p>
-    <a href="https://github.com/your-username" target="_blank" title="GitHub">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="width: 30px; height: 30px;"/>
+<div class="footer" style="text-align: center; padding: 10px; border-top: 1px solid #ccc; color: #333;">
+  <p style="display: flex; justify-content: space-around; align-items: center; padding: 10px 0;">
+    <a href="https://github.com/your-username" target="_blank" title="GitHub" style="color: inherit; font-size: 24px;">
+      <i class="fab fa-github"></i>
     </a>
-    <a href="https://x.com/your-twitter-handle" target="_blank" title="Twitter">
-      <img src="https://s2.googleusercontent.com/s2/favicons?domain=x.com" alt="Twitter" style="width: 30px; height: 30px;"/>™
+    <a href="https://x.com/your-twitter-handle" target="_blank" title="Twitter" style="color: inherit; font-size: 24px;">
+      <i class="fab fa-twitter"></i>
     </a>
-    <a href="mailto:your-email@example.com" title="Email">
-      <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" style="width: 30px; height: 30px;"/>
+    <a href="mailto:your-email@example.com" title="Email" style="color: inherit; font-size: 24px;">
+      <i class="fas fa-envelope"></i>
     </a>
   </p>
 </div>
+
+<!-- Link to Font Awesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 
 
 </div>

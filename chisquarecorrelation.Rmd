@@ -11,8 +11,6 @@ output:
     collapsed: true
     smooth_scroll: true
     css: columns.css
-    include:
-      after_body: footer.html    
 ---
 
 ```{r setup, klippy, echo=FALSE, include=TRUE,message=FALSE}
