@@ -617,11 +617,14 @@ ggplot(mtcars, aes(x = hp)) +
   geom_text(aes(x = ci_upper, y = 0.0015, label = paste(&quot;CI Upper:&quot;, round(ci_upper, 2))),
             color = &quot;blue&quot;, vjust = -1, hjust = -0.0)</code></pre>
 <pre><code>## Warning in geom_text(aes(x = mean_val, y = 0.0025, label = paste(&quot;Mean:&quot;, : All aesthetics have length 1, but the data has 32 rows.
-## ℹ Please consider using `annotate()` or provide this layer with data containing a single row.</code></pre>
+## ℹ Please consider using `annotate()` or provide this layer with data containing
+##   a single row.</code></pre>
 <pre><code>## Warning in geom_text(aes(x = ci_lower, y = 0.0035, label = paste(&quot;CI Lower:&quot;, : All aesthetics have length 1, but the data has 32 rows.
-## ℹ Please consider using `annotate()` or provide this layer with data containing a single row.</code></pre>
+## ℹ Please consider using `annotate()` or provide this layer with data containing
+##   a single row.</code></pre>
 <pre><code>## Warning in geom_text(aes(x = ci_upper, y = 0.0015, label = paste(&quot;CI Upper:&quot;, : All aesthetics have length 1, but the data has 32 rows.
-## ℹ Please consider using `annotate()` or provide this layer with data containing a single row.</code></pre>
+## ℹ Please consider using `annotate()` or provide this layer with data containing
+##   a single row.</code></pre>
 <p><img src="bigthreeresults_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code># Calculate the mean and confidence interval
 ###Standard error of the sample mean
@@ -648,11 +651,14 @@ ggplot(mtcars, aes(x = mpg)) +
   geom_text(aes(x = ci_upper, y = 0, label = paste(&quot;CI Upper:&quot;, round(ci_upper, 2))),
             color = &quot;blue&quot;, vjust = -1,hjust = -0.05)</code></pre>
 <pre><code>## Warning in geom_text(aes(x = mean_val, y = 0.0025, label = paste(&quot;Mean:&quot;, : All aesthetics have length 1, but the data has 32 rows.
-## ℹ Please consider using `annotate()` or provide this layer with data containing a single row.</code></pre>
+## ℹ Please consider using `annotate()` or provide this layer with data containing
+##   a single row.</code></pre>
 <pre><code>## Warning in geom_text(aes(x = ci_lower, y = 0, label = paste(&quot;CI Lower:&quot;, : All aesthetics have length 1, but the data has 32 rows.
-## ℹ Please consider using `annotate()` or provide this layer with data containing a single row.</code></pre>
+## ℹ Please consider using `annotate()` or provide this layer with data containing
+##   a single row.</code></pre>
 <pre><code>## Warning in geom_text(aes(x = ci_upper, y = 0, label = paste(&quot;CI Upper:&quot;, : All aesthetics have length 1, but the data has 32 rows.
-## ℹ Please consider using `annotate()` or provide this layer with data containing a single row.</code></pre>
+## ℹ Please consider using `annotate()` or provide this layer with data containing
+##   a single row.</code></pre>
 <p><img src="bigthreeresults_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 <div id="c.i.-calculation-utilizing-the-linear-model-formula-in-r"
