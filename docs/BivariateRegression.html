@@ -522,8 +522,8 @@ to a best-fitting curved line.</p></li>
 <h4>Regression: Generic Analysis Model</h4>
 <hr />
 <center>
-<div id="htmlwidget-13f01b612eb2e94eeb28" style="width:672px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-13f01b612eb2e94eeb28">{"x":{"diagram":"\n  digraph graph2 {\n  \n  graph [layout = dot, rankdir = LR]\n  \n  # node definitions with substituted label text\n  node [shape = square]\n  Predictor [label = \"Predictor (IV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  Criterion [label = \"Criterion (DV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  \n  Predictor -> Criterion\n  }\n  \n  [1]: Interval\n  [2]: Ratio\n\n  ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c56aa1a1b548a89e2465" style="width:672px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c56aa1a1b548a89e2465">{"x":{"diagram":"\n  digraph graph2 {\n  \n  graph [layout = dot, rankdir = LR]\n  \n  # node definitions with substituted label text\n  node [shape = square]\n  Predictor [label = \"Predictor (IV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  Criterion [label = \"Criterion (DV):\n - Multi Value \n - Interval or Ratio Scale\"]\n  \n  Predictor -> Criterion\n  }\n  \n  [1]: Interval\n  [2]: Ratio\n\n  ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </center>
 <hr />
 <!-- <center> -->
@@ -587,7 +587,7 @@ scatterplot in R. <br></p>
 <pre><code>## The following object is masked from package:ggplot2:
 ## 
 ##     mpg</code></pre>
-<p><img src="BivariateRegression_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="BivariateRegression_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 <div id="calculate-the-residual" class="section level3">
 <h3>Calculate the Residual</h3>
@@ -1060,7 +1060,7 @@ line.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(hp,mpg))<span class="sc">+</span></span>
 <span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
 <span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)<span class="sc">+</span></span>
-<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymax =</span> mpg, <span class="at">ymin =</span> mpg<span class="sc">-</span>resid),<span class="at">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymax =</span> mpg, <span class="at">ymin =</span> mpg<span class="sc">-</span>resid),<span class="at">color=</span><span class="st">&quot;red&quot;</span>)<span class="sc">+</span><span class="fu">gonzo_theme</span>()</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = mpg ~ hp, data = mtcars)
@@ -1079,8 +1079,7 @@ line.</p>
 ## Residual standard error: 3.863 on 30 degrees of freedom
 ## Multiple R-squared:  0.6024, Adjusted R-squared:  0.5892 
 ## F-statistic: 45.46 on 1 and 30 DF,  p-value: 1.788e-07</code></pre>
-<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="BivariateRegression_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="BivariateRegression_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>Now we can take a predictor value (X) and plug it in. We then are
 able to predict where our criterion value (Y) wil be.</p>
 <p><span class="math display">\[
@@ -1109,7 +1108,7 @@ the coefficient of determination.</p>
 </div>
 <div id="correlation-coefficient-of-hp-and-mpg" class="section level3">
 <h3>Correlation coefficient of hp and mpg</h3>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x =</span> mtcars<span class="sc">$</span>hp,mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x =</span> mtcars<span class="sc">$</span>hp,mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
 <pre><code>## [1] -0.7761684</code></pre>
 <p><span class="math inline">\({r} = -0.7761684\)</span></p>
 </div>
@@ -1118,7 +1117,7 @@ the coefficient of determination.</p>
 <p>Here we can square the correlation coefficient <span
 class="math inline">\({r}\)</span> and it will give us the coefficient
 of determination or <span class="math inline">\({R^2}\)</span></p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x =</span> mtcars<span class="sc">$</span>hp,mtcars<span class="sc">$</span>mpg)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x =</span> mtcars<span class="sc">$</span>hp,mtcars<span class="sc">$</span>mpg)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 0.6024373</code></pre>
 <p><span class="math inline">\({R^2} = 0.6024373\)</span></p>
 <p>Here we can see we get the same value for the coefficient of
@@ -1152,13 +1151,13 @@ interactively. Biometrics, 37, 391–411.</p>
 <!-- footer.html -->
 <div class="footer" style="text-align: center; padding: 10px; border-top: 1px solid #ccc; color: #333;">
   <p style="display: flex; justify-content: space-around; align-items: center; padding: 10px 0;">
-    <a href="https://github.com/your-username" target="_blank" title="GitHub" style="color: inherit; font-size: 24px;">
+    <a href="https://github.com/gonzalezben81/introstats" target="_blank" title="GitHub" style="color: inherit; font-size: 24px;">
       <i class="fab fa-github"></i>
     </a>
     <a href="https://x.com/your-twitter-handle" target="_blank" title="Twitter" style="color: inherit; font-size: 24px;">
       <i class="fab fa-twitter"></i>
     </a>
-    <a href="mailto:your-email@example.com" title="Email" style="color: inherit; font-size: 24px;">
+    <a href="mailto:ben.gonzalez@slu.edu" title="Email" style="color: inherit; font-size: 24px;">
       <i class="fas fa-envelope"></i>
     </a>
   </p>

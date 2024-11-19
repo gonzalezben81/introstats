@@ -1,6 +1,6 @@
 name: "Gonzo Stats"
 navbar:
-  title: "Advanced Research Methods I"
+  title: "Intro Stats: Advanced Research Methods I"
   left:
     - text: "Home"
       href: index.html

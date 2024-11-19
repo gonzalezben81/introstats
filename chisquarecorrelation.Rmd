@@ -28,6 +28,23 @@ student <- student[,-c(1)]
 ```
 
 
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+
+gonzo_theme <- function() {
+  list(
+    labs(
+      caption = "Mtcars Data Set: 1974 Motor Trend US"),
+    theme(
+      axis.ticks = element_blank(),
+      panel.grid = element_blank(),
+      plot.caption = element_text(color = "gray12",size = 10)
+    )
+  )
+}
+
+
+```
+
 ### Steven's four scales of measurement
 
 <br>
