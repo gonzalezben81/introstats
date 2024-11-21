@@ -11,8 +11,6 @@ output:
     collapsed: true
     smooth_scroll: true
     css: columns.css
-    include:
-      after_body: footer.html    
 ---
 
 ```{r setup, klippy, echo=FALSE, include=TRUE,message=FALSE}
@@ -29,6 +27,23 @@ student <- read.csv(file = './DataSets/student.csv',sep = ",")
 student <- student[,-c(1)]
 ```
 
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+
+gonzo_theme <- function() {
+  list(
+    labs(
+      caption = "Mtcars Data Set: 1974 Motor Trend US"),
+    theme(
+      axis.ticks = element_blank(),
+      panel.grid = element_blank(),
+      plot.caption = element_text(color = "gray12",size = 10)
+    )
+  )
+}
+
+
+```
 
 ### Steven's four scales of measurement
 

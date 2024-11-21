@@ -1,8 +1,8 @@
 ---
-title: "Classical Statistics"
+title: "Intro Stats"
 ---
 
-Hello, Welcome to Classical Statistics!
+Hello, Welcome to Intro Stats!
 
 This website is created as a reference to classical statistics from correlation, chi-square, z-score, bivariate regression, & multiple linear regression.
 

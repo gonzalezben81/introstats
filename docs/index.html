@@ -11,12 +11,12 @@
 
 
 
-<title>Classical Statistics</title>
+<title>Intro Stats</title>
 
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,8 +30,7 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,22 +41,13 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
 
 
 
 
 
 
+<link rel="stylesheet" href="custom.css" type="text/css" />
 
 
 
@@ -216,6 +206,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -238,7 +231,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Intro Statistics</a>
+      <a class="navbar-brand" href="index.html">Intro Stats</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -279,14 +272,22 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
-<h1 class="title toc-ignore">Classical Statistics</h1>
+
+<h1 class="title toc-ignore">Intro Stats</h1>
 
 </div>
 
 
-<p>Hello, Welcome to Classical Statistics!</p>
+<p>Hello, Welcome to Intro Stats!</p>
 <p>This website is created as a reference to classical statistics from
 correlation, chi-square, z-score, bivariate regression, &amp; multiple
 linear regression.</p>
@@ -308,6 +309,29 @@ Table of Contents
 Regression</a><br></p>
 </div>
 </center>
+
+<!-- footer.html -->
+<div class="footer" style="text-align: center; padding: 10px; border-top: 1px solid #ccc; color: #333;">
+  <p style="display: flex; justify-content: space-around; align-items: center; padding: 10px 0;">
+    <a href="https://github.com/" target="_blank" title="GitHub" style="color: inherit; font-size: 24px;">
+      <i class="fab fa-github"></i>
+    </a>
+    <a href="https://x.com/your-twitter-handle" target="_blank" title="Twitter" style="color: inherit; font-size: 24px;">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a href="mailto:ben.gonzalez@slu.edu" title="Email" style="color: inherit; font-size: 24px;">
+      <i class="fas fa-envelope"></i>
+    </a>
+  </p>
+</div>
+<center>
+<footer>
+  <p>&copy; <span id="year"></span> Intro Stats. All rights reserved.</p>
+</footer>
+</center>
+
+<!-- Link to Font Awesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 
 
@@ -342,6 +366,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

@@ -15,10 +15,10 @@
 
 <title>Partial Correlation</title>
 
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -35,8 +35,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
 <link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
 <link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
@@ -56,22 +55,123 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
 
 
 
 
-
-
+<link rel="stylesheet" href="custom.css" type="text/css" />
 
 
 
@@ -230,6 +330,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -325,7 +428,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Intro Statistics</a>
+      <a class="navbar-brand" href="index.html">Intro Stats</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -365,6 +468,14 @@ div.tocify {
 </div><!--/.navbar -->
 
 <div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
 
@@ -416,8 +527,8 @@ along we are utilizing the mtcars data set that is built into R.</p>
 </ul>
 <hr />
 <center>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-c9656fc8479c8b270295" style="width:35%;height:35%;"></div>
-<script type="application/json" data-for="htmlwidget-c9656fc8479c8b270295">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"X (hp)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"2\" [label = \"Y (mpg)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"3\" [label = \"Z (cyl)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"1\"->\"2\" \n  \"3\"->\"1\" \n  \"3\"->\"2\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-1f2500b7667bc566c21f" style="width:35%;height:35%;"></div>
+<script type="application/json" data-for="htmlwidget-1f2500b7667bc566c21f">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"X (hp)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"2\" [label = \"Y (mpg)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"3\" [label = \"Z (cyl)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"1\"->\"2\" \n  \"3\"->\"1\" \n  \"3\"->\"2\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </center>
 <hr />
 </div>
@@ -458,7 +569,7 @@ class="section level3">
 class="section level4">
 <h4>Correlation between Predictor and Criterion or X and Y</h4>
 <p>Here we find the correlation between our mpg and hp</p>
-<pre class="r"><code>cor.test(mtcars$mpg,mtcars$hp)</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">cor.test</span>(mtcars<span class="sc">$</span>mpg,mtcars<span class="sc">$</span>hp)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -475,7 +586,7 @@ class="section level4">
 class="section level4">
 <h4>Correlation between Predictor and Control or X and Z</h4>
 <p>Here we find the correlation between our hp and cyl</p>
-<pre class="r"><code>cor.test(mtcars$hp,mtcars$cyl)</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">cor.test</span>(mtcars<span class="sc">$</span>hp,mtcars<span class="sc">$</span>cyl)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -492,7 +603,7 @@ class="section level4">
 class="section level4">
 <h4>Correlation between Criterion and Control or Y and Z</h4>
 <p>Here we find the correlation between our mpg and cyl</p>
-<pre class="r"><code>cor.test(mtcars$mpg,mtcars$cyl)</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">cor.test</span>(mtcars<span class="sc">$</span>mpg,mtcars<span class="sc">$</span>cyl)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -509,19 +620,19 @@ class="section level4">
 <div id="partial-correlation-putting-it-altogether"
 class="section level3">
 <h3>Partial Correlation: Putting it altogether</h3>
-<pre class="r"><code>###Partial Correlation when controlling for another variable
-###X is hp
-###Y is mpg
-###Z is cyl
-cor_xy &lt;- cor(mtcars$mpg,mtcars$hp)
-cor_xz &lt;- cor(mtcars$hp,mtcars$cyl)
-cor_yz &lt;- cor(mtcars$mpg,mtcars$cyl)
-
-print(cor_xy)</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">###Partial Correlation when controlling for another variable</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="do">###X is hp</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="do">###Y is mpg</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="do">###Z is cyl</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>cor_xy <span class="ot">&lt;-</span> <span class="fu">cor</span>(mtcars<span class="sc">$</span>mpg,mtcars<span class="sc">$</span>hp)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>cor_xz <span class="ot">&lt;-</span> <span class="fu">cor</span>(mtcars<span class="sc">$</span>hp,mtcars<span class="sc">$</span>cyl)</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>cor_yz <span class="ot">&lt;-</span> <span class="fu">cor</span>(mtcars<span class="sc">$</span>mpg,mtcars<span class="sc">$</span>cyl)</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="fu">print</span>(cor_xy)</span></code></pre></div>
 <pre><code>## [1] -0.7761684</code></pre>
-<pre class="r"><code>print(cor_xz)</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">print</span>(cor_xz)</span></code></pre></div>
 <pre><code>## [1] 0.8324475</code></pre>
-<pre class="r"><code>print(cor_yz)</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">print</span>(cor_yz)</span></code></pre></div>
 <pre><code>## [1] -0.852162</code></pre>
 </div>
 <div id="calculate-the-numerator-of-the-formula" class="section level3">
@@ -532,9 +643,9 @@ r_{cor_xy} - r_{cor_xz}  \cdot r_{cor_yz}
 <p><span class="math display">\[\large
 -0.7761684 - (0.8324475  \cdot -0.852162)
 \]</span></p>
-<pre class="r"><code>###Top of the Formula
-top_of_formula&lt;- cor_xy - (cor_xz*cor_yz)
-print(top_of_formula)</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="do">###Top of the Formula</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>top_of_formula<span class="ot">&lt;-</span> cor_xy <span class="sc">-</span> (cor_xz<span class="sc">*</span>cor_yz)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="fu">print</span>(top_of_formula)</span></code></pre></div>
 <pre><code>## [1] -0.06678832</code></pre>
 </div>
 <div id="calculate-the-denominator-of-the-formula"
@@ -546,14 +657,14 @@ class="section level3">
 <p><span class="math display">\[\large
 \sqrt{(1-0.8324475^2) \cdot (1 - (-0.852162)^2)}
 \]</span></p>
-<pre class="r"><code>###Bottom of formula
-bottom_of_formula&lt;- sqrt((1-(cor_xz^2))*(1-(cor_yz^2)))
-print(bottom_of_formula)</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="do">###Bottom of formula</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>bottom_of_formula<span class="ot">&lt;-</span> <span class="fu">sqrt</span>((<span class="dv">1</span><span class="sc">-</span>(cor_xz<span class="sc">^</span><span class="dv">2</span>))<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>(cor_yz<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="fu">print</span>(bottom_of_formula)</span></code></pre></div>
 <pre><code>## [1] 0.2899505</code></pre>
-<pre class="r"><code>final_answer= top_of_formula/bottom_of_formula
-print(final_answer)</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>final_answer<span class="ot">=</span> top_of_formula<span class="sc">/</span>bottom_of_formula</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">print</span>(final_answer)</span></code></pre></div>
 <pre><code>## [1] -0.2303439</code></pre>
-<pre class="r"><code>print(round(final_answer,2))</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(final_answer,<span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] -0.23</code></pre>
 <p><b>Note: Round up at the very end of the calculation.</b></p>
 <p><span class="math display">\[\large
@@ -573,29 +684,73 @@ calculate the partial correlation. You will need to install the ppcor
 package via CRAN: <a
 href="https://cran.r-project.org/web/packages/ppcor/index.html">ppcor
 package</a></p>
-<pre class="r"><code>###Partial Correlation when controlling for another variable
-##Load the ppcor library
-library(ppcor)</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="do">###Partial Correlation when controlling for another variable</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="do">##Load the ppcor library</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="fu">library</span>(ppcor)</span></code></pre></div>
 <pre><code>## Loading required package: MASS</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;MASS&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:dplyr&#39;:
 ## 
 ##     select</code></pre>
-<pre class="r"><code>###ppcor function controlling for cylinders in the mtcars dataset
-ppcor::pcor.test(mtcars$mpg, mtcars$hp, mtcars[, c(&quot;cyl&quot;)])</code></pre>
-<pre><code>##     estimate   p.value statistic  n gp  Method
-## 1 -0.2303439 0.2125285 -1.274718 32  1 pearson</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="do">###ppcor function controlling for cylinders in the mtcars dataset</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>ppcor<span class="sc">::</span><span class="fu">pcor.test</span>(mtcars<span class="sc">$</span>mpg, mtcars<span class="sc">$</span>hp, mtcars[, <span class="fu">c</span>(<span class="st">&quot;cyl&quot;</span>)])</span></code></pre></div>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="right">estimate</th>
+<th align="right">p.value</th>
+<th align="right">statistic</th>
+<th align="right">n</th>
+<th align="right">gp</th>
+<th align="left">Method</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.2303439</td>
+<td align="right">0.2125285</td>
+<td align="right">-1.274718</td>
+<td align="right">32</td>
+<td align="right">1</td>
+<td align="left">pearson</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div
 id="higher-order-partial-correlation-is-a-correlation-between-two-variables-with-more-than-one-control-variable-partialed-out-by-both."
 class="section level4">
 <h4>Higher order partial correlation – is a correlation between two
 variables with more than one control variable partialed out by
 both.</h4>
-<pre class="r"><code>###ppcor function controlling for cylinders,displacement in the mtcars dataset
-ppcor::pcor.test(mtcars$mpg, mtcars$hp, mtcars[, c(&quot;cyl&quot;,&quot;disp&quot;)])</code></pre>
-<pre><code>##     estimate   p.value statistic  n gp  Method
-## 1 -0.1860437 0.3249519 -1.001943 32  2 pearson</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="do">###ppcor function controlling for cylinders,displacement in the mtcars dataset</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>ppcor<span class="sc">::</span><span class="fu">pcor.test</span>(mtcars<span class="sc">$</span>mpg, mtcars<span class="sc">$</span>hp, mtcars[, <span class="fu">c</span>(<span class="st">&quot;cyl&quot;</span>,<span class="st">&quot;disp&quot;</span>)])</span></code></pre></div>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="right">estimate</th>
+<th align="right">p.value</th>
+<th align="right">statistic</th>
+<th align="right">n</th>
+<th align="right">gp</th>
+<th align="left">Method</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.1860437</td>
+<td align="right">0.3249519</td>
+<td align="right">-1.001943</td>
+<td align="right">32</td>
+<td align="right">2</td>
+<td align="left">pearson</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div id="references" class="section level4">
 <h4>References</h4>
@@ -612,20 +767,28 @@ class="uri">https://CRAN.R-project.org/package=ppcor</a>.</p>
 </div>
 
 <!-- footer.html -->
-<div class="footer" style="text-align: center; padding: 10px; border-top: 1px solid #ccc;">
-<!--<p>Author: Ben Gonzalez</p>-->
-  <p>
-    <a href="https://github.com/your-username" target="_blank" title="GitHub">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="width: 30px; height: 30px;"/>
+<div class="footer" style="text-align: center; padding: 10px; border-top: 1px solid #ccc; color: #333;">
+  <p style="display: flex; justify-content: space-around; align-items: center; padding: 10px 0;">
+    <a href="https://github.com/" target="_blank" title="GitHub" style="color: inherit; font-size: 24px;">
+      <i class="fab fa-github"></i>
     </a>
-    <a href="https://x.com/your-twitter-handle" target="_blank" title="Twitter">
-      <img src="https://s2.googleusercontent.com/s2/favicons?domain=x.com" alt="Twitter" style="width: 30px; height: 30px;"/>™
+    <a href="https://x.com/your-twitter-handle" target="_blank" title="Twitter" style="color: inherit; font-size: 24px;">
+      <i class="fab fa-twitter"></i>
     </a>
-    <a href="mailto:your-email@example.com" title="Email">
-      <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" style="width: 30px; height: 30px;"/>
+    <a href="mailto:ben.gonzalez@slu.edu" title="Email" style="color: inherit; font-size: 24px;">
+      <i class="fas fa-envelope"></i>
     </a>
   </p>
 </div>
+<center>
+<footer>
+  <p>&copy; <span id="year"></span> Intro Stats. All rights reserved.</p>
+</footer>
+</center>
+
+<!-- Link to Font Awesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 
 
 </div>
@@ -661,6 +824,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {

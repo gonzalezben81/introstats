@@ -17,8 +17,6 @@ output:
     collapsed: true
     smooth_scroll: true
     css: columns.css
-    include:
-      after_body: footer.html    
 ---
 
 
@@ -45,6 +43,23 @@ library(latexpdf)
 library(ggplot2)
 library(dplyr)
 library(DiagrammeR)
+
+```
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+
+gonzo_theme <- function() {
+  list(
+    labs(
+      caption = "Mtcars Data Set: 1974 Motor Trend US"),
+    theme(
+      axis.ticks = element_blank(),
+      panel.grid = element_blank(),
+      plot.caption = element_text(color = "gray12",size = 10)
+    )
+  )
+}
+
 
 ```
 
@@ -173,11 +188,12 @@ print('Predicted y Values')
 print(mpg_prediction$fitted.values)
 
 print('Actual y Values')
-print(mtcars$mpg)
+# print(mtcars$mpg)
+knitr::kable(mtcars$mpg, caption = "Actual y values")
 
 print('Manually Calculated Residuals')
 table<- as.data.frame(mtcars$mpg-mpg_prediction$fitted.values)
-print(table)
+# print(table)
 knitr::kable(table, caption = "Residuals of Prediction")
 # d1 <- table[1:16,]
 # d2 <- table[17:32,]
@@ -310,20 +326,20 @@ Here we can utilize the ***lm*** function in R to perform our bivariate regressi
 
 ```{r}
 mpg_hp_model <- lm(mpg ~ hp, mtcars)
-print(mpg_hp_model$residuals)
+mpg_hp_model$residuals
 ```
 
 #### Print the coefficients of the model
 
 ```{r}
 mpg_hp_model <- lm(mpg ~ hp, mtcars)
-print(mpg_hp_model$coefficients)
+mpg_hp_model$coefficients
 ```
 
 #### Print the fitted values of the model
 ```{r}
 mpg_hp_model <- lm(mpg ~ hp, mtcars)
-print(mpg_hp_model$fitted.values)
+mpg_hp_model$fitted.values
 ```
 
 #### Putting it altogether
@@ -339,14 +355,14 @@ print(summary(mpg_hp_model))
 
 Here we can utilize the `ggplot2` package to plot our model. We can also plot the residuals along with a best fitting line.
 
-```{r,eval=FALSE}
+```{r,eval=FALSE,message=FALSE,warning=FALSE}
 mtcars %>% ggplot(aes(hp,mpg))+
   geom_point()+
   geom_smooth(method = "lm")+
-  geom_linerange(aes(ymax = mpg, ymin = mpg-resid),color="red")
+  geom_linerange(aes(ymax = mpg, ymin = mpg-resid),color="red")+gonzo_theme()
 ```
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
 mpg_hp_model = lm(mpg ~ hp, mtcars)
 
 print(summary(mpg_hp_model))
@@ -356,10 +372,10 @@ resid = mpg_hp_model$residuals
 mtcars %>% ggplot(aes(hp,mpg))+
   geom_point()+
   geom_smooth(method = "lm")+
-  geom_linerange(aes(ymax = mpg, ymin = mpg-resid),color="red")
+  geom_linerange(aes(ymax = mpg, ymin = mpg-resid),color="red")+gonzo_theme()
 ```
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
 mpg_prediction <- lm(formula = mpg~hp,data = mtcars)
 
 ```

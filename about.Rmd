@@ -17,16 +17,3 @@ The analyses on this website were built utilizing `R` [@RCoreTeam2024] with addi
 <center>
 ### References
 </center>
-<!-- @RCoreTeam2024     -->
-
-<!-- @dplyr -->
-
-<!-- @ppcor -->
-
-<!-- @ggplot2 -->
-
-<!-- @psych -->
-
-<!-- @reactable -->
-
-<!-- @DiagrammeR -->

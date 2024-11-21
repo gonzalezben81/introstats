@@ -11,8 +11,6 @@ output:
     smooth_scroll: true
     fig_width: 14
     fig_height: 5
-    include:
-      after_body: footer.html
 ---
 
 ```{r setup, klippy, echo=FALSE,message=FALSE}
@@ -25,6 +23,23 @@ library(gridExtra)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+
+gonzo_theme <- function() {
+  list(
+    labs(
+      caption = "Mtcars Data Set: 1974 Motor Trend US"),
+    theme(
+      axis.ticks = element_blank(),
+      panel.grid = element_blank(),
+      plot.caption = element_text(color = "gray12",size = 10)
+    )
+  )
+}
+
+
+```
 
 We will be utilizing the mtcars data set. Here we will normalize the mpg scores and return their equivalent z-score values.
 
@@ -87,7 +102,7 @@ The percentage of the distribution that falls above (or below if your score is n
 
 ***
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE}
+```{r,warning=FALSE,message=FALSE}
 # Set the negative one-tailed critical value (Z-value)
 z <- as.numeric(mtcars_all_zscores[20,][12])  # Example value, you can change it as needed
 
@@ -121,7 +136,7 @@ ggplotone<- ggplot(df, aes(x, y)) +
   annotate("text", x = z - 0.5, y = 0.1, label = paste0("Z =", z), color = "red") +
   theme_minimal() +
   labs(x = "Z-value", y = "Density", title = "Camaro Z28: Percentage of Distribution Below Negative One-Tailed Z-value") +
-  annotate("text", x = z - 0.5, y = 0.3, label = paste0(round(percentage_below, 2), "% below"), color = "blue")
+  annotate("text", x = z - 0.5, y = 0.3, label = paste0(round(percentage_below, 2), "% below"), color = "blue")+gonzo_theme()
 
 
 ```
@@ -161,7 +176,7 @@ ggplotwo<- ggplot(df, aes(x, y)) +
   annotate("text", x = z - 0.5, y = 0.1, label = paste0("Z =", z), color = "red") +
   theme_minimal() +
   labs(x = "Z-value", y = "Density", title = "Toyota Corona: Percentage of Distribution Above Positive One-Tailed Z-value") +
-  annotate("text", x = z - 0.5, y = 0.3, label = paste0(round(percentage_below, 2), "% above"), color = "blue")
+  annotate("text", x = z - 0.5, y = 0.3, label = paste0(round(percentage_below, 2), "% above"), color = "blue")+gonzo_theme()
 
 library(gridExtra)
 
@@ -211,7 +226,7 @@ ggplotthree <- ggplot(df, aes(x, y)) +
   labs(x = "Z-value", y = "Density", title = paste("Camaro Z28: Percentage of |Z| Distribution =", round(z_abs, 3))) +
   annotate("text", x = -z_abs - 0.5, y = 0.3, label = paste0(round((1 - prob_one_tail) * 100, 2), "% in left tail"), color = "red") +
   annotate("text", x = z_abs + 0.5, y = 0.2, label = paste0(round((1 - prob_one_tail) * 100, 2), "% in right tail"), color = "blue") +
-  annotate("text", x = 0, y = 0.35, label = paste0("Total: ", round(prob_two_tailed, 2), "%"), color = "black", fontface = "bold")
+  annotate("text", x = 0, y = 0.35, label = paste0("Total: ", round(prob_two_tailed, 2), "%"), color = "black", fontface = "bold")+gonzo_theme()
 
 
 
@@ -256,7 +271,7 @@ ggplotfour<- ggplot(df, aes(x, y)) +
   labs(x = "Z-value", y = "Density", title = paste("Toyota Corona: Percentage of |Z| Distribution =", round(z_abs, 3))) +
   annotate("text", x = -z - 0.5, y = 0.3, label = paste0(round(percentage_above, 2), "% below"), color = "blue") +
   annotate("text", x = z + 0.5, y = 0.2, label = paste0(round(percentage_above, 2), "% above"), color = "red") +
-  annotate("text", x = 0, y = 0.35, label = paste0("Total: ", round(prob_two_tailed, 2), "%"), color = "black", fontface = "bold")
+  annotate("text", x = 0, y = 0.35, label = paste0("Total: ", round(prob_two_tailed, 2), "%"), color = "black", fontface = "bold")+gonzo_theme()
 
 library(gridExtra)
 
@@ -301,7 +316,7 @@ ggplotfive<- ggplot(df, aes(x, y)) +
   theme_minimal() +
   labs(x = "Z-value", y = "Density", title = "Percentage of Distribution Between +/- Z") +
   annotate("text", x = mean(c(-z, z)), y = 0.1, label = paste0(round(percentage_between, 2), "% between"), color = "blue") +
-  coord_cartesian(xlim = c(-2.1, 2.1))
+  coord_cartesian(xlim = c(-2.1, 2.1))+gonzo_theme()
 
 ```
 
@@ -335,7 +350,7 @@ ggplotsix<- ggplot(df, aes(x, y)) +
   theme_minimal() +
   labs(x = "Z-value", y = "Density", title = "Percentage of Distribution Between +/- Z") +
   annotate("text", x = mean(c(-z, z)), y = 0.1, label = paste0(round(percentage_between, 2), "% between"), color = "blue") +
-  coord_cartesian(xlim = c(-2.1, 2.1))
+  coord_cartesian(xlim = c(-2.1, 2.1))+gonzo_theme()
 
 library(gridExtra)
 
