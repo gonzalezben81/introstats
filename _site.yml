@@ -28,7 +28,7 @@ output:
     fig_align: center
     author: "Ben Gonzalez"
     df_print: kable
-    theme: flatly #paper
+    theme: flatly #cosmo #lumen #sandstone #paper
     highlight: tango
     code_folding: hide
     include:
