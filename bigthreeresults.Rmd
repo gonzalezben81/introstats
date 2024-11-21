@@ -414,6 +414,33 @@ This large effect suggests that the engine type (V-shaped vs. Straight line) has
 
 A t-test is used to determine if there is a significant difference between the means of two groups. In this example, we will compare the miles per gallon (`mpg`) of cars with automatic vs. manual transmissions in the `mtcars` dataset.
 
+
+#### t-test Assumptions
+
++ *Dependent (criterion)* variable is measured on an *interval or ratio* scale.
++ Data is *normally distributed* or bell shaped curve.
++ Data has *homogeneity* fo variance; sample data come from a *population with equal variance.
+*Note: homogeneity - the quality or state of being all the same or all of the same kind.
++ *Independence of Observarion:* there is no consistent, predicatble relationship between one observation and a second observation. This makes the observations *independent*.
+- Large sample size is used.
+
+
+#### Two different t-test (Standard t-test & Welch's t-test)
+
++ *Standard t-test*: Assumes the two groups have equal variances
+
++ *Welch's t-test*: Does not assume equal variance. The degrees of freedom are adjusted based on the variance of each group.
+
+We can utilize *Levene's test* to test for equal variance. 
+
+Levene's test hypothesis:
+
++ **Null Hypothesis $H_{0}$:** The variances of the group are equal (homogeneity of variance).
++ **Alternative Hypothesis $H_{a}:** The variances of the groups are not equal (heterogeneity of variance).
+
+If our *p* value is > 0.05, then we can assume equal variances, as there is not a significant difference.
+If our *p* value < 0.05, then we should not assume equal variance, there is a significant difference, we can utilize *Welch's test* in R to adjust for this.
+
 #### Hypothesis
 
 - **Null hypothesis (H₀):** There is no significant difference in the mpg of cars with automatic and manual transmissions.
@@ -423,7 +450,7 @@ We will perform an independent t-test to test these hypotheses.
 
 #### t-test Code
 
-```{r,warning=FALSE,message=FALSE}
+```{r t-test,warning=FALSE,message=FALSE}
 # Load necessary libraries
 library(dplyr)
 
@@ -447,6 +474,54 @@ Explanation:
 
 Due to this data set being from the year 1974 it is logical to see the Manual transmissions getting better gas mileage than the Automatic transmissions.
 
+### Mann-Whitney U-Test or Wilcoxon Rank Sum Test
+
+#### Assumptions for the Mann-Whitney U-Test
+
++ *Dependent variable* is measured on an *ordinal or continuous* level
++ *Independent variable* that contains two *categorical or ordinal* groups; *e.g. dichotomous (2 Levels)*
++ The observations are independent
++ The 2 groups follow a *similar shape or distribution*
++ *Not normal or skewed distribution*
+
+*Note: The Mann Whitney U-Test is also know as the Wilcoxon Rank Sum Test*
+
+
+##### Example 1
+
+Here we are going to see if there is a difference between the transmission type utilizing 
+
+```{r}
+m2<-wilcox.test(mtcars$mpg~mtcars$am, data=mtcars, na.rm=TRUE, exact=FALSE, conf.int=TRUE)
+print(m2)
+
+
+# Perform the Mann-Whitney U test (Wilcoxon rank-sum test) using the formula
+result <- wilcox.test(mpg ~ am, data = mtcars, na.rm=TRUE, exact=FALSE, conf.int=TRUE)
+
+# Print the result
+print(result)
+
+```
+
+
+```{r}
+m2<-wilcox.test(mtcars$hp~mtcars$vs, data=mtcars, na.rm=TRUE, exact=FALSE, conf.int=TRUE)
+print(m2)
+```
+
+
+```{r}
+# # Create a grouping variable for low and high horsepower (median split)
+# hp_median <- median(mtcars$hp)
+# mtcars$hp_group <- ifelse(mtcars$hp <= hp_median, "Low", "High")
+
+# Perform the Mann-Whitney U test for mpg by hp_group
+result_hp <- wilcox.test(hp ~ vs, data = mtcars, na.rm = TRUE, exact = FALSE, conf.int = TRUE)
+
+# Print the result
+print(result_hp)
+```
 ---
 
 <center><h3>References</h3></center>
