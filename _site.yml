@@ -4,7 +4,7 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "Central Tendency Variability & Descriptive Statistics"
+    - text: "Averages & Variability"
       href: descriptivestatisticsvariance.html      
     - text: "Big 3 Results"
       href: bigthreeresults.html

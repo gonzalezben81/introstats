@@ -1,5 +1,5 @@
 ---
-title: "Central Tendency Variability & Descriptive Statistics"
+title: "Central Tendency, Variability, & Descriptive Statistics"
 author: "Ben Gonzalez"
 date: "`r Sys.Date()`"
 bibliography: references.bib
@@ -41,6 +41,94 @@ gonzo_theme <- function() {
 
 ### Descriptive Statistics
 
+#### Steven's four scales of measurement
+
+<br>
+
+<style>
+.container-two {
+  border: 0.5px outset black;
+  background-color: white; 
+  text-align: center;
+  width: 80%;
+}
+</style>
+
+<div class="container-two">
+<style>
+table {
+  <!-- border-collapse: collapse; -->
+  width: 30%;
+}
+
+th {
+  text-align: center;
+  padding: 20px;
+  background-color: white;
+}
+
+tr {
+  background-color: #D6EEEE;
+  padding: 45px;
+}
+
+tfoot {
+  font-style: italic;
+  font-size: 0.9em;
+  text-align: left;
+}
+
+</style>
+  <table class="table" id="myTable20">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Characteristic of Scale</th>
+        <th onclick="sortTable(2)">Nominal</th>
+        <th onclick="sortTable(2)">Ordinal</th>
+        <th onclick="sortTable(2)">Interval</th>
+        <th onclick="sortTable(2)">Ratio</th>
+      </tr>
+    </thead>
+    <tbody>
+  <tr>
+    <td style="text-align:left">Applies names or numbers to categories?</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td style="text-align:left">Orders categories according to quantity?</td>
+    <td ></td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+  </tr>
+    <tr>
+    <td style="text-align:left">Displays equal intervals between consecutive numbers?</td>
+    <td ></td>
+    <td></td>
+    <td>Yes</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+  <td style="text-align:left">Diplays a "true zero point?"</td>
+    <td ></td>
+    <td></td>
+    <td></td>
+    <td>Yes</td>
+  </tr>
+    </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="5">Note: These scales define how data can be categorized, ordered, and measured. Citation: Hatcher, L. (2013). *Advanced Statistics for Data Analysis*.</td>
+      </tr>
+    </tfoot>
+     </table>
+</div>
+
+<br>
+
 ### Measures of Central Tendency
 
 #### Mean
@@ -56,12 +144,17 @@ Assumptions to calculate the mean:
 
 The formula for the mean is as follows:
 
+***
+
 $$
 \overline{X}=\frac{\sum{X}}{N}
 $$
+
+***
+
 #### Median
 
-According to Hatcher(2013) the median is the score at which 50% of the distribution falls at or below this score.
+According to Hatcher(2013) the median is the score at which 50% of the distribution falls at or below a particular score in the distribution.
 
 $Odd:$
 
@@ -69,9 +162,9 @@ One way to calculate the median is to order the values in the data and order the
 
 $Even$
 
-If you have an even number of data. You order the data again from largest to smallest and then you take the two middle numbers in your data and divide them by $2$.
+If you have an even number of data points. You will want to order the data again from largest to smallest and then take the middle two numbers from your data and divide them by $2$.
 
-You can also utilize the ``median()` function in `R`
+You can also utilize the `median()` function in `R`
 
 ```{r,warning=FALSE,message=FALSE}
 median(mtcars$mpg)
@@ -79,8 +172,8 @@ median(mtcars$mpg)
 
 Assumptions to calculate the median:
 
-+ The variable is assessed on an ordinal scale
-+ The variable is assess on an interval or ratio scale
++ The variable is assessed on an `ordinal` scale
++ The variable is assessed on an `interval` or `ratio scale`
 
 #### Mode
 

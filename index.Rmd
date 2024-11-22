@@ -10,6 +10,7 @@ This website is created as a reference to classical statistics from correlation,
 
 <center>
 <div style="text-align: center;">
+  <a href="descriptivestatisticsvariance.html">Central Tendency</a><br>
   <a href="bigthreeresults.html">Statistical Significance</a><br>
   <a href="bigthreeresults.html">Confidence Intervals</a><br>
   <a href="bigthreeresults.html">Effect Size</a><br>
