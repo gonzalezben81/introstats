@@ -43,6 +43,7 @@ library(latexpdf)
 library(ggplot2)
 library(dplyr)
 library(DiagrammeR)
+library(reactable)
 
 ```
 
@@ -188,13 +189,13 @@ print('Predicted y Values')
 print(mpg_prediction$fitted.values)
 
 print('Actual y Values')
-# print(mtcars$mpg)
-knitr::kable(mtcars$mpg, caption = "Actual y values")
+print(mtcars$mpg)
+# knitr::kable(mtcars$mpg, caption = "Actual y values")
 
 print('Manually Calculated Residuals')
 table<- as.data.frame(mtcars$mpg-mpg_prediction$fitted.values)
-# print(table)
-knitr::kable(table, caption = "Residuals of Prediction")
+print(table)
+# knitr::kable(table, caption = "Residuals of Prediction")
 # d1 <- table[1:16,]
 # d2 <- table[17:32,]
 # knitr::kable(
@@ -208,11 +209,26 @@ print('Residual Values')
 residual_mpg_values<- mpg_prediction$model$mpg-mpg_prediction$fitted.values
 print(residual_mpg_values)
 
-
 # sum(mpg_prediction$residuals^2)
 # 
 # residual_sum <- sum(mpg_prediction$residuals^2)
 # sum_mean <- sum((mtcars$mpg-mean(mtcars$mpg)^2))
+
+mpg_residual_data_frame <- data.frame(
+  
+  actual_y_values = mtcars$mpg,
+  predicted_y_values = mpg_prediction$fitted.values,
+  residual_values = residual_mpg_values
+  
+)
+
+reactable::reactable(mpg_residual_data_frame,columns = list(
+  .rownames = colDef(name = c("Vehicle Make"), sortable = TRUE),
+  actual_y_values = colDef(name = "Actual Y Values"),
+  predicted_y_values = colDef(name = "Predicted Y Values"),
+  residual_values = colDef(name = "Residual")
+  ),filterable = TRUE,searchable = TRUE)
+
 
 ```
 

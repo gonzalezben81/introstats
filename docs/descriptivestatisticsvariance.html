@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Ben Gonzalez" />
+
+<meta name="date" content="2024-11-22" />
+
+<title>Central Tendency Variability &amp; Descriptive Statistics</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="custom.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Intro Stats</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="descriptivestatisticsvariance.html">Central Tendency Variability &amp; Descriptive Statistics</a>
+</li>
+<li>
+  <a href="bigthreeresults.html">Big 3 Results</a>
+</li>
+<li>
+  <a href="Zscores.html">Z-Scores</a>
+</li>
+<li>
+  <a href="chisquarecorrelation.html">Correlation &amp; Chi-Square</a>
+</li>
+<li>
+  <a href="partialcorrelation.html">Partial Correlation</a>
+</li>
+<li>
+  <a href="BivariateRegression.html">Bivariate Regression</a>
+</li>
+<li>
+  <a href="MultipleLinearRegression.html">Multiple Linear Regression</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a></a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Central Tendency Variability &amp;
+Descriptive Statistics</h1>
+<h4 class="author">Ben Gonzalez</h4>
+<h4 class="date">2024-11-22</h4>
+
+</div>
+
+
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy Code', 'Copy Successful!!!');
+</script>
+<div id="descriptive-statistics" class="section level3">
+<h3>Descriptive Statistics</h3>
+</div>
+<div id="measures-of-central-tendency" class="section level3">
+<h3>Measures of Central Tendency</h3>
+<div id="mean" class="section level4">
+<h4>Mean</h4>
+<p>The mean or average and sometimes referred to as the arithmeic mean
+(Hatcher 2013)</p>
+<p>We take the sum <span class="math inline">\(\sum\)</span> of all the
+scores <span class="math inline">\(X\)</span> in a column and then
+divide them by the total number of scores or <span
+class="math inline">\(N\)</span></p>
+<p>Assumptions to calculate the mean:</p>
+<ul>
+<li>The variable is quantitative and is captured via an interval or
+ratio scale.</li>
+<li>The distribution of the data is approx. normal or symmetrical</li>
+</ul>
+<p>The formula for the mean is as follows:</p>
+<p><span class="math display">\[
+\overline{X}=\frac{\sum{X}}{N}
+\]</span> #### Median</p>
+<p>According to Hatcher(2013) the median is the score at which 50% of
+the distribution falls at or below this score.</p>
+<p><span class="math inline">\(Odd:\)</span></p>
+<p>One way to calculate the median is to order the values in the data
+and order them from largest to smallest. The middle most number is the
+<span class="math inline">\(median\)</span>.</p>
+<p><span class="math inline">\(Even\)</span></p>
+<p>If you have an even number of data. You order the data again from
+largest to smallest and then you take the two middle numbers in your
+data and divide them by <span class="math inline">\(2\)</span>.</p>
+<p>You can also utilize the `<code>median()</code> function in
+<code>R</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">median</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>## [1] 19.2</code></pre>
+<p>Assumptions to calculate the median:</p>
+<ul>
+<li>The variable is assessed on an ordinal scale</li>
+<li>The variable is assess on an interval or ratio scale</li>
+</ul>
+</div>
+<div id="mode" class="section level4">
+<h4>Mode</h4>
+<p>The mode is the most frequently occurring number in a
+distribution.</p>
+<p>There are two types of modes <code>unimodal</code> and
+<code>bimodal</code>.</p>
+<p><span class="math inline">\(unimodal\)</span> - there is only one
+mode present in the distribution.</p>
+<p><span class="math inline">\(bimodal\)</span> - there are two modes
+present in a distribution.</p>
+<p>Assumptions to calculate the mode:</p>
+<ul>
+<li>Typically used with variables assessed on a nominal scale;
+e.g. categorical data</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Create the function.</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>getmode <span class="ot">&lt;-</span> <span class="cf">function</span>(v) {</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  uniqv <span class="ot">&lt;-</span> <span class="fu">unique</span>(v)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  uniqv[<span class="fu">which.max</span>(<span class="fu">tabulate</span>(<span class="fu">match</span>(v, uniqv)))]</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>}</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="fu">getmode</span>(mtcars<span class="sc">$</span>cyl)</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># hist(mtcars$cyl)</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co"># Create histogram for &#39;cyl&#39; column</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>hist_obj <span class="ot">&lt;-</span> <span class="fu">hist</span>(mtcars<span class="sc">$</span>cyl, </span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>                 <span class="at">main =</span> <span class="st">&quot;Histogram of Number of Cylinders (cyl)&quot;</span>, </span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>                 <span class="at">xlab =</span> <span class="st">&quot;Number of Cylinders&quot;</span>, </span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>                 <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>, </span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>                 <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>, </span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>                 <span class="at">border =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>                 <span class="at">plot =</span> <span class="cn">FALSE</span>)  <span class="co"># Don&#39;t plot the histogram yet, just store the data</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co"># Plot the histogram</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="fu">plot</span>(hist_obj, </span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram of Number of Cylinders (cyl)&quot;</span>, </span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Number of Cylinders&quot;</span>, </span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>, </span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>, </span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>     <span class="at">border =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co"># Add counts on top of each bar</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> hist_obj<span class="sc">$</span>mids, </span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>     <span class="at">y =</span> hist_obj<span class="sc">$</span>counts, </span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a>     <span class="at">labels =</span> hist_obj<span class="sc">$</span>counts, </span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a>     <span class="at">pos =</span> <span class="fl">1.5</span>,      <span class="co"># Position text above the bars</span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="co"># Color of the text</span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">0.8</span>)     <span class="co"># Size of the text</span></span></code></pre></div>
+<p><img src="descriptivestatisticsvariance_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># ggplot(mtcars, aes(x = cyl)) +</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#   geom_histogram(fill = &quot;lightblue&quot;, color = &quot;blue&quot;) +</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#   labs(title = &quot;Variation of MPG in Mtcars Data Set&quot;, x = &quot;MPG Variance&quot;) +</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#   theme_minimal()+gonzo_theme()</span></span></code></pre></div>
+</div>
+</div>
+<div id="measures-of-variability" class="section level3">
+<h3>Measures of Variability</h3>
+</div>
+<div id="variance" class="section level3">
+<h3>Variance</h3>
+<p><span class="math inline">\(Measure\;of\;variability\)</span> -
+indicates the amount of dispersion displayed by a set of scores.
+(Hatcher 2013)</p>
+<p><span class="math inline">\(Variance\)</span> - measure of
+variability computed by taking the average of the squared deviations
+from the mean. (Hatcher 2013)</p>
+<p>Variance can be calculated via the following formula. We first
+calculate the average distance from each data point from the mean of our
+data.</p>
+<!-- https://campus.datacamp.com/courses/introduction-to-statistics-in-r/summary-statistics?ex=7 -->
+<p>The formula for calculating the <span
+class="math inline">\(Sample\)</span> variance is as follows:</p>
+<p><span class="math display">\[
+S^2\;=\;\frac{\sum(X_{i}\;-\;{\overline{X}})^2}{N\;-1}
+\]</span></p>
+<p>The variance of MPG in the Mtcars data set is 36.3241028</p>
+<hr />
+<p>You can also utilize the <code>var()</code> function in R to
+calculate the variance.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">var</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>## [1] 36.3241</code></pre>
+<hr />
+<div id="visualization-of-variation-in-a-data-set"
+class="section level4">
+<h4>Visualization of variation in a data set</h4>
+<p>One way to look at the variance without needing to calculate it is by
+utilizing a boxplot or a histogram.</p>
+<div id="boxplot" class="section level5">
+<h5>Boxplot</h5>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Boxplot of mpg in mtcars</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Variation of MPG in mtcars&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Miles Per Gallon (MPG)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;MPG Variation&quot;</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">gonzo_theme</span>()</span></code></pre></div>
+<p><img src="descriptivestatisticsvariance_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The boxplot for <strong>MPG</strong> in the mtcars data set
+visualizes the variation in fuel efficiency across different cars.
+Here’s what we can interpret from the boxplot:</p>
+<ul>
+<li><p><strong>Median (Center Line):</strong> The thick horizontal line
+in the middle of the box represents the median value of MPG, which is
+the middle value when all the MPG values are ordered from smallest to
+largest. This gives us a sense of the “central tendency” or typical
+value for MPG in this dataset.</p></li>
+<li><p><strong>Interquartile Range (IQR):</strong> The box represents
+the interquartile range (IQR), which includes the middle 50% of the
+data. The top and bottom edges of the box represent the third quartile
+(Q3) and first quartile (Q1), respectively. This range gives us an idea
+of the spread of the central half of the data.</p></li>
+<li><p><strong>Whiskers:</strong> The lines extending from the box
+(called whiskers) show the range of values within 1.5 times the IQR from
+the quartiles. These lines help to visualize the spread of data,
+excluding outliers.</p></li>
+<li><p><strong>Outliers:</strong> Points that fall outside of the
+whiskers (typically shown as individual dots) are considered outliers.
+These are values that are significantly different from the rest of the
+data. For example, the MPG values for cars with extreme fuel efficiency
+or inefficiency could appear as outliers in this plot.</p></li>
+</ul>
+</div>
+<div id="histogram" class="section level5">
+<h5>Histogram</h5>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Histogram to visualize the distribution (and variance) of mpg</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">hist</span>(mtcars<span class="sc">$</span>mpg, </span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram of mpg (Variance)&quot;</span>, </span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Miles per Gallon&quot;</span>, </span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;lightgreen&quot;</span>, </span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p><img src="descriptivestatisticsvariance_files/figure-html/variance-histogram-1.png" width="672" /></p>
+</div>
+<div id="density-plot" class="section level5">
+<h5>Density Plot</h5>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Density plot to visualize the spread (variance) of mpg</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co"># plot(density(mtcars$mpg), </span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#      main = &quot;Density Plot of mpg (Variance)&quot;, </span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#      xlab = &quot;Miles per Gallon&quot;, </span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#      col = &quot;darkblue&quot;, </span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#      lwd = 2)</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg), <span class="at">sd =</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)), </span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span> </span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Variation of MPG in Mtcars Data Set&quot;</span>, <span class="at">x =</span> <span class="st">&quot;MPG Variance&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">gonzo_theme</span>()</span></code></pre></div>
+<p><img src="descriptivestatisticsvariance_files/figure-html/variance-density-plot-1.png" width="672" /></p>
+</div>
+</div>
+<div id="quartiles" class="section level4">
+<h4>Quartiles</h4>
+<p>Quartiles is when the data is split up into <code>4</code> equal
+parts <code>25%</code> each.</p>
+<p>The syymbols used for <code>quartiles</code> are as follows.</p>
+<hr />
+<p><span class="math display">\[Q1\;=\;First\;Quartile\\
+Q2\;=Second\;Quartile\\
+Q3\;=Third\;Quartile\\
+Q4\;=Fourth\;Quartile \]</span></p>
+<hr />
+<p>We can easily compute the <code>quartiles</code> in <code>R</code>
+using the <code>quantile</code> function.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">quantile</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>##     0%    25%    50%    75%   100% 
+## 10.400 15.425 19.200 22.800 33.900</code></pre>
+<p>We can thus compute the interquartle range or <span
+class="math inline">\(IQR\)</span> as follows.</p>
+<p><span class="math inline">\(IQR\;=\;Q_{3}-Q_{1}\)</span></p>
+<p>In our data above this would be the <span
+class="math inline">\(Q_{3}\)</span><code>75%</code> - <span
+class="math inline">\(Q_{1}\)</span><code>25%</code> or 7.375</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">IQR</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>## [1] 7.375</code></pre>
+</div>
+</div>
+
+<!-- footer.html -->
+<div class="footer" style="text-align: center; padding: 10px; border-top: 1px solid #ccc; color: #333;">
+  <p style="display: flex; justify-content: space-around; align-items: center; padding: 10px 0;">
+    <a href="https://github.com/" target="_blank" title="GitHub" style="color: inherit; font-size: 24px;">
+      <i class="fab fa-github"></i>
+    </a>
+    <a href="https://x.com/your-twitter-handle" target="_blank" title="Twitter" style="color: inherit; font-size: 24px;">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a href="mailto:ben.gonzalez@slu.edu" title="Email" style="color: inherit; font-size: 24px;">
+      <i class="fas fa-envelope"></i>
+    </a>
+  </p>
+</div>
+<center>
+<footer>
+  <p>&copy; <span id="year"></span> Intro Stats. All rights reserved.</p>
+</footer>
+</center>
+
+<!-- Link to Font Awesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

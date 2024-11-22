@@ -35,6 +35,8 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 <script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
 <link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
 <link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
@@ -428,6 +430,9 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="descriptivestatisticsvariance.html">Central Tendency Variability &amp; Descriptive Statistics</a>
 </li>
 <li>
   <a href="bigthreeresults.html">Big 3 Results</a>
@@ -898,6 +903,46 @@ class="section level3">
 between the means of two groups. In this example, we will compare the
 miles per gallon (<code>mpg</code>) of cars with automatic vs. manual
 transmissions in the <code>mtcars</code> dataset.</p>
+<div id="t-test-assumptions" class="section level4">
+<h4>t-test Assumptions</h4>
+<ul>
+<li><em>Dependent (criterion)</em> variable is measured on an
+<em>interval or ratio</em> scale.</li>
+<li>Data is <em>normally distributed</em> or bell shaped curve.</li>
+<li>Data has <em>homogeneity</em> fo variance; sample data come from a
+<em>population with equal variance. </em>Note: homogeneity - the quality
+or state of being all the same or all of the same kind.</li>
+<li><em>Independence of Observarion:</em> there is no consistent,
+predicatble relationship between one observation and a second
+observation. This makes the observations <em>independent</em>.</li>
+<li>Large sample size is used.</li>
+</ul>
+</div>
+<div id="two-different-t-test-standard-t-test-welchs-t-test"
+class="section level4">
+<h4>Two different t-test (Standard t-test &amp; Welch’s t-test)</h4>
+<ul>
+<li><p><em>Standard t-test</em>: Assumes the two groups have equal
+variances</p></li>
+<li><p><em>Welch’s t-test</em>: Does not assume equal variance. The
+degrees of freedom are adjusted based on the variance of each
+group.</p></li>
+</ul>
+<p>We can utilize <em>Levene’s test</em> to test for equal variance.</p>
+<p>Levene’s test hypothesis:</p>
+<ul>
+<li><strong>Null Hypothesis <span
+class="math inline">\(H_{0}\)</span>:</strong> The variances of the
+group are equal (homogeneity of variance).</li>
+<li><strong>Alternative Hypothesis $H_{a}:</strong> The variances of the
+groups are not equal (heterogeneity of variance).</li>
+</ul>
+<p>If our <em>p</em> value is &gt; 0.05, then we can assume equal
+variances, as there is not a significant difference. If our <em>p</em>
+value &lt; 0.05, then we should not assume equal variance, there is a
+significant difference, we can utilize <em>Welch’s test</em> in R to
+adjust for this.</p>
+</div>
 <div id="hypothesis" class="section level4">
 <h4>Hypothesis</h4>
 <ul>
@@ -949,6 +994,91 @@ fuel-efficient than the other.</p></li>
 <p>Due to this data set being from the year 1974 it is logical to see
 the Manual transmissions getting better gas mileage than the Automatic
 transmissions.</p>
+</div>
+</div>
+<div id="mann-whitney-u-test-or-wilcoxon-rank-sum-test"
+class="section level3">
+<h3>Mann-Whitney U-Test or Wilcoxon Rank Sum Test</h3>
+<div id="assumptions-for-the-mann-whitney-u-test"
+class="section level4">
+<h4>Assumptions for the Mann-Whitney U-Test</h4>
+<ul>
+<li><em>Dependent variable</em> is measured on an <em>ordinal or
+continuous</em> level</li>
+<li><em>Independent variable</em> that contains two <em>categorical or
+ordinal</em> groups; <em>e.g. dichotomous (2 Levels)</em></li>
+<li>The observations are independent</li>
+<li>The 2 groups follow a <em>similar shape or distribution</em></li>
+<li><em>Not normal or skewed distribution</em></li>
+</ul>
+<p><em>Note: The Mann Whitney U-Test is also know as the Wilcoxon Rank
+Sum Test</em></p>
+<div id="example-1" class="section level5">
+<h5>Example 1</h5>
+<p>Here we are going to see if there is a difference between the
+transmission type utilizing</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>m2<span class="ot">&lt;-</span><span class="fu">wilcox.test</span>(mtcars<span class="sc">$</span>mpg<span class="sc">~</span>mtcars<span class="sc">$</span>am, <span class="at">data=</span>mtcars, <span class="at">na.rm=</span><span class="cn">TRUE</span>, <span class="at">exact=</span><span class="cn">FALSE</span>, <span class="at">conf.int=</span><span class="cn">TRUE</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a><span class="fu">print</span>(m2)</span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  mtcars$mpg by mtcars$am
+## W = 42, p-value = 0.001871
+## alternative hypothesis: true location shift is not equal to 0
+## 95 percent confidence interval:
+##  -11.699942  -2.900042
+## sample estimates:
+## difference in location 
+##              -6.799963</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="co"># Perform the Mann-Whitney U test (Wilcoxon rank-sum test) using the formula</span></span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(mpg <span class="sc">~</span> am, <span class="at">data =</span> mtcars, <span class="at">na.rm=</span><span class="cn">TRUE</span>, <span class="at">exact=</span><span class="cn">FALSE</span>, <span class="at">conf.int=</span><span class="cn">TRUE</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" tabindex="-1"></a><span class="co"># Print the result</span></span>
+<span id="cb45-5"><a href="#cb45-5" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  mpg by am
+## W = 42, p-value = 0.001871
+## alternative hypothesis: true location shift is not equal to 0
+## 95 percent confidence interval:
+##  -11.699942  -2.900042
+## sample estimates:
+## difference in location 
+##              -6.799963</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a>m2<span class="ot">&lt;-</span><span class="fu">wilcox.test</span>(mtcars<span class="sc">$</span>hp<span class="sc">~</span>mtcars<span class="sc">$</span>vs, <span class="at">data=</span>mtcars, <span class="at">na.rm=</span><span class="cn">TRUE</span>, <span class="at">exact=</span><span class="cn">FALSE</span>, <span class="at">conf.int=</span><span class="cn">TRUE</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a><span class="fu">print</span>(m2)</span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  mtcars$hp by mtcars$vs
+## W = 236, p-value = 3.104e-05
+## alternative hypothesis: true location shift is not equal to 0
+## 95 percent confidence interval:
+##   62.00002 124.99998
+## sample estimates:
+## difference in location 
+##               92.00003</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="co"># # Create a grouping variable for low and high horsepower (median split)</span></span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a><span class="co"># hp_median &lt;- median(mtcars$hp)</span></span>
+<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a><span class="co"># mtcars$hp_group &lt;- ifelse(mtcars$hp &lt;= hp_median, &quot;Low&quot;, &quot;High&quot;)</span></span>
+<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" tabindex="-1"></a><span class="co"># Perform the Mann-Whitney U test for mpg by hp_group</span></span>
+<span id="cb49-6"><a href="#cb49-6" tabindex="-1"></a>result_hp <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(hp <span class="sc">~</span> vs, <span class="at">data =</span> mtcars, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb49-7"><a href="#cb49-7" tabindex="-1"></a></span>
+<span id="cb49-8"><a href="#cb49-8" tabindex="-1"></a><span class="co"># Print the result</span></span>
+<span id="cb49-9"><a href="#cb49-9" tabindex="-1"></a><span class="fu">print</span>(result_hp)</span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  hp by vs
+## W = 236, p-value = 3.104e-05
+## alternative hypothesis: true location shift is not equal to 0
+## 95 percent confidence interval:
+##   62.00002 124.99998
+## sample estimates:
+## difference in location 
+##               92.00003</code></pre>
 <hr />
 <center>
 <h3>
@@ -963,6 +1093,7 @@ class="uri">https://www.statology.org/t-distribution-table/</a></p>
 <p><a
 href="https://www.scribbr.com/frequently-asked-questions/critical-value-of-t-in-r/#"
 class="uri">https://www.scribbr.com/frequently-asked-questions/critical-value-of-t-in-r/#</a>:~:text=You%20can%20use%20the%20qt,the%20significance%20level%20by%20two.</p>
+</div>
 </div>
 </div>
 

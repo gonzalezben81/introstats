@@ -36,6 +36,8 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 <script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
 <link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
 <link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
@@ -436,6 +438,9 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
+  <a href="descriptivestatisticsvariance.html">Central Tendency Variability &amp; Descriptive Statistics</a>
+</li>
+<li>
   <a href="bigthreeresults.html">Big 3 Results</a>
 </li>
 <li>
@@ -527,8 +532,8 @@ along we are utilizing the mtcars data set that is built into R.</p>
 </ul>
 <hr />
 <center>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-a501b3445d641bb08090" style="width:35%;height:35%;"></div>
-<script type="application/json" data-for="htmlwidget-a501b3445d641bb08090">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"X (hp)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"2\" [label = \"Y (mpg)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"3\" [label = \"Z (cyl)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"1\"->\"2\" \n  \"3\"->\"1\" \n  \"3\"->\"2\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-671109d6e219e6705164" style="width:35%;height:35%;"></div>
+<script type="application/json" data-for="htmlwidget-671109d6e219e6705164">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"X (hp)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"2\" [label = \"Y (mpg)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"3\" [label = \"Z (cyl)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"1\"->\"2\" \n  \"3\"->\"1\" \n  \"3\"->\"2\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </center>
 <hr />
 </div>
@@ -695,29 +700,10 @@ package</a></p>
 ##     select</code></pre>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="do">###ppcor function controlling for cylinders in the mtcars dataset</span></span>
 <span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>ppcor<span class="sc">::</span><span class="fu">pcor.test</span>(mtcars<span class="sc">$</span>mpg, mtcars<span class="sc">$</span>hp, mtcars[, <span class="fu">c</span>(<span class="st">&quot;cyl&quot;</span>)])</span></code></pre></div>
-<div class="kable-table">
-<table>
-<thead>
-<tr class="header">
-<th align="right">estimate</th>
-<th align="right">p.value</th>
-<th align="right">statistic</th>
-<th align="right">n</th>
-<th align="right">gp</th>
-<th align="left">Method</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">-0.2303439</td>
-<td align="right">0.2125285</td>
-<td align="right">-1.274718</td>
-<td align="right">32</td>
-<td align="right">1</td>
-<td align="left">pearson</td>
-</tr>
-</tbody>
-</table>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["estimate"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[4],"type":["int"],"align":["right"]},{"label":["gp"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Method"],"name":[6],"type":["chr"],"align":["left"]}],"data":[{"1":"-0.2303439","2":"0.2125285","3":"-1.274718","4":"32","5":"1","6":"pearson"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
 <div
 id="higher-order-partial-correlation-is-a-correlation-between-two-variables-with-more-than-one-control-variable-partialed-out-by-both."
@@ -727,29 +713,10 @@ variables with more than one control variable partialed out by
 both.</h4>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="do">###ppcor function controlling for cylinders,displacement in the mtcars dataset</span></span>
 <span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>ppcor<span class="sc">::</span><span class="fu">pcor.test</span>(mtcars<span class="sc">$</span>mpg, mtcars<span class="sc">$</span>hp, mtcars[, <span class="fu">c</span>(<span class="st">&quot;cyl&quot;</span>,<span class="st">&quot;disp&quot;</span>)])</span></code></pre></div>
-<div class="kable-table">
-<table>
-<thead>
-<tr class="header">
-<th align="right">estimate</th>
-<th align="right">p.value</th>
-<th align="right">statistic</th>
-<th align="right">n</th>
-<th align="right">gp</th>
-<th align="left">Method</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">-0.1860437</td>
-<td align="right">0.3249519</td>
-<td align="right">-1.001943</td>
-<td align="right">32</td>
-<td align="right">2</td>
-<td align="left">pearson</td>
-</tr>
-</tbody>
-</table>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["estimate"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[4],"type":["int"],"align":["right"]},{"label":["gp"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Method"],"name":[6],"type":["chr"],"align":["left"]}],"data":[{"1":"-0.1860437","2":"0.3249519","3":"-1.001943","4":"32","5":"2","6":"pearson"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
 </div>
 <div id="references" class="section level4">

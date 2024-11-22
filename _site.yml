@@ -4,6 +4,8 @@ navbar:
   left:
     - text: "Home"
       href: index.html
+    - text: "Central Tendency Variability & Descriptive Statistics"
+      href: descriptivestatisticsvariance.html      
     - text: "Big 3 Results"
       href: bigthreeresults.html
     - text: "Z-Scores"
@@ -27,7 +29,7 @@ output:
     css: custom.css
     fig_align: center
     author: "Ben Gonzalez"
-    df_print: kable
+    df_print: paged
     theme: flatly #cosmo #lumen #sandstone #paper
     highlight: tango
     code_folding: hide

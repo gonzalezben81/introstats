@@ -1,10 +1,9 @@
 /* custom.css */
 
-/* Change TOC highlight color */
-.toc-highlight {
-  background-color: #ffcc00; /* Choose your desired highlight color */
+/* Remove border around TOC */
+#TOC.tocify {
+    border: none !important;
+
 }
 
-.toc {
-  background-color: #ffcc00; /* Choose your desired highlight color */
-}
+
