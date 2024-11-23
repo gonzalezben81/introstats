@@ -41,6 +41,13 @@ gonzo_theme <- function() {
 
 ### Descriptive Statistics
 
+As you begin your journey through statistics there are several underlying foundational concepts that need to be understood. The following sections explain these concepts and allow you to demonstrate them utilize `R` coding practices. Additionally you will be able to visualize the concepts to help gain a better understanding of what they mean and how the concepts can be applied. 
+
++ Central Limit Theorem
++ Variance
++ Quartiles & Interquartile Range
++ Visualization of Distributions
+
 #### Steven's four scales of measurement
 
 <br>

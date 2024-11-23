@@ -4,8 +4,8 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "Averages & Variability"
-      href: descriptivestatisticsvariance.html      
+    - text: "Foundational Concepts"
+      href: foundationalconcepts.html      
     - text: "Big 3 Results"
       href: bigthreeresults.html
     - text: "Z-Scores"

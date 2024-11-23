@@ -9,7 +9,9 @@ This website it dedicated to explaining statistical concepts in an easy to under
 
 <br>
 
-The analyses on this website were built utilizing `R` [@RCoreTeam2024] with additional packages `ggplot2` [@ggplot2],`ppcor` [@ppcor], `dplyr` [@dplyr], `reactable` [@reactable], `DiagrammeR` [@DiagrammeR], `mathjaxr` [@mathjaxr], `latexpdf` [@latexpdf], `klippy` [@klippy] psych`[@psych],
+The analyses on this website were built utilizing `R` [@RCoreTeam2024] with additional packages `ggplot2` [@ggplot2],`ppcor` [@ppcor], `dplyr` [@dplyr], `reactable` [@reactable], `DiagrammeR` [@DiagrammeR], `mathjaxr` [@mathjaxr], `latexpdf` [@latexpdf], `klippy` [@klippy] psych`[@psych].
+
+The following reference books were utilized for the statistical concepts presented @hatcher2013.
 
 <br>
 <br>
