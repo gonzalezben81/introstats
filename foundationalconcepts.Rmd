@@ -48,6 +48,8 @@ As you begin your journey through statistics there are several underlying founda
 + Quartiles & Interquartile Range
 + Visualization of Distributions
 
+***
+
 #### Steven's four scales of measurement
 
 <br>
@@ -135,6 +137,8 @@ tfoot {
 </div>
 
 <br>
+
+***
 
 ### Measures of Central Tendency
 

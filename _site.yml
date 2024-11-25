@@ -3,6 +3,7 @@ navbar:
   title: "Intro Stats"
   left:
     - text: "Home"
+      icon: fa-home
       href: index.html
     - text: "Foundational Concepts"
       href: foundationalconcepts.html      
