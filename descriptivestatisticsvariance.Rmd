@@ -41,6 +41,96 @@ gonzo_theme <- function() {
 
 ### Descriptive Statistics
 
+
+#### Steven's four scales of measurement
+
+<br>
+
+<style>
+.container-two {
+  border: 0.5px outset black;
+  background-color: white; 
+  text-align: center;
+  width: 80%;
+}
+</style>
+
+<div class="container-two">
+<style>
+table {
+  <!-- border-collapse: collapse; -->
+  width: 30%;
+}
+
+th {
+  text-align: center;
+  padding: 20px;
+  background-color: white;
+}
+
+tr {
+  background-color: #D6EEEE;
+  padding: 45px;
+}
+
+tfoot {
+  font-style: italic;
+  font-size: 0.9em;
+  text-align: left;
+}
+
+</style>
+  <table class="table" id="myTable20">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Characteristic of Scale</th>
+        <th onclick="sortTable(2)">Nominal</th>
+        <th onclick="sortTable(2)">Ordinal</th>
+        <th onclick="sortTable(2)">Interval</th>
+        <th onclick="sortTable(2)">Ratio</th>
+      </tr>
+    </thead>
+    <tbody>
+  <tr>
+    <td style="text-align:left">Applies names or numbers to categories?</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td style="text-align:left">Orders categories according to quantity?</td>
+    <td ></td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+  </tr>
+    <tr>
+    <td style="text-align:left">Displays equal intervals between consecutive numbers?</td>
+    <td ></td>
+    <td></td>
+    <td>Yes</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+  <td style="text-align:left">Diplays a "true zero point?"</td>
+    <td ></td>
+    <td></td>
+    <td></td>
+    <td>Yes</td>
+  </tr>
+    </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="5">Note: These scales define how data can be categorized, ordered, and measured. Citation: Hatcher, L. (2013). *Advanced Statistics for Data Analysis*.</td>
+      </tr>
+    </tfoot>
+     </table>
+</div>
+
+<br>
+
+
 ### Measures of Central Tendency
 
 #### Mean
