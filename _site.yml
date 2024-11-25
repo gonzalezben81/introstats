@@ -24,7 +24,7 @@ navbar:
     - search: true
 output_dir: "docs"
 css:
-  - "custom.css"
+  - "docs/custom.css"
 output:
   html_document:
     css: custom.css
