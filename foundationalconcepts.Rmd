@@ -39,6 +39,23 @@ gonzo_theme <- function() {
 
 ```
 
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+
+gonzo_theme <- function() {
+  list(
+    labs(
+      caption = "Mtcars Data Set: 1974 Motor Trend US"),
+    theme(
+      axis.ticks = element_blank(),
+      panel.grid = element_blank(),
+      plot.caption = element_text(color = "gray12",size = 10)
+    )
+  )
+}
+
+
+```
+
 ### Descriptive Statistics
 
 As you begin your journey through statistics there are several underlying foundational concepts that need to be understood. The following sections explain these concepts and allow you to demonstrate them utilize `R` coding practices. Additionally you will be able to visualize the concepts to help gain a better understanding of what they mean and how the concepts can be applied. 
