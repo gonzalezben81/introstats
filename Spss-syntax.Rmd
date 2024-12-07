@@ -1,24 +1,19 @@
 ---
-title: "Spss-syntax.Rmd"
-author: "Ben Gonzalez"
-date: "`r Sys.Date()`"
-output: html_document
+title: "SPSS Syntax"
+output:
+  html_document:
+    code_folding: show
 ---
 
-```{r setup, klippy, echo=FALSE, include=TRUE,message=FALSE}
+```{r setup, klippy, echo=FALSE, include=TRUE}
 klippy::klippy(tooltip_message = "Copy Code",tooltip_success = "Copy Successful!!!",position = "right")
 library(mathjaxr)
 library(latexpdf)
-library(dplyr)
-library(kableExtra)
-library(ggplot2)
-library(latex2exp)
-### Read Data into SPSS
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-```yaml
-
+```{r,eval=FALSE}
 GET DATA
   /TYPE=XLSX
   /FILE='C:\path\to\yourfile.xlsx'
@@ -29,7 +24,7 @@ GET DATA
 
 
 
-```yaml
+```{r,eval=FALSE}
 GET DATA
   /TYPE=TXT
   /FILE='C:\path\to\yourfile.csv'
@@ -42,25 +37,36 @@ GET DATA
 
 ### T-test code
 
-```yaml
+```{r,eval=FALSE}
 T-TEST GROUPS=gender(1 2)
   /VARIABLES=math_score
   /CRITERIA=CI(.95).
 ```
 
+### Z-score code
+
+```{r,eval=FALSE}
+
+DESCRIPTIVES VARIABLES=ALL /SAVE
+
+```
 
 ### Chi-square code
 
-```yaml
+Below is the code for calculating the chi-square statistic.
+
+```{r,eval=FALSE}
 CROSSTABS 
-  /TABLES=variable1 BY variable2
+  /TABLES=Mjob BY internet  
   /STATISTICS=CHISQ
   /CELLS=COUNT EXPECTED.
 ```
 
 ### Pearson Correlation
 
-```yaml
+Below is the code for calculating the Pearson correlation.
+
+```{r,eval=FALSE}
 CORRELATIONS 
   /VARIABLES=var1 var2
   /STATISTICS=DESCRIPTIVES.
@@ -69,30 +75,56 @@ CORRELATIONS
 
 ### Spearman Rank Correlation
 
-```yaml
+```{r,eval=FALSE}
 NONPAR CORR 
-  /VARIABLES=var1 var2
-  /PRINT=SPEARMAN.
+  /VARIABLES=studytime traveltime
+  /PRINT=SPEARMAN TWOTAIL NOSIG FULL
+  /MISSING=PAIRWISE.
 ```
+
+### Phi-coefficient
+
+Below is the syntax for calculating the phi-coefficient statistic.
+
+```{r,eval=FALSE}
+CROSSTABS 
+  /TABLES=sex BY internet 
+  /FORMAT=AVALUE TABLES 
+  /STATISTICS=PHI 
+  /CELLS=COUNT 
+  /COUNT ROUND CELL.
+
+```
+
+<!-- ![](./Graphs/phi-coefficient-sex-by-internet-student-data-csv.pdf) -->
 
 ### Partial Correlation
 
-```yaml
+Below is the code for calculating the partial correlation.
+
+```{r,eval=FALSE}
 PARTIAL CORR 
-  /VARIABLES=var1 var2
-  /CONTROLLING=control_var.
+  /VARIABLES=hp mpg BY cyl
+  /SIGNIFICANCE=TWOTAIL
+  /MISSING=LISTWISE.
 ```
 
 ### Scatterplot in SPSS
 
-```yaml
+Below is the code for generating a scatterplot in SPSS
+
+```{r,eval=FALSE}
 GRAPH 
   /SCATTERPLOT(BIVAR)=independent_variable WITH dependent_variable.
 ```
 
+
+
 ### Bivariate Regression
 
-```yaml
+Below is the code for performing a bivariate regression in SPSS.
+
+```{r,eval=FALSE}
 REGRESSION 
   /DEPENDENT=dependent_variable
   /METHOD=ENTER independent_variable.

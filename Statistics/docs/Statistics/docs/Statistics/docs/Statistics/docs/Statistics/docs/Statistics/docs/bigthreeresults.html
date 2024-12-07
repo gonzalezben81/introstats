@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Ben Gonzalez" />
+
+<meta name="date" content="2023-10-19" />
+
+<title>Big 3 Results</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Intro Statistics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="bigthreeresults.html">Big 3 Results</a>
+</li>
+<li>
+  <a href="Zscores.html">Z-Scores</a>
+</li>
+<li>
+  <a href="chisquarecorrelation.html">Correlation &amp; Chi-Square</a>
+</li>
+<li>
+  <a href="partialcorrelation.html">Partial Correlation</a>
+</li>
+<li>
+  <a href="BivariateRegression.html">Bivariate Regression</a>
+</li>
+<li>
+  <a href="MultipleLinearRegression.html">Multiple Linear Regression</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a></a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Big 3 Results</h1>
+<h4 class="author">Ben Gonzalez</h4>
+<h4 class="date">2023-10-19</h4>
+
+</div>
+
+
+<center>
+<h1>
+Statistical Significance - Confidence Intervals - Effect Size
+</h1>
+</center>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy Code', 'Copy Successful!!!');
+</script>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div id="sample-standard-deviation-formula" class="section level4">
+<h4>Sample Standard Deviation Formula</h4>
+<p><span class="math display">\[\large
+S\;=\;\sqrt{\frac{\sum(X\;-\;{\overline{X}})^2}{N\;-1}}
+\]</span></p>
+<pre class="r"><code>N &lt;- length(mtcars$hp)
+deviations &lt;- mtcars$hp-mean(mtcars$hp)
+
+s &lt;- deviations^2
+
+m_plus&lt;- sum(s)/(N-1)
+
+sd_plus &lt;- sqrt(m_plus)
+print(sd_plus)</code></pre>
+<pre><code>## [1] 68.56287</code></pre>
+<pre class="r"><code>sqrt((sum((mtcars$hp-mean(mtcars$hp))^2))/(length(mtcars$hp)-1))</code></pre>
+<pre><code>## [1] 68.56287</code></pre>
+<pre class="r"><code>sd(mtcars$hp)</code></pre>
+<pre><code>## [1] 68.56287</code></pre>
+</div>
+<div id="standard-error-formula" class="section level4">
+<h4>Standard Error Formula</h4>
+<p><span class="math display">\[\large
+SE\;\;=\frac{\sigma}{\sqrt{n}}
+\]</span> <span class="math display">\[
+SE\;=Standard\;Error
+\\
+\sigma\;=sample\;standard\;deviation
+\\
+n\;=number\;of\;samples
+\]</span></p>
+</div>
+<div id="how-to-calculate-the-standard-error-of-a-sample"
+class="section level4">
+<h4>How to calculate the standard error of a sample</h4>
+<pre class="r"><code>#standard deviation/squareroot(n)
+
+# length(mtcars$hp)
+# nrow(mtcars)
+
+###Shortcut to calculate the standard error of a sample
+###The length function is utilized to find the number of observations in a data set
+sd(mtcars$hp)/sqrt(length(mtcars$hp))</code></pre>
+<pre><code>## [1] 12.12032</code></pre>
+<pre class="r"><code>####Another shortcut to calculate the standard error of a sample
+###The nrow function is utilized to find the number of observations in a data set
+sd(mtcars$hp)/sqrt(nrow(mtcars))</code></pre>
+<pre><code>## [1] 12.12032</code></pre>
+<pre class="r"><code>####Long way to calculate the standard error of a sample
+print(sqrt(sum((mtcars$hp - mean(mtcars$hp)) ^ 2/(length(mtcars$hp) - 1)))
+      /sqrt(length(mtcars$hp)))</code></pre>
+<pre><code>## [1] 12.12032</code></pre>
+</div>
+<div id="computing-confidence-intervals" class="section level3">
+<h3>Computing Confidence Intervals</h3>
+<p><br> <br></p>
+<div id="confidence-interval-formula" class="section level4">
+<h4>Confidence Interval Formula</h4>
+<p>The confidence interval (C.I.) according to (Hatcher, 2013) gives us
+a range of values for the population parameter being estimated.</p>
+<p>Computed for:</p>
+<ul>
+<li>mean</li>
+<li>difference between means</li>
+<li>correlation coefficients</li>
+<li>etc.</li>
+</ul>
+<div id="lower-bound-of-the-c.i.-for-a-sample-mean"
+class="section level5">
+<h5>Lower Bound of the C.I. for a Sample Mean</h5>
+<p><span class="math display">\[\large
+CI\;=\;\overline{X}\;\pm\;(SE_{m})(t_{crit})
+\]</span></p>
+<p><span class="math display">\[
+CI\;=Confidence\;Interval
+\\
+\overline{X}\;=\;observed\;sample\;mean
+\\
+SE_{m}\;=standard\;error\;of\;the\;mean
+\\
+t_{crit}\;=\;the\;critical\;value\;of\;the\;t\;statistic
+\]</span></p>
+<pre class="r"><code>###Calculate the mean of the hp
+mean_hp &lt;- mean(mtcars$hp)
+print(paste0(&quot;Mean of horsepower: &quot;,mean_hp))</code></pre>
+<pre><code>## [1] &quot;Mean of horsepower: 146.6875&quot;</code></pre>
+<pre class="r"><code>###Calculate the sd of the hp
+sd_hp &lt;- sd(mtcars$hp)
+print(paste0(&quot;Standard deviation of horsepoweer: &quot;,sd_hp))</code></pre>
+<pre><code>## [1] &quot;Standard deviation of horsepoweer: 68.5628684893206&quot;</code></pre>
+<pre class="r"><code>###Calculate the square root of the hp
+n&lt;- sqrt(length(mtcars$hp))
+print(n)</code></pre>
+<pre><code>## [1] 5.656854</code></pre>
+<pre class="r"><code>###Confidence level of 0.95% e.g. two-tailed with 2.5%
+t_value &lt;- 1.96
+###How to calculate the t-value properly
+###Take the p-value: 0.05 and the degrees of freedom: 32-1
+tval &lt;- qt((1-0.95)/2, df=32-1)
+print(paste0(&quot;t-critical value: &quot;,tval))</code></pre>
+<pre><code>## [1] &quot;t-critical value: -2.03951344639641&quot;</code></pre>
+<pre class="r"><code>###Standard error of the sample mean
+se_sample_mean &lt;- (sd(mtcars$hp)/sqrt(length(mtcars$hp)))
+print(paste0(&quot;Standard Error of the Sample Mean: &quot;,se_sample_mean))</code></pre>
+<pre><code>## [1] &quot;Standard Error of the Sample Mean: 12.1203173116&quot;</code></pre>
+<pre class="r"><code>sd(mtcars$hp)/sqrt(length(mtcars$hp))</code></pre>
+<pre><code>## [1] 12.12032</code></pre>
+<pre class="r"><code>ci_lower_bound &lt;-mean(mtcars$hp)-(se_sample_mean*tval)
+
+ci_upper_bound&lt;- mean(mtcars$hp)+(se_sample_mean*tval)
+print(ci_lower_bound)</code></pre>
+<pre><code>## [1] 171.4071</code></pre>
+<pre class="r"><code>print(ci_upper_bound)</code></pre>
+<pre><code>## [1] 121.9679</code></pre>
+<pre class="r"><code># head(HumanResourcesDataAA5221_all_zscores[,c(1,11,2,12)]) %&gt;%
+#   kbl(row.names = T) %&gt;%
+#   kable_styling(row_label_position = &quot;l&quot;, full_width = F) %&gt;% 
+#   footnote(general = &quot;Head of data frame.&quot;) %&gt;% 
+#   add_header_above(c(&quot; &quot; = 1, &quot;Satisfaction Level&quot; = 2, &quot;Last Evaluation&quot; = 2))</code></pre>
+</div>
+<div id="utilizing-the-linear-model-formula-in-r"
+class="section level5">
+<h5>Utilizing the linear model formula in R</h5>
+<p>Here we can also calculate the <span
+class="math inline">\(CI\)</span> by utilizing the linear model
+funciton.</p>
+<pre class="r"><code>mean(mtcars$hp)+(1.96*12.1203)</code></pre>
+<pre><code>## [1] 170.4433</code></pre>
+<pre class="r"><code># Calculate the mean and standard error
+l.model &lt;- lm(hp ~ 1, mtcars)
+summary(l.model)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = hp ~ 1, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -94.69 -50.19 -23.69  33.31 188.31 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   146.69      12.12    12.1 2.79e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 68.56 on 31 degrees of freedom</code></pre>
+<pre class="r"><code># Calculate the confidence interval
+confint(l.model, level=0.95)</code></pre>
+<pre><code>##                2.5 %   97.5 %
+## (Intercept) 121.9679 171.4071</code></pre>
+<hr />
+<center>
+<h2>
+References
+</h2>
+</center>
+<p>Hatcher, L. (2013). <em>Advanced statistics in research: Reading,
+understanding, and writing up data analysis results. Shadow Finch
+Media.</em></p>
+<p><a href="https://www.statology.org/t-distribution-table/"
+class="uri">https://www.statology.org/t-distribution-table/</a></p>
+<p><a
+href="https://www.scribbr.com/frequently-asked-questions/critical-value-of-t-in-r/#"
+class="uri">https://www.scribbr.com/frequently-asked-questions/critical-value-of-t-in-r/#</a>:~:text=You%20can%20use%20the%20qt,the%20significance%20level%20by%20two.</p>
+</div>
+</div>
+</div>
+
+<!-- footer.html -->
+<div class="footer" style="text-align: center; padding: 10px; border-top: 1px solid #ccc;">
+<!--<p>Author: Ben Gonzalez</p>-->
+  <p>
+    <a href="https://github.com/your-username" target="_blank" title="GitHub">
+      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="width: 30px; height: 30px;"/>
+    </a>
+    <a href="https://x.com/your-twitter-handle" target="_blank" title="Twitter">
+      <img src="https://s2.googleusercontent.com/s2/favicons?domain=x.com" alt="Twitter" style="width: 30px; height: 30px;"/>™
+    </a>
+    <a href="mailto:your-email@example.com" title="Email">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" style="width: 30px; height: 30px;"/>
+    </a>
+  </p>
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

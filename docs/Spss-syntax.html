@@ -9,11 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Ben Gonzalez" />
 
-<meta name="date" content="2024-12-05" />
 
-<title>Spss-syntax.Rmd</title>
+<title>SPSS Syntax</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -39,8 +37,8 @@
 <link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
 <link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
 <script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
-<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -412,9 +410,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Spss-syntax.Rmd</h1>
-<h4 class="author">Ben Gonzalez</h4>
-<h4 class="date">2024-12-05</h4>
+<h1 class="title toc-ignore">SPSS Syntax</h1>
 
 </div>
 
@@ -423,71 +419,84 @@ $(document).ready(function () {
   addClassKlippyTo("pre.r, pre.markdown");
   addKlippy('right', 'top', 'auto', '1', 'Copy Code', 'Copy Successful!!!');
 </script>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">GET DATA</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">  /TYPE=XLSX</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">  /FILE=&#39;C:\path\to\yourfile.xlsx&#39;</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="at">  /SHEET=name &#39;Sheet1&#39;</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="at">  /CELLRANGE=FULL</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="at">  /READNAMES=ON.</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="at">GET DATA</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="at">  /TYPE=TXT</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="at">  /FILE=&#39;C:\path\to\yourfile.csv&#39;</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="at">  /DELCASE=LINE</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="at">  /DELIMITERS=&quot;,&quot;</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="at">  /ARRANGEMENT=DELIMITED</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="at">  /FIRSTCASE=2</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="at">  /VARIABLES=var1 F8.2 var2 F8.2 var3 F8.2.</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>GET DATA</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="sc">/</span>TYPE<span class="ot">=</span>XLSX</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="sc">/</span>FILE<span class="ot">=</span><span class="st">&#39;C:\path</span><span class="sc">\t</span><span class="st">o\yourfile.xlsx&#39;</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="sc">/</span>SHEET<span class="ot">=</span>name <span class="st">&#39;Sheet1&#39;</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="sc">/</span>CELLRANGE<span class="ot">=</span>FULL</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="sc">/</span>READNAMES<span class="ot">=</span>ON.</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>GET DATA</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="sc">/</span>TYPE<span class="ot">=</span>TXT</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="sc">/</span>FILE<span class="ot">=</span><span class="st">&#39;C:\path</span><span class="sc">\t</span><span class="st">o\yourfile.csv&#39;</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="sc">/</span>DELCASE<span class="ot">=</span>LINE</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="sc">/</span>DELIMITERS<span class="ot">=</span><span class="st">&quot;,&quot;</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="sc">/</span>ARRANGEMENT<span class="ot">=</span>DELIMITED</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="sc">/</span>FIRSTCASE<span class="ot">=</span><span class="dv">2</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="sc">/</span>VARIABLES<span class="ot">=</span>var1 F8<span class="fl">.2</span> var2 F8<span class="fl">.2</span> var3 F8.<span class="fl">2.</span></span></code></pre></div>
 <div id="t-test-code" class="section level3">
 <h3>T-test code</h3>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="at">T-TEST GROUPS=gender(1 2)</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="at">  /VARIABLES=math_score</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="at">  /CRITERIA=CI(.95).</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>T<span class="sc">-</span>TEST GROUPS<span class="ot">=</span><span class="fu">gender</span>(<span class="dv">1</span> <span class="dv">2</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="sc">/</span>VARIABLES<span class="ot">=</span>math_score</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="sc">/</span>CRITERIA<span class="ot">=</span><span class="fu">CI</span>(.<span class="dv">95</span>).</span></code></pre></div>
+</div>
+<div id="z-score-code" class="section level3">
+<h3>Z-score code</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>DESCRIPTIVES VARIABLES<span class="ot">=</span>ALL <span class="sc">/</span>SAVE</span></code></pre></div>
 </div>
 <div id="chi-square-code" class="section level3">
 <h3>Chi-square code</h3>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="at">CROSSTABS </span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="at">  /TABLES=variable1 BY variable2</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="at">  /STATISTICS=CHISQ</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="at">  /CELLS=COUNT EXPECTED.</span></span></code></pre></div>
+<p>Below is the code for calculating the chi-square statistic.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>CROSSTABS </span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="sc">/</span>TABLES<span class="ot">=</span>Mjob BY internet  </span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="sc">/</span>STATISTICS<span class="ot">=</span>CHISQ</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="sc">/</span>CELLS<span class="ot">=</span>COUNT EXPECTED.</span></code></pre></div>
 </div>
 <div id="pearson-correlation" class="section level3">
 <h3>Pearson Correlation</h3>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="at">CORRELATIONS </span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="at">  /VARIABLES=var1 var2</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="at">  /STATISTICS=DESCRIPTIVES.</span></span></code></pre></div>
+<p>Below is the code for calculating the Pearson correlation.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>CORRELATIONS </span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="sc">/</span>VARIABLES<span class="ot">=</span>var1 var2</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="sc">/</span>STATISTICS<span class="ot">=</span>DESCRIPTIVES.</span></code></pre></div>
 </div>
 <div id="spearman-rank-correlation" class="section level3">
 <h3>Spearman Rank Correlation</h3>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="at">NONPAR CORR </span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="at">  /VARIABLES=var1 var2</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="at">  /PRINT=SPEARMAN.</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>NONPAR CORR </span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="sc">/</span>VARIABLES<span class="ot">=</span>studytime traveltime</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="sc">/</span>PRINT<span class="ot">=</span>SPEARMAN TWOTAIL NOSIG FULL</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="sc">/</span>MISSING<span class="ot">=</span>PAIRWISE.</span></code></pre></div>
+</div>
+<div id="phi-coefficient" class="section level3">
+<h3>Phi-coefficient</h3>
+<p>Below is the syntax for calculating the phi-coefficient
+statistic.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>CROSSTABS </span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="sc">/</span>TABLES<span class="ot">=</span>sex BY internet </span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="sc">/</span>FORMAT<span class="ot">=</span>AVALUE TABLES </span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="sc">/</span>STATISTICS<span class="ot">=</span>PHI </span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="sc">/</span>CELLS<span class="ot">=</span>COUNT </span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  <span class="sc">/</span>COUNT ROUND CELL.</span></code></pre></div>
+<!-- ![](./Graphs/phi-coefficient-sex-by-internet-student-data-csv.pdf) -->
 </div>
 <div id="partial-correlation" class="section level3">
 <h3>Partial Correlation</h3>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="at">PARTIAL CORR </span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="at">  /VARIABLES=var1 var2</span></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="at">  /CONTROLLING=control_var.</span></span></code></pre></div>
+<p>Below is the code for calculating the partial correlation.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>PARTIAL CORR </span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="sc">/</span>VARIABLES<span class="ot">=</span>hp mpg BY cyl</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="sc">/</span>SIGNIFICANCE<span class="ot">=</span>TWOTAIL</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="sc">/</span>MISSING<span class="ot">=</span>LISTWISE.</span></code></pre></div>
 </div>
 <div id="scatterplot-in-spss" class="section level3">
 <h3>Scatterplot in SPSS</h3>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="at">GRAPH </span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="at">  /SCATTERPLOT(BIVAR)=independent_variable WITH dependent_variable.</span></span></code></pre></div>
+<p>Below is the code for generating a scatterplot in SPSS</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>GRAPH </span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="sc">/</span><span class="fu">SCATTERPLOT</span>(BIVAR)<span class="ot">=</span>independent_variable WITH dependent_variable.</span></code></pre></div>
 </div>
 <div id="bivariate-regression" class="section level3">
 <h3>Bivariate Regression</h3>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="at">REGRESSION </span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="at">  /DEPENDENT=dependent_variable</span></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="at">  /METHOD=ENTER independent_variable.</span></span></code></pre></div>
+<p>Below is the code for performing a bivariate regression in SPSS.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>REGRESSION </span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="sc">/</span>DEPENDENT<span class="ot">=</span>dependent_variable</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="sc">/</span>METHOD<span class="ot">=</span>ENTER independent_variable.</span></code></pre></div>
 </div>
 
 <!-- footer.html -->
@@ -548,7 +557,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
+  window.initializeCodeFolding("show" === "show");
 });
 </script>
 
