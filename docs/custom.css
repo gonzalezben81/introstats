@@ -3,7 +3,10 @@
 /* Remove border around TOC */
 #TOC.tocify {
     border: none !important;
-
 }
 
 
+/* Ensure that all paragraphs inside the body use the desired font size */
+body p {
+    font-size: 18px !important;
+}

@@ -41,6 +41,38 @@ gonzo_theme <- function() {
 
 ```
 
+### Z-score
+
+What is a z-score you ask? A z-score is a transformed version of a raw score in a data set. This transformation allows us to standardize a mean of `0` and a standard deviation of `1`. Thus, allowing us to more easily see how far above or below the `mean` a raw score is.
+
++ `Positive z-score` - the raw score is above the mean
++ `Negative z-score` - the raw score is below the mean
+
+
+#### Z-score formula
+
+***
+
+$$
+Z=\frac{X-\overline{X}}{S}
+$$
+
+***
+
+$$
+Z\;=\;calculated\;z-score
+\\
+X=\;raw\;score
+\\
+\overline{X}=\;sample\;mean
+\\
+S=\;sample\;standard\;deviation
+$$
+
+***
+
+
+
 We will be utilizing the mtcars data set. Here we will normalize the mpg scores and return their equivalent z-score values.
 
 ```{r mtcars}

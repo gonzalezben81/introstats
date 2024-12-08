@@ -11,9 +11,9 @@
 
 <meta name="author" content="Ben Gonzalez" />
 
-<meta name="date" content="2024-11-22" />
+<meta name="date" content="2024-11-25" />
 
-<title>Central Tendency Variability &amp; Descriptive Statistics</title>
+<title>Central Tendency, Variability, &amp; Descriptive Statistics</title>
 
 <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -42,6 +42,8 @@
 <link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
 <link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
 <script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -430,10 +432,14 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Home</a>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
 </li>
 <li>
-  <a href="descriptivestatisticsvariance.html">Central Tendency Variability &amp; Descriptive Statistics</a>
+  <a href="foundationalconcepts.html">Foundational Concepts</a>
 </li>
 <li>
   <a href="bigthreeresults.html">Big 3 Results</a>
@@ -479,10 +485,10 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Central Tendency Variability &amp;
+<h1 class="title toc-ignore">Central Tendency, Variability, &amp;
 Descriptive Statistics</h1>
 <h4 class="author">Ben Gonzalez</h4>
-<h4 class="date">2024-11-22</h4>
+<h4 class="date">2024-11-25</h4>
 
 </div>
 
@@ -493,6 +499,38 @@ Descriptive Statistics</h1>
 </script>
 <div id="descriptive-statistics" class="section level3">
 <h3>Descriptive Statistics</h3>
+</div>
+<div id="headdescriptivestatisticsvariance.rmd" class="section level1">
+<h1>&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+HEAD:descriptivestatisticsvariance.Rmd</h1>
+<p>As you begin your journey through statistics there are several
+underlying foundational concepts that need to be understood. The
+following sections explain these concepts and allow you to demonstrate
+them utilize <code>R</code> coding practices. Additionally you will be
+able to visualize the concepts to help gain a better understanding of
+what they mean and how the concepts can be applied.</p>
+<ul>
+<li>Central Limit Theorem</li>
+<li>Variance</li>
+<li>Quartiles &amp; Interquartile Range</li>
+<li>Visualization of Distributions</li>
+</ul>
+<hr />
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>5d850098505e1dcbdf368892586da454578f97eb:foundationalconcepts.Rmd</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <div id="stevens-four-scales-of-measurement" class="section level4">
 <h4>Steven’s four scales of measurement</h4>
 <p><br></p>
@@ -627,8 +665,29 @@ Analysis</em>.
 <p><br></p>
 </div>
 </div>
+<div id="headdescriptivestatisticsvariance.rmd-1"
+class="section level1">
+<h1>&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+HEAD:descriptivestatisticsvariance.Rmd</h1>
+<hr />
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>5d850098505e1dcbdf368892586da454578f97eb:foundationalconcepts.Rmd</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <div id="measures-of-central-tendency" class="section level3">
 <h3>Measures of Central Tendency</h3>
+<hr />
 <div id="mean" class="section level4">
 <h4>Mean</h4>
 <p>The mean or average and sometimes referred to as the arithmeic mean
@@ -644,27 +703,41 @@ ratio scale.</li>
 <li>The distribution of the data is approx. normal or symmetrical</li>
 </ul>
 <p>The formula for the mean is as follows:</p>
+<hr />
 <p><span class="math display">\[
 \overline{X}=\frac{\sum{X}}{N}
-\]</span> #### Median</p>
+\]</span></p>
+<hr />
+</div>
+<div id="median" class="section level4">
+<h4>Median</h4>
 <p>According to Hatcher(2013) the median is the score at which 50% of
-the distribution falls at or below this score.</p>
-<p><span class="math inline">\(Odd:\)</span></p>
+the distribution falls at or below a particular score in the
+distribution.</p>
+<ul>
+<li><span class="math inline">\(Odd\)</span> number of
+observations:</li>
+</ul>
 <p>One way to calculate the median is to order the values in the data
 and order them from largest to smallest. The middle most number is the
 <span class="math inline">\(median\)</span>.</p>
-<p><span class="math inline">\(Even\)</span></p>
-<p>If you have an even number of data. You order the data again from
-largest to smallest and then you take the two middle numbers in your
-data and divide them by <span class="math inline">\(2\)</span>.</p>
-<p>You can also utilize the `<code>median()</code> function in
+<ul>
+<li><span class="math inline">\(Even\)</span> number of
+observations</li>
+</ul>
+<p>If you have an even number of data points. You will want to order the
+data again from largest to smallest and then take the middle two numbers
+from your data and divide them by <span
+class="math inline">\(2\)</span>.</p>
+<p>You can also utilize the <code>median()</code> function in
 <code>R</code></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">median</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
 <pre><code>## [1] 19.2</code></pre>
 <p>Assumptions to calculate the median:</p>
 <ul>
-<li>The variable is assessed on an ordinal scale</li>
-<li>The variable is assess on an interval or ratio scale</li>
+<li>The variable is assessed on an <code>ordinal</code> scale</li>
+<li>The variable is assessed on an <code>interval</code> or
+<code>ratio scale</code></li>
 </ul>
 </div>
 <div id="mode" class="section level4">
@@ -674,14 +747,19 @@ distribution.</p>
 <p>There are two types of modes <code>unimodal</code> and
 <code>bimodal</code>.</p>
 <p><span class="math inline">\(unimodal\)</span> - there is only one
-mode present in the distribution.</p>
+mode present in a distribution.</p>
 <p><span class="math inline">\(bimodal\)</span> - there are two modes
 present in a distribution.</p>
 <p>Assumptions to calculate the mode:</p>
 <ul>
 <li>Typically used with variables assessed on a nominal scale;
-e.g. categorical data</li>
+e.g. categorical data.</li>
+<li>Discrete variable e.g. number of pets or number of cylinders in a
+car</li>
 </ul>
+<p>Below is an <code>R</code> function to calculate the
+<code>mode</code> in a data set. <code>R</code> does not have any built
+in functions that will calculate the mode for us.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Create the function.</span></span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>getmode <span class="ot">&lt;-</span> <span class="cf">function</span>(v) {</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  uniqv <span class="ot">&lt;-</span> <span class="fu">unique</span>(v)</span>
@@ -690,38 +768,79 @@ e.g. categorical data</li>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="fu">getmode</span>(mtcars<span class="sc">$</span>cyl)</span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
+<p>Histogram showing the mode of the number of
+<code>cyl/cylinders</code> in the Mtcars data set. Here we can see that
+the mode is 14 and belongs to the <code>8 cylinders</code> category.
+Since the <code>cyl</code> variable is a discrete variable, can only
+assume a whole-number then we can utilize it in our histogram.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># hist(mtcars$cyl)</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co"># Create histogram for &#39;cyl&#39; column</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>hist_obj <span class="ot">&lt;-</span> <span class="fu">hist</span>(mtcars<span class="sc">$</span>cyl, </span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>                 <span class="at">main =</span> <span class="st">&quot;Histogram of Number of Cylinders (cyl)&quot;</span>, </span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>                 <span class="at">xlab =</span> <span class="st">&quot;Number of Cylinders&quot;</span>, </span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>                 <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>, </span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>                 <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>, </span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>                 <span class="at">border =</span> <span class="st">&quot;black&quot;</span>, </span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>                 <span class="at">plot =</span> <span class="cn">FALSE</span>)  <span class="co"># Don&#39;t plot the histogram yet, just store the data</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co"># Plot the histogram</span></span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="fu">plot</span>(hist_obj, </span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram of Number of Cylinders (cyl)&quot;</span>, </span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Number of Cylinders&quot;</span>, </span>
-<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>, </span>
-<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>, </span>
-<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>     <span class="at">border =</span> <span class="st">&quot;black&quot;</span>)</span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a></span>
-<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co"># Add counts on top of each bar</span></span>
-<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> hist_obj<span class="sc">$</span>mids, </span>
-<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>     <span class="at">y =</span> hist_obj<span class="sc">$</span>counts, </span>
-<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a>     <span class="at">labels =</span> hist_obj<span class="sc">$</span>counts, </span>
-<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a>     <span class="at">pos =</span> <span class="fl">1.5</span>,      <span class="co"># Position text above the bars</span></span>
-<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="co"># Color of the text</span></span>
-<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">0.8</span>)     <span class="co"># Size of the text</span></span></code></pre></div>
-<p><img src="descriptivestatisticsvariance_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co"># Create histogram for &#39;cyl&#39; column</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>hist_obj <span class="ot">&lt;-</span> <span class="fu">hist</span>(mtcars<span class="sc">$</span>cyl, </span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>                 <span class="at">main =</span> <span class="st">&quot;Histogram of Number of Cylinders (cyl)&quot;</span>, </span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>                 <span class="at">xlab =</span> <span class="st">&quot;Number of Cylinders&quot;</span>, </span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>                 <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>, </span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>                 <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>, </span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>                 <span class="at">border =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>                 <span class="at">plot =</span> <span class="cn">FALSE</span>)  <span class="co"># Don&#39;t plot the histogram yet, just store the data</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co"># Plot the histogram</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="fu">plot</span>(hist_obj, </span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram of Number of Cylinders (cyl)&quot;</span>, </span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Number of Cylinders&quot;</span>, </span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>, </span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>, </span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>     <span class="at">border =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co"># Add counts on top of each bar</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> hist_obj<span class="sc">$</span>mids, </span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>     <span class="at">y =</span> hist_obj<span class="sc">$</span>counts, </span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a>     <span class="at">labels =</span> hist_obj<span class="sc">$</span>counts, </span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>     <span class="at">pos =</span> <span class="fl">1.5</span>,      <span class="co"># Position text above the bars</span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="co"># Color of the text</span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">0.8</span>)     <span class="co"># Size of the text</span></span></code></pre></div>
+<p><img src="foundationalconcepts_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># ggplot(mtcars, aes(x = cyl)) +</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#   geom_histogram(fill = &quot;lightblue&quot;, color = &quot;blue&quot;) +</span></span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#   labs(title = &quot;Variation of MPG in Mtcars Data Set&quot;, x = &quot;MPG Variance&quot;) +</span></span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#   theme_minimal()+gonzo_theme()</span></span></code></pre></div>
+</div>
+</div>
+<div id="quartiles" class="section level3">
+<h3>Quartiles</h3>
+<p>Quartiles is when our data is able to be split into <code>4</code>
+equal parts or <code>25%</code> each. This in turn gives us
+<code>4</code> sections of our data. One way to look at
+variability/spread of the data is to look at the <span
+class="math inline">\(IQR\)</span> or the interquartile range. This can
+give us a sense of how spread out our data is and if it meets certain
+assumptions e.g. <span class="math inline">\(homogeneity\)</span> -
+equal variance or <span class="math inline">\(heterogeneity\)</span> -
+unequal variance.</p>
+<p>The symbols used for <code>quartiles</code> are as follows.</p>
+<hr />
+<p><span class="math display">\[Q1\;=\;First\;Quartile\\
+Q2\;=Second\;Quartile\\
+Q3\;=Third\;Quartile\\
+Q4\;=Fourth\;Quartile \]</span></p>
+<hr />
+<p>We can easily compute the <code>quartiles</code> in <code>R</code>
+using the <code>quantile</code> function.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">quantile</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>##     0%    25%    50%    75%   100% 
+## 10.400 15.425 19.200 22.800 33.900</code></pre>
+<div id="interquartile-range" class="section level4">
+<h4>Interquartile Range</h4>
+<p>Utilizing the information from above we can easily compute the
+interquartile range or <span class="math inline">\(IQR\)</span> of our
+data as follows.</p>
+<p><span class="math inline">\(IQR\;=\;Q_{3}-Q_{1}\)</span></p>
+<p>In our data above the <span class="math inline">\(IQR\)</span> is
+calculated as <span class="math inline">\(Q_{3}\)</span><code>75%</code>
+- <span class="math inline">\(Q_{1}\)</span><code>25%</code> or 7.375.
+Similarly we can also utilize the <code>IQR()</code> function in
+<code>R</code> to calculate the interquartile range.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">IQR</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>## [1] 7.375</code></pre>
 </div>
 </div>
 <div id="measures-of-variability" class="section level3">
@@ -732,12 +851,13 @@ e.g. categorical data</li>
 <p><span class="math inline">\(Measure\;of\;variability\)</span> -
 indicates the amount of dispersion displayed by a set of scores.
 (Hatcher 2013)</p>
-<p><span class="math inline">\(Variance\)</span> - measure of
+<ul>
+<li><span class="math inline">\(Variance\)</span> - measure of
 variability computed by taking the average of the squared deviations
-from the mean. (Hatcher 2013)</p>
-<p>Variance can be calculated via the following formula. We first
-calculate the average distance from each data point from the mean of our
-data.</p>
+from the mean. (Hatcher 2013)</li>
+</ul>
+<p>Variance can be calculated via the following formula(s) depending on
+if we are looking at the following:</p>
 <!-- https://campus.datacamp.com/courses/introduction-to-statistics-in-r/summary-statistics?ex=7 -->
 <p>The formula for calculating the <span
 class="math inline">\(Sample\)</span> variance is as follows:</p>
@@ -748,7 +868,7 @@ S^2\;=\;\frac{\sum(X_{i}\;-\;{\overline{X}})^2}{N\;-1}
 <hr />
 <p>You can also utilize the <code>var()</code> function in R to
 calculate the variance.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">var</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">var</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
 <pre><code>## [1] 36.3241</code></pre>
 <hr />
 <div id="visualization-of-variation-in-a-data-set"
@@ -758,12 +878,12 @@ class="section level4">
 utilizing a boxplot or a histogram.</p>
 <div id="boxplot" class="section level5">
 <h5>Boxplot</h5>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Boxplot of mpg in mtcars</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Variation of MPG in mtcars&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Miles Per Gallon (MPG)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;MPG Variation&quot;</span>) <span class="sc">+</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">gonzo_theme</span>()</span></code></pre></div>
-<p><img src="descriptivestatisticsvariance_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Boxplot of mpg in mtcars</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Variation of MPG in mtcars&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Miles Per Gallon (MPG)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;MPG Variation&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">gonzo_theme</span>()</span></code></pre></div>
+<p><img src="foundationalconcepts_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The boxplot for <strong>MPG</strong> in the mtcars data set
 visualizes the variation in fuel efficiency across different cars.
 Here’s what we can interpret from the boxplot:</p>
@@ -791,57 +911,47 @@ or inefficiency could appear as outliers in this plot.</p></li>
 </div>
 <div id="histogram" class="section level5">
 <h5>Histogram</h5>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Histogram to visualize the distribution (and variance) of mpg</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">hist</span>(mtcars<span class="sc">$</span>mpg, </span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram of mpg (Variance)&quot;</span>, </span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Miles per Gallon&quot;</span>, </span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;lightgreen&quot;</span>, </span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div>
-<p><img src="descriptivestatisticsvariance_files/figure-html/variance-histogram-1.png" width="672" /></p>
+<p>One way to display the distribution or variance of the data is by
+utilizing a <code>histogram</code>. The histogram takes the numerical
+values and <code>bins</code> them. Below you can see we have the
+<code>frequencies</code> of the <code>mpg</code> data on the horizontal
+axis (X axis). On the vertical (Y axis) we have the frequencies of the
+data. This allows us to easily see:</p>
+<ul>
+<li>If the data is normally distributed.</li>
+<li>If the data has a skewed distribution (positive skew or negative
+skew).</li>
+<li>Additional info best seen via a data visualization.</li>
+</ul>
+<p>*Note: SPSS, R, and SAS can produce very different histograms due to
+how they <code>bin</code> the data set`</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Histogram to visualize the distribution (and variance) of mpg</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">hist</span>(mtcars<span class="sc">$</span>mpg, </span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram of mpg (Variance)&quot;</span>, </span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Miles per Gallon&quot;</span>, </span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;lightgreen&quot;</span>, </span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p><img src="foundationalconcepts_files/figure-html/variance-histogram-1.png" width="672" /></p>
 </div>
 <div id="density-plot" class="section level5">
 <h5>Density Plot</h5>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Density plot to visualize the spread (variance) of mpg</span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co"># plot(density(mtcars$mpg), </span></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#      main = &quot;Density Plot of mpg (Variance)&quot;, </span></span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#      xlab = &quot;Miles per Gallon&quot;, </span></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#      col = &quot;darkblue&quot;, </span></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#      lwd = 2)</span></span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg), <span class="at">sd =</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)), </span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span> </span>
-<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Variation of MPG in Mtcars Data Set&quot;</span>, <span class="at">x =</span> <span class="st">&quot;MPG Variance&quot;</span>) <span class="sc">+</span></span>
-<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">gonzo_theme</span>()</span></code></pre></div>
-<p><img src="descriptivestatisticsvariance_files/figure-html/variance-density-plot-1.png" width="672" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Density plot to visualize the spread (variance) of mpg</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co"># plot(density(mtcars$mpg), </span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">#      main = &quot;Density Plot of mpg (Variance)&quot;, </span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#      xlab = &quot;Miles per Gallon&quot;, </span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#      col = &quot;darkblue&quot;, </span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#      lwd = 2)</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg), <span class="at">sd =</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)), </span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span> </span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Variation of MPG in Mtcars Data Set&quot;</span>, <span class="at">x =</span> <span class="st">&quot;MPG Variance&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">gonzo_theme</span>()</span></code></pre></div>
+<p><img src="foundationalconcepts_files/figure-html/variance-density-plot-1.png" width="672" /></p>
 </div>
 </div>
-<div id="quartiles" class="section level4">
-<h4>Quartiles</h4>
-<p>Quartiles is when the data is split up into <code>4</code> equal
-parts <code>25%</code> each.</p>
-<p>The syymbols used for <code>quartiles</code> are as follows.</p>
-<hr />
-<p><span class="math display">\[Q1\;=\;First\;Quartile\\
-Q2\;=Second\;Quartile\\
-Q3\;=Third\;Quartile\\
-Q4\;=Fourth\;Quartile \]</span></p>
-<hr />
-<p>We can easily compute the <code>quartiles</code> in <code>R</code>
-using the <code>quantile</code> function.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">quantile</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
-<pre><code>##     0%    25%    50%    75%   100% 
-## 10.400 15.425 19.200 22.800 33.900</code></pre>
-<p>We can thus compute the interquartle range or <span
-class="math inline">\(IQR\)</span> as follows.</p>
-<p><span class="math inline">\(IQR\;=\;Q_{3}-Q_{1}\)</span></p>
-<p>In our data above this would be the <span
-class="math inline">\(Q_{3}\)</span><code>75%</code> - <span
-class="math inline">\(Q_{1}\)</span><code>25%</code> or 7.375</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">IQR</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
-<pre><code>## [1] 7.375</code></pre>
 </div>
 </div>
 

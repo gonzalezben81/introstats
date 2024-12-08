@@ -3,9 +3,10 @@ navbar:
   title: "Intro Stats"
   left:
     - text: "Home"
+      icon: fa-home
       href: index.html
-    - text: "Central Tendency Variability & Descriptive Statistics"
-      href: descriptivestatisticsvariance.html      
+    - text: "Foundational Concepts"
+      href: foundationalconcepts.html      
     - text: "Big 3 Results"
       href: bigthreeresults.html
     - text: "Z-Scores"
@@ -23,7 +24,7 @@ navbar:
     - search: true
 output_dir: "docs"
 css:
-  - "custom.css"
+  - "docs/custom.css"
 output:
   html_document:
     css: custom.css

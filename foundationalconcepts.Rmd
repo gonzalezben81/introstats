@@ -1,5 +1,5 @@
 ---
-title: "Central Tendency Variability & Descriptive Statistics"
+title: "Central Tendency, Variability, & Descriptive Statistics"
 author: "Ben Gonzalez"
 date: "`r Sys.Date()`"
 bibliography: references.bib
@@ -41,6 +41,17 @@ gonzo_theme <- function() {
 
 ### Descriptive Statistics
 
+<<<<<<< HEAD:descriptivestatisticsvariance.Rmd
+=======
+As you begin your journey through statistics there are several underlying foundational concepts that need to be understood. The following sections explain these concepts and allow you to demonstrate them utilize `R` coding practices. Additionally you will be able to visualize the concepts to help gain a better understanding of what they mean and how the concepts can be applied. 
+
++ Central Limit Theorem
++ Variance
++ Quartiles & Interquartile Range
++ Visualization of Distributions
+
+***
+>>>>>>> 5d850098505e1dcbdf368892586da454578f97eb:foundationalconcepts.Rmd
 
 #### Steven's four scales of measurement
 
@@ -130,8 +141,14 @@ tfoot {
 
 <br>
 
+<<<<<<< HEAD:descriptivestatisticsvariance.Rmd
+=======
+***
+>>>>>>> 5d850098505e1dcbdf368892586da454578f97eb:foundationalconcepts.Rmd
 
 ### Measures of Central Tendency
+
+***
 
 #### Mean
 
@@ -146,22 +163,27 @@ Assumptions to calculate the mean:
 
 The formula for the mean is as follows:
 
+***
+
 $$
 \overline{X}=\frac{\sum{X}}{N}
 $$
+
+***
+
 #### Median
 
-According to Hatcher(2013) the median is the score at which 50% of the distribution falls at or below this score.
+According to Hatcher(2013) the median is the score at which 50% of the distribution falls at or below a particular score in the distribution.
 
-$Odd:$
++ $Odd$ number of observations:
 
 One way to calculate the median is to order the values in the data and order them from largest to smallest. The middle most number is the $median$.
 
-$Even$
++ $Even$ number of observations
 
-If you have an even number of data. You order the data again from largest to smallest and then you take the two middle numbers in your data and divide them by $2$.
+If you have an even number of data points. You will want to order the data again from largest to smallest and then take the middle two numbers from your data and divide them by $2$.
 
-You can also utilize the ``median()` function in `R`
+You can also utilize the `median()` function in `R`
 
 ```{r,warning=FALSE,message=FALSE}
 median(mtcars$mpg)
@@ -169,8 +191,8 @@ median(mtcars$mpg)
 
 Assumptions to calculate the median:
 
-+ The variable is assessed on an ordinal scale
-+ The variable is assess on an interval or ratio scale
++ The variable is assessed on an `ordinal` scale
++ The variable is assessed on an `interval` or `ratio scale`
 
 #### Mode
 
@@ -178,14 +200,17 @@ The mode is the most frequently occurring number in a distribution.
 
 There are two types of modes `unimodal` and `bimodal`. 
 
-$unimodal$ - there is only one mode present in the distribution.
+$unimodal$ - there is only one mode present in a distribution.
 
 $bimodal$ - there are two modes present in a distribution.
 
 Assumptions to calculate the mode:
 
-+ Typically used with variables assessed on a nominal scale; e.g. categorical data
++ Typically used with variables assessed on a nominal scale; e.g. categorical data.
++ Discrete variable e.g. number of pets or number of cylinders in a car
 
+
+Below is an `R` function to calculate the `mode` in a data set. `R` does not have any built in functions that will calculate the mode for us.
 
 ```{r ,warning=FALSE,message=FALSE}
 # Create the function.
@@ -195,10 +220,14 @@ getmode <- function(v) {
 }
 
 getmode(mtcars$cyl)
+```
+
+
+Histogram showing the mode of the number of `cyl/cylinders` in the Mtcars data set. Here we can see that the mode is 14 and belongs to the `8 cylinders` category. Since the `cyl` variable is a discrete variable, can only assume a whole-number then we can utilize it in our histogram.
+
+```{r ,message=FALSE,warning=FALSE}
 
 # hist(mtcars$cyl)
-
-
 # Create histogram for 'cyl' column
 hist_obj <- hist(mtcars$cyl, 
                  main = "Histogram of Number of Cylinders (cyl)", 
@@ -223,13 +252,47 @@ text(x = hist_obj$mids,
      pos = 1.5,      # Position text above the bars
      col = "black", # Color of the text
      cex = 0.8)     # Size of the text
-
-
 # ggplot(mtcars, aes(x = cyl)) +
 #   geom_histogram(fill = "lightblue", color = "blue") +
 #   labs(title = "Variation of MPG in Mtcars Data Set", x = "MPG Variance") +
 #   theme_minimal()+gonzo_theme()
 
+```
+
+### Quartiles
+
+
+Quartiles is when our data is able to be split into `4` equal parts or `25%` each. This in turn gives us `4` sections of our data. One way to look at variability/spread of the data is to look at the $IQR$ or the interquartile range. This can give us a sense of how spread out our data is and if it meets certain assumptions e.g. $homogeneity$ - equal variance or $heterogeneity$ - unequal variance.
+
+
+The symbols used for `quartiles` are as follows.
+
+***
+
+$$Q1\;=\;First\;Quartile\\
+Q2\;=Second\;Quartile\\
+Q3\;=Third\;Quartile\\
+Q4\;=Fourth\;Quartile $$
+
+***
+
+We can easily compute the `quartiles` in `R` using the `quantile` function.
+
+```{r quartiles,warning=FALSE,message=FALSE}
+quantile(mtcars$mpg)
+```
+
+#### Interquartile Range
+
+Utilizing the information from above we can easily compute the interquartile range or $IQR$ of our data as follows.
+
+$IQR\;=\;Q_{3}-Q_{1}$
+
+In our data above the $IQR$ is calculated as $Q_{3}$`75%` - $Q_{1}$`25%` or `r 22.800-15.425`.
+Similarly we can also utilize the `IQR()` function in `R` to calculate the interquartile range.
+
+```{r iqr,warning=FALSE,message=FALSE}
+IQR(mtcars$mpg)
 ```
 
 
@@ -240,9 +303,11 @@ text(x = hist_obj$mids,
 
 $Measure\;of\;variability$ - indicates the amount of dispersion displayed by a set of scores. (Hatcher 2013)
 
-$Variance$ - measure of variability computed by taking the average of the squared deviations from the mean. (Hatcher 2013) 
++ $Variance$ - measure of variability computed by taking the average of the squared deviations from the mean. (Hatcher 2013) 
 
-Variance can be calculated via the following formula. We first calculate the average distance from each data point from the mean of our data.
+
+
+Variance can be calculated via the following formula(s) depending on if we are looking at the following:
 
 <!-- https://campus.datacamp.com/courses/introduction-to-statistics-in-r/summary-statistics?ex=7 -->
 
@@ -306,6 +371,14 @@ The boxplot for **MPG** in the mtcars data set visualizes the variation in fuel 
 
 ##### Histogram
 
+One way to display the distribution or variance of the data is by utilizing a `histogram`. The histogram takes the numerical values and `bins` them. Below you can see we have the `frequencies` of the `mpg` data on the horizontal axis (X axis). On the vertical (Y axis) we have the frequencies of the data. This allows us to easily see:
+
++ If the data is normally distributed.
++ If the data has a skewed distribution (positive skew or negative skew).
++ Additional info best seen via a data visualization.
+
+*Note: SPSS, R, and SAS can produce very different histograms due to how they `bin` the data set`
+
 ```{r variance-histogram,warning=FALSE,message=FALSE}
 # Histogram to visualize the distribution (and variance) of mpg
 hist(mtcars$mpg, 
@@ -338,35 +411,3 @@ ggplot(mtcars, aes(x = mpg)) +
 
 
 ```
-
-#### Quartiles
-
-
-Quartiles is when the data is split up into `4` equal parts `25%` each. 
-
-The syymbols used for `quartiles` are as follows.
-
-***
-
-$$Q1\;=\;First\;Quartile\\
-Q2\;=Second\;Quartile\\
-Q3\;=Third\;Quartile\\
-Q4\;=Fourth\;Quartile $$
-
-***
-
-We can easily compute the `quartiles` in `R` using the `quantile` function.
-
-```{r quartiles,warning=FALSE,message=FALSE}
-quantile(mtcars$mpg)
-```
-We can thus compute the interquartle range or $IQR$ as follows.
-
-$IQR\;=\;Q_{3}-Q_{1}$
-
-In our data above this would be the $Q_{3}$`75%` - $Q_{1}$`25%` or `r 22.800-15.425`
-
-```{r iqr,warning=FALSE,message=FALSE}
-IQR(mtcars$mpg)
-```
-
