@@ -22,6 +22,7 @@ output:
 klippy::klippy(tooltip_message = "Copy Code",tooltip_success = "Copy Successful!!!",position = "right")
 library(mathjaxr)
 library(latexpdf)
+library(broom)
 knitr::opts_chunk$set(echo = TRUE)
 
 ```
@@ -118,6 +119,11 @@ cor.test(mtcars$mpg,mtcars$hp)
 Here we find the correlation between our hp and cyl
 
 ```{r}
+cor_test_2<- cor.test(mtcars$hp,mtcars$cyl)
+
+tidy_result_2<- tidy(cor_test_2)# Convert result to a neat table
+knitr::kable(tidy_result_2, caption = "Correlation Test Results",row.names = T,)
+
 cor.test(mtcars$hp,mtcars$cyl)
 
 ```

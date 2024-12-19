@@ -37,4 +37,5 @@ output:
     highlight: tango
     code_folding: hide
     include:
+      in_header: googlanalytics.html
       after_body: footer.html
