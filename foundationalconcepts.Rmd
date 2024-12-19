@@ -58,8 +58,6 @@ gonzo_theme <- function() {
 
 ### Descriptive Statistics
 
-<<<<<<< HEAD:descriptivestatisticsvariance.Rmd
-=======
 As you begin your journey through statistics there are several underlying foundational concepts that need to be understood. The following sections explain these concepts and allow you to demonstrate them utilize `R` coding practices. Additionally you will be able to visualize the concepts to help gain a better understanding of what they mean and how the concepts can be applied. 
 
 + Central Limit Theorem
@@ -68,9 +66,10 @@ As you begin your journey through statistics there are several underlying founda
 + Visualization of Distributions
 
 ***
->>>>>>> 5d850098505e1dcbdf368892586da454578f97eb:foundationalconcepts.Rmd
 
 #### Steven's four scales of measurement
+
+Steven's four scales of measurement is a useful table that allows a data scientist, researcher, or academic student to easily identify the type of scale their variable is measured on. The following table helps identify if a variable is measured on an `nominal`, `ordinal`, `interval`, or `ratio` scale. Understanding how a variable is measured helps us to later inform the type of statistical analysis that can be performed. The variable scale in turns allows us to see if we are meeting certain assumptions for performing a particular statistical test.
 
 <br>
 
@@ -158,10 +157,7 @@ tfoot {
 
 <br>
 
-<<<<<<< HEAD:descriptivestatisticsvariance.Rmd
-=======
 ***
->>>>>>> 5d850098505e1dcbdf368892586da454578f97eb:foundationalconcepts.Rmd
 
 ### Measures of Central Tendency
 
