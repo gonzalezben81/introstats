@@ -1,0 +1,181 @@
+---
+title: "Multiple Linear Regression"
+author: "Ben Gonzalez"
+date: '2024-02-24'
+always_allow_html: true
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    collapsed: true
+    smooth_scroll: true
+    include:
+      after_body: footer.html    
+---
+
+```{r setup, klippy, echo=FALSE, include=TRUE}
+klippy::klippy(tooltip_message = "Copy Code",tooltip_success = "Copy Successful!!!",position = "right")
+library(mathjaxr)
+library(latexpdf)
+library(reactable)
+library(ggplot2)
+knitr::opts_chunk$set(echo = TRUE)
+
+mtcars <- mtcars
+detroit <- read.csv(file = '~/AASTATSRmarkdown//DataSets/detroit.csv')
+
+```
+
+
+### Take a look at the structure of the mtcars data set
+
+```{r, echo=FALSE}
+str(mtcars)
+```
+
+### Description of the variables in the mtcars data set
+
+A data frame with 32 observations on 11 (numeric) variables.
+
++ Column 1	 =  mpg	- Miles/(US) gallon
++ Column 2	 =  cyl	- Number of cylinders
++ Column 3	 =  disp - Displacement (cu.in.)
++ Column 4	 =  hp - Gross horsepower
++ Column 5	 =  drat - Rear axle ratio
++ Column 6	 =  wt - Weight (1000 lbs)
++ Column 7	 =  qsec - 1/4 mile time
++ Column 8	 =  vs - Engine (0 = V-shaped, 1 = straight)
++ Column 9	 =  am - Transmission (0 = automatic, 1 = manual)
++ Column 10  =	gear - Number of forward gears
++ Column 11  =	carb - Number of carburetors
+
+### Mtcars Data Set
+
+```{r}
+reactable(mtcars,rownames = T)
+```
+
+
+### Multiple Linear Regression Assumptions
+
++ **Interval-Level Measurement** - *Criterion* variable is assessed on an interval or ratio scale. *Predictor* variables are either (a) continuous quantitative variables assessed on an interval or ratio scale or (b) categorical variables that have been been appropriately transformed into dummy variables.
+
++ **Linearity** – should be able to fit a best-fitting straight line through the scatterplot.
+
++ **Independence** – each observation included in the sample should be drawn independently from the population of interest. Researchers should not have taken repeated measures on the same variable from the same participant. 
+
++ **Homogeneity of Variance (Homoscedasticity)** – the variance of the Y scores should remain fairly constant at all values of X.
+
++ **Normality** – residuals of prediction should be normally distributed.
+Bivariate Normality – for any specific score on one of the variables, scores on the other variable should follow a normal distribution.
+
++ **Independent Errors** - For any pair of observations, the residual terms should be uncorrelated (Field, 2009a)
+
++ **Absence of Multicollinearity** - occurs when two or more predictor variables dispaly very strong correlations with one another (e.g. .80 on a Pearson scale).
+
++ **Absence of Interaction** - Regression coefficient for the relationship between *Y* and any *X* variable shoudl be constant acroos all values of the other *X* variables (Warner, 2008).
+
++ **Absence of Outliers on the Predictor and the Criterion Variables** - No data points that clearly stand out from the other data points in the data set.
+
++ **Adequate Ratio of Observations to Predictor Variables** - Multiple regression requires a relatively large number of observations to have reasonable levels of power. You will want to determine an adequate *sample size*.
+
+
+### Multiple Linear Regression Diagram
+
+```{r pressure, echo=FALSE}
+
+DiagrammeR::grViz("
+  digraph graph2 {
+  
+  graph [layout = dot, rankdir = LR, fontsize = 18]
+  
+  # node definitions with substituted label text
+  node [shape = oval fontname = Helvetica]
+  Predictor [label = 'Predictor One (IV):\n - Multi Value \n - Interval or Ratio Scale']
+  PredictorTwo [label = 'Predictor Two (IV):\n - Multi Value \n - Interval or Ratio Scale']
+  PredictorThree [label = 'Predictor Three (IV):\n - Multi Value \n - Interval or Ratio Scale']
+  Criterion [label = 'Criterion (DV):\n - Multi Value \n - Interval or Ratio Scale']
+  
+  # Creates a multi-variable regression diagram
+  Predictor -> Criterion
+  PredictorTwo -> Criterion
+  PredictorThree -> Criterion
+  }
+  
+  [1]: Interval
+  [2]: Ratio
+
+  ",
+  height = 500)
+```
+
+
+<center>
+### Multiple Linear  Regression Formula
+</center>
+
+Here we have the formula for the mulitple linear regression equation.
+The multiple linear regression equation takes the following form:
+$$\Large
+Regression\;Equation:\;\;\;\hat{y} = a + \beta_1(X_1) + \beta_2(X_2) + \beta_3(X_3)... +\beta_p(X_p)
+$$
+
+$$\Large
+Y' = predicted\ score\\
+a = constant\ (i.e.\ the \ intercept)\\
+b_1 \ = \ unstandardized \ multiple\ regression\ coefficient\\
+X_1 \ = actual\  score\ on\ the\ first\ predictor\ variable\\
+B_p \ = unstandardized \ multiple\ regression\ coefficient\ of \ final\ predictor\ variable\\\
+X_p \ = final\ predictor\ variable
+$$
+
+### Interpreting the sign of the multiple regression coefficient
+
+ + \+ (plus) or - (minus) indicates the direction of the relationship for the predictor and criterion variable
+ 
+### Detroit multiple regression
+
+```{r}
+
+data <- data.frame(mtcars)
+
+model_one <- lm(formula = HOM ~ UEMP + LIC + GR ,data = detroit)
+
+summary(model_one)
+
+model_one$coefficients
+
+#predict(model_one)
+
+coef(model_one)
+
+coef(model_one)[1]
+
+coef(model_one)[2]
+
+# Predict the values
+detroit$predicted <- predict(model_one)
+
+###Calculate the degrees of freedom of multiple linear regression model
+
+df = nrow(detroit) - 3 - 1
+
+print(paste("Degrees of freedom for model one: ",df))
+
+```
+
+```{r}
+# Create a scatter plot with regression line
+
+AIC(model_one)
+
+ggplot(detroit, aes(x=HOM, y=predicted)) +
+  geom_point() +
+  geom_abline(intercept = coef(model_one)[1], slope = coef(model_one)[2], color="blue") +
+  labs(x="Actual", y="Predicted") +
+  ggtitle("Multiple Linear Regression Plot")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+

@@ -230,9 +230,13 @@ student_chi <- table(student$Mjob, student$internet)
 print(student_chi)
 chisq.test(student$Mjob, student$internet, correct=FALSE)
 
+
 mjob_internet<- xtabs(formula = ~Mjob+internet,data = student)
 
 chisq_result<- chisq.test(mjob_internet ,correct = FALSE)
+
+chisq_result
+
 chisq_result$observed
 chisq_result$expected
 

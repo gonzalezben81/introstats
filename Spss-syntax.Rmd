@@ -1,0 +1,131 @@
+---
+title: "SPSS Syntax"
+output:
+  html_document:
+    code_folding: show
+---
+
+```{r setup, klippy, echo=FALSE, include=TRUE}
+klippy::klippy(tooltip_message = "Copy Code",tooltip_success = "Copy Successful!!!",position = "right")
+library(mathjaxr)
+library(latexpdf)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r,eval=FALSE}
+GET DATA
+  /TYPE=XLSX
+  /FILE='C:\path\to\yourfile.xlsx'
+  /SHEET=name 'Sheet1'
+  /CELLRANGE=FULL
+  /READNAMES=ON.
+```
+
+
+
+```{r,eval=FALSE}
+GET DATA
+  /TYPE=TXT
+  /FILE='C:\path\to\yourfile.csv'
+  /DELCASE=LINE
+  /DELIMITERS=","
+  /ARRANGEMENT=DELIMITED
+  /FIRSTCASE=2
+  /VARIABLES=var1 F8.2 var2 F8.2 var3 F8.2.
+```
+
+### T-test code
+
+```{r,eval=FALSE}
+T-TEST GROUPS=gender(1 2)
+  /VARIABLES=math_score
+  /CRITERIA=CI(.95).
+```
+
+### Z-score code
+
+```{r,eval=FALSE}
+
+DESCRIPTIVES VARIABLES=ALL /SAVE
+
+```
+
+### Chi-square code
+
+Below is the code for calculating the chi-square statistic.
+
+```{r,eval=FALSE}
+CROSSTABS 
+  /TABLES=Mjob BY internet  
+  /STATISTICS=CHISQ
+  /CELLS=COUNT EXPECTED.
+```
+
+### Pearson Correlation
+
+Below is the code for calculating the Pearson correlation.
+
+```{r,eval=FALSE}
+CORRELATIONS 
+  /VARIABLES=var1 var2
+  /STATISTICS=DESCRIPTIVES.
+```
+
+
+### Spearman Rank Correlation
+
+```{r,eval=FALSE}
+NONPAR CORR 
+  /VARIABLES=studytime traveltime
+  /PRINT=SPEARMAN TWOTAIL NOSIG FULL
+  /MISSING=PAIRWISE.
+```
+
+### Phi-coefficient
+
+Below is the syntax for calculating the phi-coefficient statistic.
+
+```{r,eval=FALSE}
+CROSSTABS 
+  /TABLES=sex BY internet 
+  /FORMAT=AVALUE TABLES 
+  /STATISTICS=PHI 
+  /CELLS=COUNT 
+  /COUNT ROUND CELL.
+
+```
+
+<!-- ![](./Graphs/phi-coefficient-sex-by-internet-student-data-csv.pdf) -->
+
+### Partial Correlation
+
+Below is the code for calculating the partial correlation.
+
+```{r,eval=FALSE}
+PARTIAL CORR 
+  /VARIABLES=hp mpg BY cyl
+  /SIGNIFICANCE=TWOTAIL
+  /MISSING=LISTWISE.
+```
+
+### Scatterplot in SPSS
+
+Below is the code for generating a scatterplot in SPSS
+
+```{r,eval=FALSE}
+GRAPH 
+  /SCATTERPLOT(BIVAR)=independent_variable WITH dependent_variable.
+```
+
+
+
+### Bivariate Regression
+
+Below is the code for performing a bivariate regression in SPSS.
+
+```{r,eval=FALSE}
+REGRESSION 
+  /DEPENDENT=dependent_variable
+  /METHOD=ENTER independent_variable.
+```

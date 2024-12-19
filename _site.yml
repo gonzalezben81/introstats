@@ -18,7 +18,9 @@ navbar:
     - text: "Bivariate Regression"
       href: BivariateRegression.html    
     - text: "Multiple Linear Regression"
-      href: MultipleLinearRegression.html          
+      href: MultipleLinearRegression.html  
+    - text: "SPSS Syntax"
+      href: Spss-syntax.html      
     - text: "About"
       href: about.html
     - search: true
@@ -35,4 +37,5 @@ output:
     highlight: tango
     code_folding: hide
     include:
+      in_header: googlanalytics.html
       after_body: footer.html
