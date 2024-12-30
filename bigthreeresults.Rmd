@@ -438,7 +438,7 @@ We can utilize *Levene's test* to test for equal variance.
 Levene's test hypothesis:
 
 + **Null Hypothesis $H_{0}$:** The variances of the group are equal (homogeneity of variance).
-+ **Alternative Hypothesis $H_{a}:** The variances of the groups are not equal (heterogeneity of variance).
++ **Alternative Hypothesis $H_{a}$:** The variances of the groups are not equal (heterogeneity of variance).
 
 If our *p* value is > 0.05, then we can assume equal variances, as there is not a significant difference.
 If our *p* value < 0.05, then we should not assume equal variance, there is a significant difference, we can utilize *Welch's test* in R to adjust for this.
