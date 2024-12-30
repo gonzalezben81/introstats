@@ -431,6 +431,8 @@ A t-test is used to determine if there is a significant difference between the m
 
 + *Welch's t-test*: Does not assume equal variance. The degrees of freedom are adjusted based on the variance of each group.
 
+#### Levene's Test for Equality of Variances
+
 We can utilize *Levene's test* to test for equal variance. 
 
 Levene's test hypothesis:
@@ -441,6 +443,19 @@ Levene's test hypothesis:
 If our *p* value is > 0.05, then we can assume equal variances, as there is not a significant difference.
 If our *p* value < 0.05, then we should not assume equal variance, there is a significant difference, we can utilize *Welch's test* in R to adjust for this.
 
+*Note: The way Levene's test is interpreted may seem counter to how we interpret other statistical tests*
+
+
+```{r ,warning=FALSE,message=FALSE}
+###Load the library
+library(car)
+
+###Perform leveneTest from the car package utilizing as.factor() to ensure am is treated as a ###categorical variable
+leveneTest(mpg ~ as.factor(am),data = mtcars)
+
+```
+
+
 #### Hypothesis
 
 - **Null hypothesis (H₀):** There is no significant difference in the mpg of cars with automatic and manual transmissions.
@@ -450,23 +465,19 @@ We will perform an independent t-test to test these hypotheses.
 
 #### t-test Code
 
-```{r t-test,warning=FALSE,message=FALSE}
-# Load necessary libraries
-library(dplyr)
-
-# Create a new variable 'am' for automatic (0) vs. manual (1) transmissions
-mtcars$am <- factor(mtcars$am, levels = c(0, 1), labels = c("Automatic", "Manual"))
+```{r ,warning=FALSE,message=FALSE}
 
 # Perform t-test to compare mpg between automatic and manual cars
-t_test_result <- t.test(mpg ~ am, data = mtcars)
+t_test_result <- t.test(mpg ~ am, data = mtcars, var.equal = F)
 
 # Display the t-test result
 t_test_result
+
 ```
 
 Explanation:
 
-+ Statistical Method: A t-test was performed using the t.test() function to assess if the difference in mpg between the two groups is statistically significant.
++ Statistical Method: A t-test was performed using the `t.test()` function to assess if the difference in mpg between the two groups is statistically significant.
 
 + Key Result: The p-value is less than 0.05, indicating a significant difference between automatic and manual transmissions in terms of mpg.
 

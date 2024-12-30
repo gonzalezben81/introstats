@@ -41,8 +41,8 @@
 <link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
 <link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
 <script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
-<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QN7KZPWKTZ"></script>
 <script>
@@ -518,7 +518,7 @@ class="section level3">
 ##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
 ##  $ qsec: num  16.5 17 18.6 19.4 17 ...
 ##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
-##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ am  : Factor w/ 2 levels &quot;Automatic&quot;,&quot;Manual&quot;: 2 2 2 1 1 1 1 1 1 1 ...
 ##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
 ##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
 </div>
@@ -946,6 +946,9 @@ variances</p></li>
 degrees of freedom are adjusted based on the variance of each
 group.</p></li>
 </ul>
+</div>
+<div id="levenes-test-for-equality-of-variances" class="section level4">
+<h4>Levene’s Test for Equality of Variances</h4>
 <p>We can utilize <em>Levene’s test</em> to test for equal variance.</p>
 <p>Levene’s test hypothesis:</p>
 <ul>
@@ -960,6 +963,18 @@ variances, as there is not a significant difference. If our <em>p</em>
 value &lt; 0.05, then we should not assume equal variance, there is a
 significant difference, we can utilize <em>Welch’s test</em> in R to
 adjust for this.</p>
+<p><em>Note: The way Levene’s test is interpreted may seem counter to
+how we interpret other statistical tests</em></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="do">###Load the library</span></span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a><span class="do">###Perform leveneTest from the car package utilizing as.factor() to ensure am is treated as a ###categorical variable</span></span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a><span class="fu">leveneTest</span>(mpg <span class="sc">~</span> <span class="fu">as.factor</span>(am),<span class="at">data =</span> mtcars)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["int"],"align":["right"]},{"label":["F value"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Pr(>F)"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"4.187626","3":"0.04957067","_rn_":"group"},{"1":"30","2":"NA","3":"NA","_rn_":""}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 <div id="hypothesis" class="section level4">
 <h4>Hypothesis</h4>
@@ -975,17 +990,11 @@ transmissions.</li>
 </div>
 <div id="t-test-code" class="section level4">
 <h4>t-test Code</h4>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
-<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a></span>
-<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a><span class="co"># Create a new variable &#39;am&#39; for automatic (0) vs. manual (1) transmissions</span></span>
-<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>mtcars<span class="sc">$</span>am <span class="ot">&lt;-</span> <span class="fu">factor</span>(mtcars<span class="sc">$</span>am, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Automatic&quot;</span>, <span class="st">&quot;Manual&quot;</span>))</span>
-<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a></span>
-<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a><span class="co"># Perform t-test to compare mpg between automatic and manual cars</span></span>
-<span id="cb41-8"><a href="#cb41-8" tabindex="-1"></a>t_test_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(mpg <span class="sc">~</span> am, <span class="at">data =</span> mtcars)</span>
-<span id="cb41-9"><a href="#cb41-9" tabindex="-1"></a></span>
-<span id="cb41-10"><a href="#cb41-10" tabindex="-1"></a><span class="co"># Display the t-test result</span></span>
-<span id="cb41-11"><a href="#cb41-11" tabindex="-1"></a>t_test_result</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="co"># Perform t-test to compare mpg between automatic and manual cars</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>t_test_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(mpg <span class="sc">~</span> am, <span class="at">data =</span> mtcars, <span class="at">var.equal =</span> F)</span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a><span class="co"># Display the t-test result</span></span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a>t_test_result</span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -999,9 +1008,9 @@ transmissions.</li>
 ##                17.14737                24.39231</code></pre>
 <p>Explanation:</p>
 <ul>
-<li><p>Statistical Method: A t-test was performed using the t.test()
-function to assess if the difference in mpg between the two groups is
-statistically significant.</p></li>
+<li><p>Statistical Method: A t-test was performed using the
+<code>t.test()</code> function to assess if the difference in mpg
+between the two groups is statistically significant.</p></li>
 <li><p>Key Result: The p-value is less than 0.05, indicating a
 significant difference between automatic and manual transmissions in
 terms of mpg.</p></li>
@@ -1035,8 +1044,8 @@ Sum Test</em></p>
 <h5>Example 1</h5>
 <p>Here we are going to see if there is a difference between the
 transmission type utilizing</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>m2<span class="ot">&lt;-</span><span class="fu">wilcox.test</span>(mtcars<span class="sc">$</span>mpg<span class="sc">~</span>mtcars<span class="sc">$</span>am, <span class="at">data=</span>mtcars, <span class="at">na.rm=</span><span class="cn">TRUE</span>, <span class="at">exact=</span><span class="cn">FALSE</span>, <span class="at">conf.int=</span><span class="cn">TRUE</span>)</span>
-<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a><span class="fu">print</span>(m2)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>m2<span class="ot">&lt;-</span><span class="fu">wilcox.test</span>(mtcars<span class="sc">$</span>mpg<span class="sc">~</span>mtcars<span class="sc">$</span>am, <span class="at">data=</span>mtcars, <span class="at">na.rm=</span><span class="cn">TRUE</span>, <span class="at">exact=</span><span class="cn">FALSE</span>, <span class="at">conf.int=</span><span class="cn">TRUE</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a><span class="fu">print</span>(m2)</span></code></pre></div>
 <pre><code>## 
 ##  Wilcoxon rank sum test with continuity correction
 ## 
@@ -1048,11 +1057,11 @@ transmission type utilizing</p>
 ## sample estimates:
 ## difference in location 
 ##              -6.799963</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="co"># Perform the Mann-Whitney U test (Wilcoxon rank-sum test) using the formula</span></span>
-<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(mpg <span class="sc">~</span> am, <span class="at">data =</span> mtcars, <span class="at">na.rm=</span><span class="cn">TRUE</span>, <span class="at">exact=</span><span class="cn">FALSE</span>, <span class="at">conf.int=</span><span class="cn">TRUE</span>)</span>
-<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a></span>
-<span id="cb45-4"><a href="#cb45-4" tabindex="-1"></a><span class="co"># Print the result</span></span>
-<span id="cb45-5"><a href="#cb45-5" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="co"># Perform the Mann-Whitney U test (Wilcoxon rank-sum test) using the formula</span></span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(mpg <span class="sc">~</span> am, <span class="at">data =</span> mtcars, <span class="at">na.rm=</span><span class="cn">TRUE</span>, <span class="at">exact=</span><span class="cn">FALSE</span>, <span class="at">conf.int=</span><span class="cn">TRUE</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" tabindex="-1"></a><span class="co"># Print the result</span></span>
+<span id="cb46-5"><a href="#cb46-5" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
 <pre><code>## 
 ##  Wilcoxon rank sum test with continuity correction
 ## 
@@ -1064,8 +1073,8 @@ transmission type utilizing</p>
 ## sample estimates:
 ## difference in location 
 ##              -6.799963</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a>m2<span class="ot">&lt;-</span><span class="fu">wilcox.test</span>(mtcars<span class="sc">$</span>hp<span class="sc">~</span>mtcars<span class="sc">$</span>vs, <span class="at">data=</span>mtcars, <span class="at">na.rm=</span><span class="cn">TRUE</span>, <span class="at">exact=</span><span class="cn">FALSE</span>, <span class="at">conf.int=</span><span class="cn">TRUE</span>)</span>
-<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a><span class="fu">print</span>(m2)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a>m2<span class="ot">&lt;-</span><span class="fu">wilcox.test</span>(mtcars<span class="sc">$</span>hp<span class="sc">~</span>mtcars<span class="sc">$</span>vs, <span class="at">data=</span>mtcars, <span class="at">na.rm=</span><span class="cn">TRUE</span>, <span class="at">exact=</span><span class="cn">FALSE</span>, <span class="at">conf.int=</span><span class="cn">TRUE</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a><span class="fu">print</span>(m2)</span></code></pre></div>
 <pre><code>## 
 ##  Wilcoxon rank sum test with continuity correction
 ## 
@@ -1077,15 +1086,15 @@ transmission type utilizing</p>
 ## sample estimates:
 ## difference in location 
 ##               92.00003</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="co"># # Create a grouping variable for low and high horsepower (median split)</span></span>
-<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a><span class="co"># hp_median &lt;- median(mtcars$hp)</span></span>
-<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a><span class="co"># mtcars$hp_group &lt;- ifelse(mtcars$hp &lt;= hp_median, &quot;Low&quot;, &quot;High&quot;)</span></span>
-<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a></span>
-<span id="cb49-5"><a href="#cb49-5" tabindex="-1"></a><span class="co"># Perform the Mann-Whitney U test for mpg by hp_group</span></span>
-<span id="cb49-6"><a href="#cb49-6" tabindex="-1"></a>result_hp <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(hp <span class="sc">~</span> vs, <span class="at">data =</span> mtcars, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb49-7"><a href="#cb49-7" tabindex="-1"></a></span>
-<span id="cb49-8"><a href="#cb49-8" tabindex="-1"></a><span class="co"># Print the result</span></span>
-<span id="cb49-9"><a href="#cb49-9" tabindex="-1"></a><span class="fu">print</span>(result_hp)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="co"># # Create a grouping variable for low and high horsepower (median split)</span></span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a><span class="co"># hp_median &lt;- median(mtcars$hp)</span></span>
+<span id="cb50-3"><a href="#cb50-3" tabindex="-1"></a><span class="co"># mtcars$hp_group &lt;- ifelse(mtcars$hp &lt;= hp_median, &quot;Low&quot;, &quot;High&quot;)</span></span>
+<span id="cb50-4"><a href="#cb50-4" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" tabindex="-1"></a><span class="co"># Perform the Mann-Whitney U test for mpg by hp_group</span></span>
+<span id="cb50-6"><a href="#cb50-6" tabindex="-1"></a>result_hp <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(hp <span class="sc">~</span> vs, <span class="at">data =</span> mtcars, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb50-7"><a href="#cb50-7" tabindex="-1"></a></span>
+<span id="cb50-8"><a href="#cb50-8" tabindex="-1"></a><span class="co"># Print the result</span></span>
+<span id="cb50-9"><a href="#cb50-9" tabindex="-1"></a><span class="fu">print</span>(result_hp)</span></code></pre></div>
 <pre><code>## 
 ##  Wilcoxon rank sum test with continuity correction
 ## 
