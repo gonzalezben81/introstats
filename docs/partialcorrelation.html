@@ -797,11 +797,14 @@ class="uri">https://CRAN.R-project.org/package=ppcor</a>.</p>
 
 <!-- footer.html -->
 <script>
-  // Get the current year
-  const currentYear = new Date().getFullYear();
-  
-  // Set the year inside the span with id "year"
-  document.getElementById("year").textContent = currentYear;
+  // Wait for the DOM to fully load before running the script
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the current year
+    const currentYear = new Date().getFullYear();
+    
+    // Set the year inside the span with id "year"
+    document.getElementById("year").textContent = currentYear;
+  });
 </script>
 
 <div class="footer" style="text-align: center; padding: 10px; border-top: 1px solid #ccc; color: #333;">
