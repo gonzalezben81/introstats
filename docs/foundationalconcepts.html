@@ -839,6 +839,11 @@ indicates the amount of dispersion displayed by a set of scores.
 variability computed by taking the average of the squared deviations
 from the mean. (Hatcher 2013)</li>
 </ul>
+<p>If our variance is small that means our data is <em>centered</em>
+around the mean. If the variance is large then our data is
+<em>spread</em> out from the mean, this indicates greater dispersion
+and/or variability. Remember to use the <em>variance</em> in the context
+of the particular data set you are looking at.</p>
 <p>Variance can be calculated via the following formula(s) depending on
 if we are looking at the following:</p>
 <!-- https://campus.datacamp.com/courses/introduction-to-statistics-in-r/summary-statistics?ex=7 -->
@@ -851,7 +856,9 @@ S^2\;=\;\frac{\sum(X_{i}\;-\;{\overline{X}})^2}{N\;-1}
 <hr />
 <p>You can also utilize the <code>var()</code> function in R to
 calculate the variance.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">var</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>## [1] 20.09062</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">var</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
 <pre><code>## [1] 36.3241</code></pre>
 <hr />
 <div id="visualization-of-variation-in-a-data-set"
@@ -861,11 +868,11 @@ class="section level4">
 utilizing a boxplot or a histogram.</p>
 <div id="boxplot" class="section level5">
 <h5>Boxplot</h5>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Boxplot of mpg in mtcars</span></span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Variation of MPG in mtcars&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Miles Per Gallon (MPG)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;MPG Variation&quot;</span>) <span class="sc">+</span></span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">gonzo_theme</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Boxplot of mpg in mtcars</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Variation of MPG in mtcars&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Miles Per Gallon (MPG)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;MPG Variation&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">gonzo_theme</span>()</span></code></pre></div>
 <p><img src="foundationalconcepts_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The boxplot for <strong>MPG</strong> in the mtcars data set
 visualizes the variation in fuel efficiency across different cars.
@@ -908,30 +915,30 @@ skew).</li>
 </ul>
 <p>*Note: SPSS, R, and SAS can produce very different histograms due to
 how they <code>bin</code> the data set`</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Histogram to visualize the distribution (and variance) of mpg</span></span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">hist</span>(mtcars<span class="sc">$</span>mpg, </span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram of mpg (Variance)&quot;</span>, </span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Miles per Gallon&quot;</span>, </span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;lightgreen&quot;</span>, </span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># Histogram to visualize the distribution (and variance) of mpg</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="fu">hist</span>(mtcars<span class="sc">$</span>mpg, </span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram of mpg (Variance)&quot;</span>, </span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Miles per Gallon&quot;</span>, </span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;lightgreen&quot;</span>, </span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div>
 <p><img src="foundationalconcepts_files/figure-html/variance-histogram-1.png" width="672" /></p>
 </div>
 <div id="density-plot" class="section level5">
 <h5>Density Plot</h5>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Density plot to visualize the spread (variance) of mpg</span></span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co"># plot(density(mtcars$mpg), </span></span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">#      main = &quot;Density Plot of mpg (Variance)&quot;, </span></span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#      xlab = &quot;Miles per Gallon&quot;, </span></span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#      col = &quot;darkblue&quot;, </span></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#      lwd = 2)</span></span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg), <span class="at">sd =</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)), </span>
-<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span> </span>
-<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Variation of MPG in Mtcars Data Set&quot;</span>, <span class="at">x =</span> <span class="st">&quot;MPG Variance&quot;</span>) <span class="sc">+</span></span>
-<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">gonzo_theme</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Density plot to visualize the spread (variance) of mpg</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="co"># plot(density(mtcars$mpg), </span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="co">#      main = &quot;Density Plot of mpg (Variance)&quot;, </span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="co">#      xlab = &quot;Miles per Gallon&quot;, </span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a><span class="co">#      col = &quot;darkblue&quot;, </span></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="co">#      lwd = 2)</span></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg), <span class="at">sd =</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)), </span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span> </span>
+<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Variation of MPG in Mtcars Data Set&quot;</span>, <span class="at">x =</span> <span class="st">&quot;MPG Variance&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">gonzo_theme</span>()</span></code></pre></div>
 <p><img src="foundationalconcepts_files/figure-html/variance-density-plot-1.png" width="672" /></p>
 </div>
 </div>

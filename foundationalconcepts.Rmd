@@ -316,7 +316,10 @@ IQR(mtcars$mpg)
 
 $Measure\;of\;variability$ - indicates the amount of dispersion displayed by a set of scores. (Hatcher 2013)
 
-+ $Variance$ - measure of variability computed by taking the average of the squared deviations from the mean. (Hatcher 2013) 
++ $Variance$ - measure of variability computed by taking the average of the squared deviations from the mean. (Hatcher 2013)
+
+
+If our variance is small that means our data is *centered* around the mean. If the variance is large then our data is *spread* out from the mean, this indicates greater dispersion and/or variability. Remember to use the *variance* in the context of the particular data set you are looking at.
 
 
 
@@ -347,6 +350,7 @@ The variance of MPG in the Mtcars data set is `r variance_sum_one`
 You can also utilize the `var()` function in R to calculate the variance. 
 
 ```{r}
+mean(mtcars$mpg)
 var(mtcars$mpg)
 ```
 
