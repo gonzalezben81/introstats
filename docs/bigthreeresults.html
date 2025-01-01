@@ -518,7 +518,7 @@ class="section level3">
 ##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
 ##  $ qsec: num  16.5 17 18.6 19.4 17 ...
 ##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
-##  $ am  : Factor w/ 2 levels &quot;Automatic&quot;,&quot;Manual&quot;: 2 2 2 1 1 1 1 1 1 1 ...
+##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
 ##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
 ##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
 </div>
@@ -1001,12 +1001,12 @@ transmissions.</li>
 ## 
 ## data:  mpg by am
 ## t = -3.7671, df = 18.332, p-value = 0.001374
-## alternative hypothesis: true difference in means between group Automatic and group Manual is not equal to 0
+## alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
 ## 95 percent confidence interval:
 ##  -11.280194  -3.209684
 ## sample estimates:
-## mean in group Automatic    mean in group Manual 
-##                17.14737                24.39231</code></pre>
+## mean in group 0 mean in group 1 
+##        17.14737        24.39231</code></pre>
 <p>Explanation:</p>
 <ul>
 <li><p>Statistical Method: A t-test was performed using the
